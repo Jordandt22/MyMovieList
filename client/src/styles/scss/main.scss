@@ -3,3 +3,15 @@
 @import "setup/vars";
 @import "utils/alignments";
 
+// Layout
+@import "./layout/navbar/navbar";
+
+// Pages
+@import "./pages/home/home";
+
+// Main Styles
+body {
+  overflow-x: hidden;
+  font-family: $font;
+  background: black;
+}

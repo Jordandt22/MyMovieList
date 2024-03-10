@@ -1,7 +1,10 @@
 /* Variables */
 
 /* Colors */
-
+$blue: #00c6d8;
+$dark-blue: #00909d;
+$dark-black: #131313;
+$light-black: #272727;
 
 // Shadows
 $shadow: rgba(0, 0, 0, 0.25);
@@ -11,12 +14,11 @@ $light-shadow: rgba(0, 0, 0, 0.15);
 $sm-fs: 0.9rem;
 $md-fs: 1.5rem;
 $lg-fs: 2rem;
+$font: "Oswald", sans-serif;
 
 /* Spacers */
 $spacer-small: 1rem;
 $spacer: $spacer-small * 1.5;
 $spacer-md: $spacer * 2;
 $spacer-lg: $spacer-md * 2;
-$padding: 12.5%;
-$m-padding: 6.25%;
-
+$padding: 7.5%;

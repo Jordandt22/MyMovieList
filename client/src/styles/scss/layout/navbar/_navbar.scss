@@ -1,0 +1,70 @@
+// Navbar Styles
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: $spacer-small $padding;
+  padding-top: $spacer * 1.5;
+}
+
+.navbar__title {
+  color: white;
+  font-size: $md-fs;
+  font-weight: 800;
+  margin-right: $spacer-md;
+
+  span {
+    color: $blue;
+  }
+}
+
+.navbar__link {
+  color: white;
+  opacity: 0.85;
+  text-decoration: none;
+  margin-right: $spacer-small * 1.5;
+  font-weight: 600;
+  transition: all 200ms ease-out;
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+.navbar__search-btn {
+  outline: none;
+  border: none;
+  background: $blue;
+  border-radius: 50%;
+  padding: $spacer-small * 0.5;
+  margin-right: $spacer-small;
+  transition: all 200ms ease-out;
+
+  svg {
+    $s: 1.5rem;
+    width: $s;
+    height: $s;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background: $dark-blue;
+  }
+}
+
+.navbar__login {
+  border: 2px solid white;
+  border-radius: 25px;
+  color: white;
+  font-weight: 600;
+  font-size: $sm-fs;
+  padding: $spacer-small * 0.5 $spacer-md;
+  text-decoration: none;
+  transition: all 200ms ease-out;
+
+  &:hover {
+    background: $blue;
+    border-color: $blue;
+  }
+}

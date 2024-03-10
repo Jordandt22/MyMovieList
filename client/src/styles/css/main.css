@@ -219,4 +219,149 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 7.5%;
+  padding-top: 2.25rem;
+}
+
+.navbar__title {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-right: 3rem;
+}
+.navbar__title span {
+  color: #00c6d8;
+}
+
+.navbar__link {
+  color: white;
+  opacity: 0.85;
+  text-decoration: none;
+  margin-right: 1.5rem;
+  font-weight: 600;
+  transition: all 200ms ease-out;
+}
+.navbar__link:hover {
+  color: #00c6d8;
+}
+
+.navbar__search-btn {
+  outline: none;
+  border: none;
+  background: #00c6d8;
+  border-radius: 50%;
+  padding: 0.5rem;
+  margin-right: 1rem;
+  transition: all 200ms ease-out;
+}
+.navbar__search-btn svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.navbar__search-btn:hover {
+  cursor: pointer;
+  background: #00909d;
+}
+
+.navbar__login {
+  border: 2px solid white;
+  border-radius: 25px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem 3rem;
+  text-decoration: none;
+  transition: all 200ms ease-out;
+}
+.navbar__login:hover {
+  background: #00c6d8;
+  border-color: #00c6d8;
+}
+
+.hero-content {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.hero__movie-info {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.45) 40%, rgb(0, 0, 0) 100%);
+  padding: 0 7.5%;
+}
+
+.hero__release-date {
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  font-size: 1.05rem;
+  margin-bottom: 0.25rem;
+}
+
+.hero__title {
+  text-transform: uppercase;
+  color: white;
+  font-weight: 700;
+  font-size: 6rem;
+  margin-bottom: 2.25rem;
+}
+
+.hero__link {
+  background: #00c6d8;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1.875rem;
+  border-radius: 25px;
+  margin-right: 1.5rem;
+  transition: all 200ms ease-out;
+}
+.hero__link:hover {
+  cursor: pointer;
+  background: #00909d;
+}
+
+.hero__add {
+  background: transparent;
+  color: white;
+  outline: none;
+  border: none;
+  font-size: 1.035rem;
+  font-weight: 700;
+}
+.hero__add svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-right: 0.75rem;
+}
+.hero__add svg path {
+  fill: white;
+}
+.hero__add:hover {
+  cursor: pointer;
+  color: #00c6d8;
+}
+.hero__add:hover svg path {
+  fill: #00c6d8;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: "Oswald", sans-serif;
+  background: black;
 }/*# sourceMappingURL=main.css.map */

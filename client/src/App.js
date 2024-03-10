@@ -3,6 +3,8 @@ import { Route, Routes, useLocation } from "react-router-dom";
 
 // Components
 import Home from "./components/pages/Home/Home";
+import Signup from "./components/pages/Signup/Signup";
+import Navbar from "./components/layout/Navbar/Navbar";
 
 function App() {
   const { pathname } = useLocation();
@@ -16,6 +18,9 @@ function App() {
 
   return (
     <div className="App">
+      {/* Navbar */}
+      <Navbar />
+
       {/* Routes */}
       <Routes>
         {/* For Mobile <Navigate to="/auth" replace / */}
@@ -23,7 +28,7 @@ function App() {
 
         {/* Auth */}
         {/* <Route path="/signin" exact element={<UnderConstruction />} /> */}
-        {/* <Route path="/signup" exact element={<UnderConstruction />} /> */}
+        <Route path="/signup" exact element={<Signup />} />
 
         {/* Not Found */}
         {/* <Route path="*" element={<NotFound />} /> */}
