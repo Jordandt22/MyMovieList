@@ -1,10 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+// Contexts
+import { useAuth } from "../../../context/Auth.context";
+import { useFirebase } from "../../../context/Firebase.context";
+
 // Components
 import Search from "../../svgs/Search";
+import User from "../../svgs/User";
 
 function Navbar() {
+  const { isAuth } = useAuth().authState;
+  const { logoutFirebaseUser } = useFirebase().functions;
   const links = [
     {
       label: "Home",
@@ -49,9 +56,19 @@ function Navbar() {
         <button className="navbar__search-btn center">
           <Search />
         </button>
-        <NavLink to="/login" className="navbar__login">
-          Log In
-        </NavLink>
+        {isAuth ? (
+          <button
+            className="navbar__profile center"
+            onClick={logoutFirebaseUser}
+          >
+            {/* ---- Change onClick ---- */}
+            <User />
+          </button>
+        ) : (
+          <NavLink to="/login" className="navbar__login">
+            Log In
+          </NavLink>
+        )}
       </div>
     </div>
   );

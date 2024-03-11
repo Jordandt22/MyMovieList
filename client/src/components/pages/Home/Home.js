@@ -8,6 +8,7 @@ import { useTMDB } from "../../../context/Tmdb.context";
 
 // Components
 import HeroContent from "./HeroContent";
+import Loading from "../../layout/standalone/Loading";
 
 function Home() {
   const { getNowPlayingMovies } = useTMDB().API;
@@ -27,7 +28,7 @@ function Home() {
   };
 
   if (isPending) {
-    return <div>loading...</div>;
+    return <Loading />;
   }
 
   if (isError || !data) {

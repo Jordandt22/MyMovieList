@@ -6,6 +6,7 @@
   right: 0;
   padding: $spacer-small $padding;
   padding-top: $spacer * 1.5;
+  z-index: 10000;
 }
 
 .navbar__title {
@@ -24,7 +25,7 @@
   opacity: 0.85;
   text-decoration: none;
   margin-right: $spacer-small * 1.5;
-  font-weight: 600;
+  font-weight: 500;
   transition: all 200ms ease-out;
 
   &:hover {
@@ -50,6 +51,7 @@
   &:hover {
     cursor: pointer;
     background: $dark-blue;
+    transform: scale(0.9);
   }
 }
 
@@ -66,5 +68,32 @@
   &:hover {
     background: $blue;
     border-color: $blue;
+  }
+}
+
+.navbar__profile {
+  outline: none;
+  border: none;
+  background: $teal;
+  border-radius: 50%;
+  padding: $spacer-small * 0.5;
+  transition: all 200ms ease-out;
+
+  svg {
+    $s: 1.5rem;
+    width: $s;
+    height: $s;
+
+    path,
+    circle {
+      fill: white;
+      stroke: white;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    background: $dark-teal;
+    transform: scale(0.9);
   }
 }

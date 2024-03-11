@@ -1,4 +1,8 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
+
+// Contexts
+import { useGlobal } from "./Global.context";
+import { useAuth } from "./Auth.context";
 
 // Firebase
 import { initializeApp } from "firebase/app";
@@ -29,51 +33,79 @@ const firebaseConfig = {
 };
 
 // Firebase Context
-const firebaseContext = createContext();
-export const useFirebase = () => useContext(firebaseContext);
+const FirebaseContext = createContext();
+export const useFirebase = () => useContext(FirebaseContext);
 export const FirebaseContextProvider = (props) => {
   const firebaseApp = initializeApp(firebaseConfig);
   const Auth = getAuth();
+  const { setLoading } = useGlobal().state;
+  const { authenticateUser, logoutUser } = useAuth();
 
   // Get Current User
   const getCurrentUser = (cb) => onAuthStateChanged(Auth, (user) => cb(user));
+
+  // Check Auth Session
+  useEffect(() => {
+    setLoading(true);
+    getCurrentUser((user) => {
+      if (user) {
+        const { accessToken, uid } = user;
+
+        // Get Information from Database
+        console.log(user);
+
+        authenticateUser(accessToken, uid);
+      }
+
+      setLoading(false);
+    });
+  }, []);
 
   // Create Email User
   const createEmailUser = (email, password, cb) =>
     createUserWithEmailAndPassword(Auth, email, password)
       .then((userCredential) => {
-        cb(userCredential.user, null);
+        const user = userCredential.user;
+        authenticateUser(user.accessToken, user.uid);
+        cb(user, null);
       })
       .catch((error) => console.log(error));
-
-  // Sign Out User
-  const signOutUser = (cb) => signOut(Auth).then(() => cb());
 
   // Sign In Email User
   const signInEmailUser = (email, password, cb) =>
     signInWithEmailAndPassword(Auth, email, password).then((userCredential) => {
-      cb(userCredential.user, null);
+      const user = userCredential.user;
+      authenticateUser(user.accessToken, user.uid);
+      cb(user, null);
+    });
+
+  // Log Out User
+  const logoutFirebaseUser = () =>
+    signOut(Auth).then(() => {
+      logoutUser();
     });
 
   // Delete Firebase User
-  const deleteFirebaseUser = (cb) =>
-    deleteUser(Auth.currentUser).then(() => cb({}, null));
+  const deleteFirebaseUser = () =>
+    deleteUser(Auth.currentUser).then(() => {
+      logoutUser();
+    });
 
   return (
-    <firebaseContext.Provider
+    <FirebaseContext.Provider
       value={{
         firebaseApp,
         Auth,
         functions: {
           getCurrentUser,
           createEmailUser,
-          signOutUser,
+          logoutFirebaseUser,
           signInEmailUser,
           deleteFirebaseUser,
         },
       }}
     >
       {props.children}
-    </firebaseContext.Provider>
+    </FirebaseContext.Provider>
   );
 };

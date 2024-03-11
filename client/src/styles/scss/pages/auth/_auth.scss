@@ -1,0 +1,130 @@
+// Log In & Sign Up Pages Styles
+
+.auth-container {
+  width: 100vw;
+  min-height: 100vh;
+  padding-top: $spacer-lg * 2;
+}
+
+// Auth Form
+.auth-form {
+  background: $dark-black;
+  width: 30vw;
+  min-height: 60vh;
+  padding: $spacer * 1.5;
+  z-index: 100;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 2px black;
+}
+
+.auth-form__logo {
+  width: fit-content;
+  background: $light-black;
+  padding: $spacer-small * 1.25;
+  border-radius: 15px;
+  margin: 0 auto;
+  margin-bottom: $spacer * 1.5;
+}
+
+.auth-form__title {
+  color: white;
+  font-size: $md-fs * 1.25;
+  font-weight: 600;
+  font-family: $font;
+  margin-bottom: $spacer-md;
+  text-align: center;
+}
+
+.auth-form__link {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  transition: all 200ms ease-out;
+
+  span {
+    color: $blue;
+  }
+
+  &:hover {
+    opacity: 0.65;
+  }
+}
+
+// Auth Form Inputs
+.auth-form__input-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: $spacer;
+}
+
+.auth-form label {
+  color: white;
+  font-size: $sm-fs * 1.15;
+  font-weight: 500;
+  margin-bottom: $spacer-small;
+}
+
+.auth-form input {
+  outline: none;
+  border: none;
+  background: $light-black;
+  width: 100%;
+  padding: $spacer-small * 0.75;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+
+  &::placeholder {
+    color: rgba(white, 0.5);
+  }
+}
+
+.auth-form__error {
+  color: $red;
+  padding: $spacer-small * 0.75 0;
+  font-size: $sm-fs;
+  font-weight: 400;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  line-height: $spacer-small * 1.25;
+
+  svg {
+    margin-right: $spacer-small * 0.5;
+
+    path {
+      fill: $red;
+    }
+  }
+}
+
+.auth-form__error-box {
+  margin-bottom: $spacer-small;
+
+  label {
+    color: $red;
+  }
+
+  input {
+    border: 2px solid $red;
+  }
+}
+
+.auth-form__submit {
+  outline: none;
+  border: none;
+  background: $blue;
+  color: white;
+  border-radius: 25px;
+  padding: $spacer-small * 0.35 $spacer-md;
+  font-size: $sm-fs;
+  font-weight: 600;
+  margin-top: $spacer-small;
+  margin-bottom: $spacer-md;
+  transition: all 200ms ease-out;
+
+  &:hover {
+    cursor: pointer;
+    background: $dark-blue;
+  }
+}

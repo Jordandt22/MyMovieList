@@ -221,6 +221,97 @@ html {
   align-items: center;
 }
 
+.loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 20000;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  margin: auto;
+  position: relative;
+}
+
+.loader:before {
+  content: "";
+  width: 48px;
+  height: 5px;
+  background: white;
+  opacity: 0.25;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  border-radius: 50%;
+  animation: shadow 0.5s linear infinite;
+}
+
+.loader:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: #00c6d8;
+  animation: bxSpin 0.5s linear infinite;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+}
+
+@keyframes bxSpin {
+  17% {
+    border-bottom-right-radius: 3px;
+  }
+  25% {
+    transform: translateY(9px) rotate(22.5deg);
+  }
+  50% {
+    transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+    border-bottom-right-radius: 40px;
+  }
+  75% {
+    transform: translateY(9px) rotate(67.5deg);
+  }
+  100% {
+    transform: translateY(0) rotate(90deg);
+  }
+}
+@keyframes shadow {
+  0%, 100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.2, 1);
+  }
+}
+.movie-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+}
+.movie-background::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 30%, rgba(0, 0, 0, 0.45) 40%, rgb(0, 0, 0) 100%);
+}
+.movie-background img {
+  width: 100%;
+  height: 100%;
+}
+
 .navbar {
   position: absolute;
   top: 0;
@@ -228,6 +319,7 @@ html {
   right: 0;
   padding: 1rem 7.5%;
   padding-top: 2.25rem;
+  z-index: 10000;
 }
 
 .navbar__title {
@@ -245,7 +337,7 @@ html {
   opacity: 0.85;
   text-decoration: none;
   margin-right: 1.5rem;
-  font-weight: 600;
+  font-weight: 500;
   transition: all 200ms ease-out;
 }
 .navbar__link:hover {
@@ -268,6 +360,7 @@ html {
 .navbar__search-btn:hover {
   cursor: pointer;
   background: #00909d;
+  transform: scale(0.9);
 }
 
 .navbar__login {
@@ -285,6 +378,29 @@ html {
   border-color: #00c6d8;
 }
 
+.navbar__profile {
+  outline: none;
+  border: none;
+  background: #00d8b4;
+  border-radius: 50%;
+  padding: 0.5rem;
+  transition: all 200ms ease-out;
+}
+.navbar__profile svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.navbar__profile svg path,
+.navbar__profile svg circle {
+  fill: white;
+  stroke: white;
+}
+.navbar__profile:hover {
+  cursor: pointer;
+  background: #00b193;
+  transform: scale(0.9);
+}
+
 .hero-content {
   width: 100vw;
   height: 100vh;
@@ -300,16 +416,16 @@ html {
   justify-content: center;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.45) 40%, rgb(0, 0, 0) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.35) 30%, rgba(0, 0, 0, 0.45) 40%, rgb(0, 0, 0) 100%);
   padding: 0 7.5%;
 }
 
 .hero__release-date {
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
-  font-weight: 500;
-  font-size: 1.05rem;
-  margin-bottom: 0.25rem;
+  font-weight: 400;
+  font-size: 1.275rem;
+  margin-bottom: 0.5rem;
 }
 
 .hero__title {
@@ -322,11 +438,11 @@ html {
 
 .hero__link {
   background: #00c6d8;
-  font-size: 0.9rem;
+  font-size: 1.035rem;
   font-weight: 600;
   color: white;
   text-decoration: none;
-  padding: 0.5rem 1.875rem;
+  padding: 0.5rem 2.625rem;
   border-radius: 25px;
   margin-right: 1.5rem;
   transition: all 200ms ease-out;
@@ -334,6 +450,7 @@ html {
 .hero__link:hover {
   cursor: pointer;
   background: #00909d;
+  transform: scale(0.95);
 }
 
 .hero__add {
@@ -360,8 +477,132 @@ html {
   fill: #00c6d8;
 }
 
+.auth-container {
+  width: 100vw;
+  min-height: 100vh;
+  padding-top: 12rem;
+}
+
+.auth-form {
+  background: #090909;
+  width: 30vw;
+  min-height: 60vh;
+  padding: 2.25rem;
+  z-index: 100;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 2px black;
+}
+
+.auth-form__logo {
+  width: fit-content;
+  background: #131313;
+  padding: 1.25rem;
+  border-radius: 15px;
+  margin: 0 auto;
+  margin-bottom: 2.25rem;
+}
+
+.auth-form__title {
+  color: white;
+  font-size: 1.875rem;
+  font-weight: 600;
+  font-family: "Oswald", sans-serif;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.auth-form__link {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  transition: all 200ms ease-out;
+}
+.auth-form__link span {
+  color: #00c6d8;
+}
+.auth-form__link:hover {
+  opacity: 0.65;
+}
+
+.auth-form__input-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.auth-form label {
+  color: white;
+  font-size: 1.035rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.auth-form input {
+  outline: none;
+  border: none;
+  background: #131313;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+}
+.auth-form input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.auth-form__error {
+  color: #ff2b2b;
+  padding: 0.75rem 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  line-height: 1.25rem;
+}
+.auth-form__error svg {
+  margin-right: 0.5rem;
+}
+.auth-form__error svg path {
+  fill: #ff2b2b;
+}
+
+.auth-form__error-box {
+  margin-bottom: 1rem;
+}
+.auth-form__error-box label {
+  color: #ff2b2b;
+}
+.auth-form__error-box input {
+  border: 2px solid #ff2b2b;
+}
+
+.auth-form__submit {
+  outline: none;
+  border: none;
+  background: #00c6d8;
+  color: white;
+  border-radius: 25px;
+  padding: 0.35rem 3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  transition: all 200ms ease-out;
+}
+.auth-form__submit:hover {
+  cursor: pointer;
+  background: #00909d;
+}
+
 body {
   overflow-x: hidden;
   font-family: "Oswald", sans-serif;
   background: black;
+}
+
+.App {
+  font-family: "Oswald", sans-serif;
+  padding-bottom: 6rem;
 }/*# sourceMappingURL=main.css.map */

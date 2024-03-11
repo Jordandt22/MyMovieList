@@ -4,14 +4,21 @@
 @import "utils/alignments";
 
 // Layout
+@import "./layout/standalone/standalone";
 @import "./layout/navbar/navbar";
 
 // Pages
 @import "./pages/home/home";
+@import "./pages/auth/auth";
 
 // Main Styles
 body {
   overflow-x: hidden;
   font-family: $font;
   background: black;
+}
+
+.App {
+  font-family: $font;
+  padding-bottom: $spacer-lg;
 }
