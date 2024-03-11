@@ -1,8 +1,7 @@
 ** TO RUN THE FRONTEND (Client) **
 
 - MUST have Nodejs installed
-- If you have already cloned the latest version of the GitHub repo:
-  * SKIP Step One * and Open the folder that you saved on your computer.
+- If you have already cloned the latest version of the GitHub repo: *SKIP Step One* and Open the folder that you saved on your computer.
 
   1) Clone the *LATEST VERSION* of the Github Repo in Vscode and store it in a place where you can find it.
   2) Open the terminal in Vscode:
@@ -14,8 +13,7 @@
 
 ** TO MAKE CHANGES TO THE GITHUB REPO **
 
-- If you have already cloned the latest version of the GitHub repo:
-  * SKIP Step One * and Open the folder that you saved on your computer.
+- If you have already cloned the latest version of the GitHub repo: *SKIP Step One* and Open the folder that you saved on your computer.
 
   1)  Clone the *LATEST VERSION* of the Github Repo in Vscode and store it in a place where you can find it.
   2)  You can then edit the files.
