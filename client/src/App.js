@@ -24,6 +24,8 @@ function App() {
     });
   }, [pathname]);
 
+  const test = "test"
+
   return (
     <div className="App">
       {/* Navbar */}
