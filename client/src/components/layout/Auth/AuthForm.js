@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { Formik } from "formik";
 
 // Contexts
@@ -18,10 +19,15 @@ function AuthForm(props) {
     <Formik
       initialValues={initialValues}
       validationSchema={isLogin ? LoginSchema : SignupSchema}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
+      onSubmit={(values, { setSubmitting, resetForm, setErrors }) => {
         setLoading(true);
-        onSubmit(values, () => {
-          resetForm();
+        onSubmit(values, (error) => {
+          if (error) {
+            setErrors(error);
+          } else {
+            resetForm();
+          }
+
           setSubmitting(false);
           setLoading(false);
         });
@@ -32,12 +38,17 @@ function AuthForm(props) {
           {inputs.map((inputInfo) => {
             const { name, type, label, placeholder } = inputInfo;
             const isError = props.errors[name] && props.touched[name];
+            const isSuccess = !props.errors[name] && props.touched[name];
 
             return (
               <div
                 key={name}
                 className={`auth-form__input-box ${
-                  isError ? "auth-form__error-box" : ""
+                  isError
+                    ? "auth-form__error-box"
+                    : isSuccess
+                    ? "auth-form__success-box"
+                    : ""
                 }`}
               >
                 {/* Label */}
@@ -69,6 +80,15 @@ function AuthForm(props) {
             <button type="submit" className="auth-form__submit">
               {isLogin ? "Log In" : "Sign Up"}
             </button>
+            {isLogin ? (
+              <NavLink to="/signup" className="auth-form__link">
+                Don't have an account yet? <span>Sign Up</span>
+              </NavLink>
+            ) : (
+              <NavLink to="/login" className="auth-form__link">
+                Already have an account? <span>Log In</span>
+              </NavLink>
+            )}
           </div>
         </form>
       )}

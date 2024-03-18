@@ -32,6 +32,23 @@ const firebaseConfig = {
   measurementId: "G-BSB1HLQY7L",
 };
 
+const errorHandler = (code) => {
+  switch (code) {
+    case "auth/invalid-credential":
+      return {
+        password: "There is no account that matches this email and password.",
+      };
+
+    case "auth/email-already-exists":
+      return {
+        email: "An account with this email already exists.",
+      };
+
+    default:
+      return {};
+  }
+};
+
 // Firebase Context
 const FirebaseContext = createContext();
 export const useFirebase = () => useContext(FirebaseContext);
@@ -40,6 +57,20 @@ export const FirebaseContextProvider = (props) => {
   const Auth = getAuth();
   const { setLoading } = useGlobal().state;
   const { authenticateUser, logoutUser } = useAuth();
+
+  // Google Auth
+  const googleProvider = new GoogleAuthProvider();
+
+  const signInWithGoogle = (cb) =>
+    signInWithPopup(Auth, googleProvider)
+      .then((res) => {
+        // const googleCred = GoogleAuthProvider.credentialFromResult(res);
+        const user = res.user;
+        authenticateUser(user.accessToken, user.uid);
+
+        cb(user);
+      })
+      .catch((error) => console.log(error.code, error.message));
 
   // Get Current User
   const getCurrentUser = (cb) => onAuthStateChanged(Auth, (user) => cb(user));
@@ -59,6 +90,7 @@ export const FirebaseContextProvider = (props) => {
 
       setLoading(false);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Create Email User
@@ -69,27 +101,33 @@ export const FirebaseContextProvider = (props) => {
         authenticateUser(user.accessToken, user.uid);
         cb(user, null);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => cb(null, errorHandler(error.code)));
 
   // Sign In Email User
   const signInEmailUser = (email, password, cb) =>
-    signInWithEmailAndPassword(Auth, email, password).then((userCredential) => {
-      const user = userCredential.user;
-      authenticateUser(user.accessToken, user.uid);
-      cb(user, null);
-    });
+    signInWithEmailAndPassword(Auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        authenticateUser(user.accessToken, user.uid);
+        cb(user, null);
+      })
+      .catch((error) => cb(null, errorHandler(error.code)));
 
   // Log Out User
   const logoutFirebaseUser = () =>
-    signOut(Auth).then(() => {
-      logoutUser();
-    });
+    signOut(Auth)
+      .then(() => {
+        logoutUser();
+      })
+      .catch((error) => console.log(error.code, error.message));
 
   // Delete Firebase User
   const deleteFirebaseUser = () =>
-    deleteUser(Auth.currentUser).then(() => {
-      logoutUser();
-    });
+    deleteUser(Auth.currentUser)
+      .then(() => {
+        logoutUser();
+      })
+      .catch((error) => console.log(error.code, error.message));
 
   return (
     <FirebaseContext.Provider
@@ -102,6 +140,7 @@ export const FirebaseContextProvider = (props) => {
           logoutFirebaseUser,
           signInEmailUser,
           deleteFirebaseUser,
+          signInWithGoogle,
         },
       }}
     >

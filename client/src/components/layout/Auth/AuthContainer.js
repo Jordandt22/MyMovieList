@@ -1,11 +1,18 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+
+// Firebase
+import { useFirebase } from "../../../context/Firebase.context";
 
 // Components
 import MovieBackground from "../standalone/MovieBackground";
+import Google from "../../svgs/Google";
 
 function AuthContainer(props) {
   const { isLogin } = props;
+  const { signInWithGoogle } = useFirebase().functions;
+  const authCallback = (user) => {
+    console.log(user);
+  };
 
   return (
     <div className="auth-container center">
@@ -13,32 +20,35 @@ function AuthContainer(props) {
       <MovieBackground url="https://image.tmdb.org/t/p/original/l6b9YZEokZl1nt7q0pprrur6btG.jpg" />
 
       {/* Auth Form */}
-      <div className="auth-form">
-        {/* Logo */}
-        <div className="auth-form__logo center">
-          <img
-            src={process.env.PUBLIC_URL + "/assets/images/logo.png"}
-            alt="MyMovieList"
-          />
+      <div className="auth-form row">
+        {/* Left Side */}
+        <div className="auth-form__left">
+          <h2 className="auth-form__title">
+            {isLogin ? "Log in to your Account" : "Create an Account"}
+          </h2>
+
+          {/* Main Form */}
+          {props.children}
         </div>
-        <h2 className="auth-form__title">
-          {isLogin ? "Already have an Account?" : "Don't have an Account?"}
-        </h2>
 
-        {/* Main Form */}
-        {props.children}
-
-        {/* Links */}
-        <div className="center-vertical">
-          {isLogin ? (
-            <NavLink to="/signup" className="auth-form__link">
-              Don't have an account yet? <span>Sign Up</span>
-            </NavLink>
-          ) : (
-            <NavLink to="/login" className="auth-form__link">
-              Already have an account? <span>Log In</span>
-            </NavLink>
-          )}
+        {/* Right Side */}
+        <div className="auth-form__right center-vertical">
+          <div className="auth-form__logo center">
+            <img
+              src={process.env.PUBLIC_URL + "/assets/images/logo.png"}
+              alt="MyMovieList"
+            />
+          </div>
+          <hr />
+          <h2 className="auth-form__sub-title between-row">
+            Other Ways to {isLogin ? "Log In" : "Sign Up"}
+          </h2>
+          <button
+            className="auth-form__google center"
+            onClick={() => signInWithGoogle(authCallback)}
+          >
+            <Google /> Google
+          </button>
         </div>
       </div>
     </div>

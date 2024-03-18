@@ -21,12 +21,14 @@ function Login() {
 
             // Log In Email User
             signInEmailUser(email, password, (user, error) => {
+              if (!user || error) return formCallback(error);
+
               const { accessToken, uid } = user;
 
               // Get user information from Database
               console.log(user);
 
-              formCallback();
+              formCallback(null);
             });
           }}
           inputs={[
