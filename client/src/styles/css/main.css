@@ -357,6 +357,12 @@ html {
   width: 1.5rem;
   height: 1.5rem;
 }
+.navbar__search-btn svg path {
+  color: white;
+}
+.navbar__search-btn svg path:hover {
+  cursor: pointer;
+}
 .navbar__search-btn:hover {
   cursor: pointer;
   background: #00909d;
@@ -399,6 +405,49 @@ html {
   cursor: pointer;
   background: #00b193;
   transform: scale(0.9);
+}
+
+.search-bar {
+  position: relative;
+  margin-right: 1rem;
+}
+.search-bar input {
+  width: 20vw;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 25px;
+  padding: 0.5rem 1.5rem;
+  margin-right: 0.75rem;
+}
+.search-bar .navbar__search-btn {
+  margin-right: 0.5rem;
+}
+.search-bar__close {
+  background: #00d8b4;
+}
+.search-bar__close:hover {
+  background: #00b193;
+}
+
+.search-bar__error {
+  position: absolute;
+  left: 0;
+  bottom: -5.5vh;
+  background: #ff2b2b;
+  font-size: 0.9rem;
+  color: white;
+  width: fit-content;
+  border-radius: 25px;
+  padding: 0.35rem 1.5rem;
+}
+.search-bar__error svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.25rem;
+}
+.search-bar__error svg path {
+  fill: white;
 }
 
 .hero-content {

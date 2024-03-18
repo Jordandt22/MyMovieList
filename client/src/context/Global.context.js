@@ -5,6 +5,7 @@ const GlobalContext = createContext();
 export const useGlobal = () => useContext(GlobalContext);
 export const GlobalContextProvider = (props) => {
   const [isLoading, setLoading] = useState(false);
+  const [query, setQuery] = useState(null);
 
   return (
     <GlobalContext.Provider
@@ -12,6 +13,10 @@ export const GlobalContextProvider = (props) => {
         state: {
           isLoading,
           setLoading,
+        },
+        info: {
+          query,
+          setQuery,
         },
       }}
     >

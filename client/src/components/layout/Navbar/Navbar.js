@@ -6,8 +6,8 @@ import { useAuth } from "../../../context/Auth.context";
 import { useFirebase } from "../../../context/Firebase.context";
 
 // Components
-import Search from "../../svgs/Search";
 import User from "../../svgs/User";
+import SearchBar from "./SearchBar";
 
 function Navbar() {
   const { isAuth } = useAuth().authState;
@@ -53,9 +53,7 @@ function Navbar() {
       </div>
 
       <div className="row">
-        <button className="navbar__search-btn center">
-          <Search />
-        </button>
+        <SearchBar />
         {isAuth ? (
           <button
             className="navbar__profile center"

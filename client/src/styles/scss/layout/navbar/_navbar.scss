@@ -46,6 +46,14 @@
     $s: 1.5rem;
     width: $s;
     height: $s;
+
+    path {
+      color: white;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 
   &:hover {
@@ -95,5 +103,56 @@
     cursor: pointer;
     background: $dark-teal;
     transform: scale(0.9);
+  }
+}
+
+// Search Bar
+.search-bar {
+  position: relative;
+  margin-right: $spacer-small;
+
+  input {
+    width: 20vw;
+    outline: none;
+    border: none;
+    background: white;
+    border-radius: 25px;
+    padding: $spacer-small * 0.5 $spacer;
+    margin-right: $spacer-small * 0.75;
+  }
+
+  .navbar__search-btn {
+    margin-right: $spacer-small * 0.5;
+  }
+
+  &__close {
+    background: $teal;
+
+    &:hover {
+      background: $dark-teal;
+    }
+  }
+}
+
+.search-bar__error {
+  position: absolute;
+  left: 0;
+  bottom: -5.5vh;
+  background: $red;
+  font-size: $sm-fs;
+  color: white;
+  width: fit-content;
+  border-radius: 25px;
+  padding: $spacer-small * 0.35 $spacer;
+
+  svg {
+    $s: 1.25rem;
+    width: $s;
+    height: $s;
+    margin-right: $spacer-small * 0.25;
+
+    path {
+      fill: white;
+    }
   }
 }

@@ -22,11 +22,17 @@ export const TMDBContextProvider = (props) => {
   const getNowPlayingMovies = () =>
     axios.get(TMDB_URL + "/movie/now_playing").then((res) => res.data);
 
+  // GET - Query Movies
+  const getSearchedMovies = (query) =>
+    axios
+      .get(TMDB_URL + `/search/movie?query=${query}`)
+      .then((res) => res.data);
+
   return (
     <TMDBContext.Provider
       value={{
         getTMDBImageURL,
-        API: { getTrendingMovies, getNowPlayingMovies },
+        API: { getTrendingMovies, getNowPlayingMovies, getSearchedMovies },
       }}
     >
       {props.children}
