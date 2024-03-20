@@ -31,15 +31,17 @@
   color: rgba(#ffffff, 0.7);
   font-weight: 400;
   font-size: $md-fs * 0.85;
-  margin-bottom: $spacer-small * 0.5;
+  margin-bottom: $spacer-small * 0.25;
 }
 
 .hero__title {
   text-transform: uppercase;
   color: white;
+  max-width: 40ch;
+  line-height: $spacer-md * 2;
   font-weight: 700;
-  font-size: $lg-fs * 3;
-  margin-bottom: $spacer * 1.5;
+  font-size: $lg-fs * 2.75;
+  margin-bottom: $spacer-md * 1.25;
 }
 
 .hero__link {

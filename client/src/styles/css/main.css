@@ -474,15 +474,17 @@ html {
   color: rgba(255, 255, 255, 0.7);
   font-weight: 400;
   font-size: 1.275rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .hero__title {
   text-transform: uppercase;
   color: white;
+  max-width: 40ch;
+  line-height: 6rem;
   font-weight: 700;
-  font-size: 6rem;
-  margin-bottom: 2.25rem;
+  font-size: 5.5rem;
+  margin-bottom: 3.75rem;
 }
 
 .hero__link {

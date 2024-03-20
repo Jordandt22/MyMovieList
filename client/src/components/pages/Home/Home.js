@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { Carousel } from "react-responsive-carousel";
+import { useTransition, animated, easings } from "@react-spring/web";
 
 // Contexts
 import { useTMDB } from "../../../context/Tmdb.context";
@@ -14,10 +13,32 @@ import Loading from "../../layout/standalone/Loading";
 function Home() {
   const { sortMovies } = useUtil();
   const { getNowPlayingMovies } = useTMDB().API;
-  const [active, setActive] = useState(0);
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["NOW_PLAYING_MOVIES"],
     queryFn: getNowPlayingMovies,
+  });
+
+  // Animation - Image Carousel
+  const [movieIndex, setMovieIndex] = useState(0);
+  const transitions = useTransition(movieIndex, {
+    key: movieIndex,
+    from: (_, i) => {
+      if (i === 0) {
+        return { opacity: 0.9 };
+      }
+
+      return { opacity: 0 };
+    },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    delay: 0,
+    config: { duration: 4000 },
+    onRest: (_a, _b, item) => {
+      if (movieIndex === item) {
+        setMovieIndex((state) => (state + 1) % 10);
+      }
+    },
+    exitBeforeEnter: true,
   });
 
   if (isPending) {
@@ -31,12 +52,11 @@ function Home() {
   const movies = sortMovies(data.results);
   return (
     <div className="home-page">
-      {/* <div class="hero-container">
-      {movies.map((movie, i) => {
-        return <HeroContent movie={movie} />;
-      })}
-      </div> */}
-      <HeroContent movie={movies[0]} />
+      {transitions((style, i) => (
+        <animated.div style={{ ...style }}>
+          <HeroContent movie={movies[i]} />
+        </animated.div>
+      ))}
     </div>
   );
 }
