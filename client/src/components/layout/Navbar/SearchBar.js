@@ -43,7 +43,7 @@ function SearchBar() {
                     onBlur={props.handleBlur}
                     value={props.values.query}
                     name="query"
-                    placeholder="Enter a keyword or a title..."
+                    placeholder="Search by keyword or title..."
                     autoComplete="off"
                   />
                   {/* Search Bar Buttons */}

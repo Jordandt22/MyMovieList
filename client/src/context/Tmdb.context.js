@@ -7,26 +7,32 @@ export const TMDBContextProvider = (props) => {
   const TMDB_URL = "https://api.themoviedb.org/3";
   const TMDB_IMG_URL = "https://image.tmdb.org/t/p/original";
   const getTMDBImageURL = (path) => TMDB_IMG_URL + path;
+  const getTMDBAPIURL = (path) => TMDB_URL + path + "?language=en-US";
 
   // Setting Access Token
   axios.defaults.headers.get.Authorization =
     "Bearer " + process.env.REACT_APP_TMDB_ACCESS_TOKEN;
 
   // GET - Trending Movies
-  const getTrendingMovies = () =>
+  const getTrendingMovies = (page) =>
     axios
-      .get(TMDB_URL + "/trending/movie/day?language=en-US")
-      .then((res) => res.data);
+      .get(getTMDBAPIURL("/trending/movie/day") + `&page=${page}`)
+      .then((res) => res.data)
+      .catch((error) => error);
 
   // GET - Now Playing Movies
   const getNowPlayingMovies = () =>
-    axios.get(TMDB_URL + "/movie/now_playing").then((res) => res.data);
+    axios
+      .get(getTMDBAPIURL("/movie/now_playing"))
+      .then((res) => res.data)
+      .catch((error) => error);
 
   // GET - Query Movies
-  const getSearchedMovies = (query) =>
+  const getSearchedMovies = (query, page) =>
     axios
-      .get(TMDB_URL + `/search/movie?query=${query}`)
-      .then((res) => res.data);
+      .get(getTMDBAPIURL("/search/movie") + `&query=${query}&page=${page}`)
+      .then((res) => res.data)
+      .catch((error) => error);
 
   return (
     <TMDBContext.Provider

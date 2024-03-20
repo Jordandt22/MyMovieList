@@ -699,6 +699,232 @@ html {
   background: #00d8b4;
 }
 
+.search-page {
+  margin-top: 12rem;
+}
+
+.search-page__title {
+  position: relative;
+  color: white;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin-bottom: 4.125rem;
+}
+.search-page__title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  right: 0;
+  bottom: -3vh;
+  width: 50%;
+  height: 3px;
+  background: #00c6d8;
+}
+
+.search-page__search-bar {
+  width: 60vw;
+}
+.search-page__search-bar input {
+  border: 2px solid white;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-radius: 35px;
+  padding: 0.75rem 1.5rem;
+  width: 80%;
+  text-align: center;
+  margin-right: 1rem;
+  transition: all 200ms ease-out;
+}
+.search-page__search-bar input::placeholder {
+  color: white;
+}
+.search-page__search-bar input:focus {
+  border-color: #00c6d8;
+}
+
+.search-page__search-btn {
+  outline: none;
+  border: none;
+  background: #00d8b4;
+  border-radius: 50%;
+  padding: 0.5rem;
+  margin-right: 1rem;
+  transition: all 200ms ease-out;
+}
+.search-page__search-btn svg {
+  width: 2rem;
+  height: 2rem;
+}
+.search-page__search-btn svg path {
+  color: white;
+}
+.search-page__search-btn svg path:hover {
+  cursor: pointer;
+}
+.search-page__search-btn:hover {
+  cursor: pointer;
+  background: #00909d;
+  transform: scale(0.9);
+}
+
+.search-page__error {
+  background: #ff2b2b;
+  color: white;
+  width: 50%;
+  border-radius: 25px;
+  padding: 0.5rem 1.5rem;
+  transform: translateX(50%);
+  margin-top: 1.5rem;
+}
+.search-page__error svg {
+  margin-right: 0.5rem;
+}
+.search-page__error svg path {
+  fill: white;
+}
+
+.search-results {
+  width: 100vw;
+  margin-top: 6rem;
+}
+
+.search-results__title {
+  color: grey;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 3rem;
+}
+
+.movies-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  gap: 3rem 1.875rem;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.movie-card__info-box {
+  position: relative;
+  width: 12.5vw;
+  height: 32.5vh;
+}
+.movie-card__info-box:hover {
+  cursor: pointer;
+}
+.movie-card__info-box:hover .movie-card__img {
+  box-shadow: 0 0 15px 1px rgba(255, 255, 255, 0.75);
+}
+.movie-card__info-box:hover .movie-card__info {
+  opacity: 1;
+}
+
+.movie-card__img,
+.movie-card__fallback-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: all 200ms ease-out;
+  background: #131313;
+}
+
+.movie-card__fallback-img {
+  color: white;
+  font-weight: 600;
+}
+
+.movie-card__info {
+  opacity: 0;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.75);
+  transition: all 200ms ease-out;
+}
+.movie-card__info svg {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: 1.5rem;
+}
+.movie-card__info svg path {
+  fill: white;
+}
+
+.movie-card__title {
+  color: white;
+  max-width: 90%;
+  width: 15ch;
+  font-size: 1.875rem;
+  margin-bottom: 0.5rem;
+  text-overflow: ellipsis;
+  line-height: 2.25rem;
+  text-align: center;
+}
+
+.movie-card__date {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.125rem;
+}
+
+.movie-card__sub-title {
+  color: white;
+  max-width: 15ch;
+  font-size: 1.215rem;
+  text-overflow: ellipsis;
+  line-height: 1.875rem;
+  text-align: center;
+  margin-top: 1rem;
+  text-decoration: none;
+  transition: all 200ms ease-out;
+}
+.movie-card__sub-title:hover {
+  color: #00d8b4;
+}
+
+.search-tabs {
+  margin-top: 6rem;
+  gap: 0 1.5rem;
+}
+
+.search-tabs__tab {
+  outline: none;
+  border: 2px solid white;
+  width: 3rem;
+  height: 3rem;
+  color: white;
+  background: transparent;
+  border-radius: 50%;
+  padding: 1rem;
+  font-size: 1.125rem;
+  transition: all 200ms ease-out;
+}
+.search-tabs__tab:hover {
+  cursor: pointer;
+  color: #00c6d8;
+  border-color: #00c6d8;
+}
+
+.search-tabs__active {
+  background: #00c6d8;
+  border-color: #00c6d8;
+  font-weight: 600;
+}
+.search-tabs__active:hover {
+  color: white;
+}
+
 body {
   overflow-x: hidden;
   font-family: "Oswald", sans-serif;

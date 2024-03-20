@@ -5,27 +5,20 @@ import { Carousel } from "react-responsive-carousel";
 
 // Contexts
 import { useTMDB } from "../../../context/Tmdb.context";
+import { useUtil } from "../../../context/Util.context";
 
 // Components
 import HeroContent from "./HeroContent";
 import Loading from "../../layout/standalone/Loading";
 
 function Home() {
+  const { sortMovies } = useUtil();
   const { getNowPlayingMovies } = useTMDB().API;
   const [active, setActive] = useState(0);
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["NOW_PLAYING_MOVIES"],
     queryFn: getNowPlayingMovies,
   });
-
-  // Sort Movies
-  const sortMovies = (movies) => {
-    const sortedMovies = data.results.sort((a, b) => {
-      return b.vote_average - a.vote_average;
-    });
-
-    return sortedMovies.slice(0, 10);
-  };
 
   if (isPending) {
     return <Loading />;
