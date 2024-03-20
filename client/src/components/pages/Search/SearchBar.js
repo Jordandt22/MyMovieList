@@ -15,6 +15,8 @@ function SearchBar() {
   const { setQuery } = useGlobal().info;
   const { setLoading } = useGlobal().state;
 
+  console.log("Test");
+
   return (
     <Formik
       initialValues={{ query: "" }}
