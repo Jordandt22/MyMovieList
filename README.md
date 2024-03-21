@@ -1,25 +1,34 @@
-** TO RUN THE FRONTEND (Client) **
+** HOW TO CLONE THE GITHUB REPO **
+
+  1. Open a new Vscode window
+  2. Click "Clone Git Repository" in the Middle Section of the Welcome Page
+  3. Click "Clone from GitHub"
+  4. Click on the correct Github Repo
+  5. Save it to a place where you can find it.
+  6. When working on the project open this folder.
+
+
+
+** HOW TO RUN THE FRONTEND (Client) **
 
 - MUST have Nodejs installed
-- If you have already cloned the latest version of the GitHub repo: _SKIP Step One_ and Open the folder that you saved on your computer.
 
-  1. Clone the _LATEST VERSION_ of the Github Repo in Vscode and store it in a place where you can find it.
-  2. Open the terminal in Vscode:
-     1. Go into the client folder: enter "cd client" into the terminal
-     1. Then run "npm install" to install the packages
-     1. Then run "npm start" to run the frontend
+  1. Open the terminal in Vscode:
+    1. Go into the client folder: enter "cd client" into the terminal
+    2. Then run "npm install" to install the packages
+    3. Then run "npm start" to run the frontend
 
-** TO MAKE CHANGES TO THE GITHUB REPO **
 
-- If you have already cloned the latest version of the GitHub repo: _SKIP Step One_ and Open the folder that you saved on your computer.
 
-  1.  Clone the _LATEST VERSION_ of the Github Repo in Vscode and store it in a place where you can find it.
-  2.  You can then edit the files.
-  3.  When you are DONE with your changes:
-      1. Go to the left sidebar on Vscode:
-         1. Click on "Source Control"
-         1. Click the PLUS Icon next to "Changes"
-         1. Enter a message in the top text input - Ex: "[Frontend/Backend/Database] (3/10/24): Describe your changes (Keep it short)"
-         1. Click on "Commit"
-         1. Click on "Sync Changes" to push to the main GitHub Repo
-         1. DONE
+** HOW TO MAKE CHANGES TO THE GITHUB REPO **
+
+  1. Open the folder you saved with the project and then make your changes.
+  2. When you are DONE with your changes:
+     1. Go to the left sidebar on Vscode:
+     2. Click on "Source Control"
+     3. Click the PLUS Icon next to "Changes"
+     4. Enter a message in the top text input - Format: "[Frontend/Backend/Database] [Date]: [message] (Keep it short)"
+         - Ex: "Frontend (3/10/24): Finished Home Page UI"
+     6. Click on "Commit"
+     7. Click on "Sync Changes" to push to the main GitHub Repo
+     8. DONE
