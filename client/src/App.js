@@ -17,6 +17,7 @@ function App() {
   const { pathname } = useLocation();
   const { isLoading } = useGlobal().state;
   const { isAuth, uid } = useAuth().authState;
+  
   useEffect(() => {
     window.scrollTo({
       top: 0,
