@@ -8,6 +8,12 @@
   6. When working on the project open this folder.
 
 
+** HOW TO GET LATEST VERSION OF THE GITHUB REPO **
+
+  1. Restart Vscode
+  2. Click on "Source Control" on the left sidebar
+  3. Under "Incoming" click on the right arrow to pull and update the code.
+
 
 ** HOW TO RUN THE FRONTEND (Client) **
 
