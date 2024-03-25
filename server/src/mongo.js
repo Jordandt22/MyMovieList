@@ -19,7 +19,6 @@ const LoginSchema = new mongoose.Schema({
         type: String
         
     }
-
 });
 
 const SignupSchema = new mongoose.Schema({
@@ -37,7 +36,6 @@ const SignupSchema = new mongoose.Schema({
     },
     confirmPassword: {
         type: String
-        
     }
 });
 

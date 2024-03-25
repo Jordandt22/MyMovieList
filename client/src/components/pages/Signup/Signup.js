@@ -19,11 +19,7 @@ function Signup() {
   const [setConfirmPassword] = useState('')
 
   const handleSubmit = async (values, formCallback) => {
-    console.log("handleSubmit function is triggered!");
-   
-    
 
-    
     const { email, username, password, confirmPassword } = values;
 
     const data = {

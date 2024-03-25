@@ -61,11 +61,6 @@ app.post("/signup", (req, res) => {
             console.error("Error creating user:", err);
             res.status(500).json({ error: "Internal server error" }); // Send error response
         });
-
-    
-
-    
-
     
 });
 
