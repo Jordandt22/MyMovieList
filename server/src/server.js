@@ -3,9 +3,9 @@ const cors = require('cors');
 const bodyParser = require('body-parser')
  const bcrypt = require("bcrypt")
  const router = express.Router();
-//const { LoginModel, SignupModel } = require("./mongo")
-const SignupModel  = require('./mongo');
-const LoginModel = require('./mongo');
+//const { LoginModel, UserModel } = require("./mongo")
+const UserModel  = require('./mongo');
+
 
 
 
@@ -18,14 +18,14 @@ app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
 
-// const newUser = new SignupModel({
+// const newUser = new UserModel({
 //     email: 'bob@gmail.com',
 //     username: 'bob123',
 //     password: 'Password#1234',
 //     confirmPassword: 'Password#1234'
 // });
 
-// const newUser = new SignupModel({
+// const newUser = new UserModel({
 //     email_: Body.email_,
 //     username_: Body.username_,
 //     password_: Body.password_,
@@ -52,7 +52,7 @@ app.post("/signup", (req, res) => {
     const { email, username, password, confirmPassword } = req.body;
 
     // Create a new document in the SignupModel collection
-    SignupModel.create({ email, username, password, confirmPassword })
+    UserModel.create({ email, username, password, confirmPassword })
         .then(newUser => {
             console.log("New user created:", newUser);
             res.status(201).json(newUser); // Send the newly created user as JSON response
@@ -136,7 +136,7 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/signup", async (req,res) => {
-    const result = await SignupModel.find();
+    const result = await UserModel.find();
     res.send({"User:": result});
 })
 

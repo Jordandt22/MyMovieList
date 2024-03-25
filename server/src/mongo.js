@@ -11,17 +11,8 @@ connect.then(() => {
 })
 
 // Create a Schema
-const LoginSchema = new mongoose.Schema({
-    email: {
-        type: String
-    },
-    password: {
-        type: String
-        
-    }
-});
 
-const SignupSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     email: {
         type: String
         
@@ -43,8 +34,8 @@ const SignupSchema = new mongoose.Schema({
 //const LoginModel = new mongoose.model("Users", LoginSchema);
 
 
-const SignupModel = mongoose.model("User", SignupSchema)
-module.exports = SignupModel;
+const UserModel = mongoose.model("User", UserSchema)
+module.exports = UserModel;
 
 // const LoginModel = mongoose.model("Logins", LoginSchema)
 // module.exports = LoginModel;
