@@ -1,7 +1,7 @@
 import React from "react";
 
-// Context
-import { useFirebase } from "../../../context/Firebase.context";
+// Contexts
+import { useFirebase } from "../../../context/auth/Firebase.context";
 
 // Components
 import AuthContainer from "../../layout/Auth/AuthContainer";

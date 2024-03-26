@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 
 // Contexts
-import { useTMDB } from "../../../context/Tmdb.context";
-import { useGlobal } from "../../../context/Global.context";
+import { useTMDB } from "../../../context/data/Tmdb.context";
+import { useGlobal } from "../../../context/state/Global.context";
 
 // Components
 import Loading from "../../layout/standalone/Loading";

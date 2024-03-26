@@ -5,7 +5,7 @@ import { Formik } from "formik";
 import { QuerySchema } from "../../../schemas/Query.schemas";
 
 // Contexts
-import { useGlobal } from "../../../context/Global.context";
+import { useGlobal } from "../../../context/state/Global.context";
 
 // Components
 import Search from "../../svgs/Search";

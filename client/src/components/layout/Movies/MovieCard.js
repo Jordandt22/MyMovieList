@@ -2,8 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 // Contexts
-import { useUtil } from "../../../context/Util.context";
-import { useTMDB } from "../../../context/Tmdb.context";
+import { useUtil } from "../../../context/state/Util.context";
+import { useTMDB } from "../../../context/data/Tmdb.context";
 
 // Components
 import CirclePlus from "../../svgs/CirclePlus";

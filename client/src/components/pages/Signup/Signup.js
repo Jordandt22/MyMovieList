@@ -1,9 +1,9 @@
 import React from "react";
-import { useState } from "react";
-import axios from 'axios'
 
 // Contexts
-import { useFirebase } from "../../../context/Firebase.context";
+import { useFirebase } from "../../../context/auth/Firebase.context";
+import { useAPI } from "../../../context/data/API.context";
+import { useAuth } from "../../../context/auth/Auth.context";
 
 // Components
 import AuthContainer from "../../layout/Auth/AuthContainer";
@@ -11,52 +11,8 @@ import AuthForm from "../../layout/Auth/AuthForm";
 
 function Signup() {
   const { createEmailUser } = useFirebase().functions;
-  const [error, setError] = useState(null);
-
-  const [setEmail] = useState('')
-  const [setUsername] = useState('')
-  const [setPassword] = useState('')
-  const [setConfirmPassword] = useState('')
-
-  const handleSubmit = async (values, formCallback) => {
-
-    const { email, username, password, confirmPassword } = values;
-
-    const data = {
-      email: email,
-      username: username,
-      password: password,
-      confirmPassword: confirmPassword
-    }
-
-    axios.post('http://localhost:3001/signup', data)
-    .then(result => {
-      console.log(result);
-      // Handle successful response
-    })
-    .catch(err => {
-      console.log(err);
-      // Handle error
-    });
-
-    try {
-      // Create Email User
-      
-      const user = await createEmailUser(email, password);
-
-      // Handle successful user creation
-      console.log("User created:", user);
-
-      // Optionally, perform any additional actions after user creation
-
-      formCallback(); // Clear form fields
-      setError(null); // Clear any previous errors
-    } catch (error) {
-      // Handle error
-      console.error("Error creating user:", error);
-      setError("Failed to create user. Please try again."); // Display error message to the user
-    }
-  };
+  const { signUpDBUser } = useAPI().auth;
+  const { authenticateUser } = useAuth();
 
   return (
     <div className="signup-page">
@@ -64,53 +20,69 @@ function Signup() {
         <AuthForm
           isLogin={false}
           initialValues={{
-            email: "",
-            username: "",
-            password: "",
-            confirmPassword: "",
+            email: "Test22@gmail.com",
+            username: "TestUsername22",
+            password: "Password1234$",
+            confirmPassword: "Password1234$",
           }}
-          // onSubmit={(values, formCallback) => {
-          //   const { username, email, password } = values;
+          onSubmit={(values, formCallback) => {
+            const { username, email, password } = values;
 
-          //   // Create Email User
-          //   createEmailUser(email, password, (user, error) => {
-          //     const { accessToken, uid } = user;
+            // Create Email User
+            createEmailUser(email, password, (user, firebaseError) => {
+              if (firebaseError) {
+                formCallback(firebaseError);
+                return console.log(firebaseError);
+              }
 
-          //     // Create User in  Database
-          //     console.log(user);
+              // Successful Creation of Firebase User
+              const { accessToken, uid } = user;
 
-          //     formCallback();
-          //   });
-          // }}
-          onSubmit={handleSubmit}
+              // Create User in Database
+              signUpDBUser(
+                {
+                  username,
+                  email,
+                  uid,
+                },
+                accessToken,
+                (res, APIError) => {
+                  if (APIError) {
+                    formCallback(APIError);
+                    return console.log(APIError);
+                  }
+
+                  // Finish Auth Process
+                  authenticateUser(accessToken, uid);
+                  formCallback(null);
+                }
+              );
+            });
+          }}
           inputs={[
             {
               name: "email",
               type: "email",
               label: "Email",
               placeholder: "Ex: Example@gmail.com",
-              onChange: (e) => setEmail(e.target.value),
             },
             {
               name: "username",
               type: "text",
               label: "Username",
               placeholder: "Ex: MyUsername22",
-              onChange: (e) => setUsername(e.target.value),
             },
             {
               name: "password",
               type: "password",
               label: "Create a Password",
               placeholder: "Ex: Password#1234",
-              onChange: (e) => setPassword(e.target.value),
             },
             {
               name: "confirmPassword",
               type: "password",
               label: "Confirm your Password",
               placeholder: "Ex: Password#1234",
-              onChange: (e) => setConfirmPassword(e.target.value),
             },
           ]}
         />

@@ -2,8 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 // Contexts
-import { useAuth } from "../../../context/Auth.context";
-import { useFirebase } from "../../../context/Firebase.context";
+import { useAuth } from "../../../context/auth/Auth.context";
+import { useFirebase } from "../../../context/auth/Firebase.context";
 
 // Components
 import User from "../../svgs/User";

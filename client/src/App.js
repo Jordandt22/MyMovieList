@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 // Contexts
-import { useGlobal } from "./context/Global.context";
-import { useAuth } from "./context/Auth.context";
+import { useGlobal } from "./context/state/Global.context";
+import { useAuth } from "./context/auth/Auth.context";
 
 // Components
 import Home from "./components/pages/Home/Home";
@@ -17,7 +17,7 @@ function App() {
   const { pathname } = useLocation();
   const { isLoading } = useGlobal().state;
   const { isAuth, uid } = useAuth().authState;
-  
+
   useEffect(() => {
     window.scrollTo({
       top: 0,

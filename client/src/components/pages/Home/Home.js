@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useTransition, animated, easings } from "@react-spring/web";
+import { useTransition, animated } from "@react-spring/web";
 
 // Contexts
-import { useTMDB } from "../../../context/Tmdb.context";
-import { useUtil } from "../../../context/Util.context";
+import { useTMDB } from "../../../context/data/Tmdb.context";
+import { useUtil } from "../../../context/state/Util.context";
 
 // Components
 import HeroContent from "./HeroContent";

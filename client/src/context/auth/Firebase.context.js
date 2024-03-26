@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect } from "react";
 
 // Contexts
-import { useGlobal } from "./Global.context";
+import { useGlobal } from "../state/Global.context";
 import { useAuth } from "./Auth.context";
 
 // Firebase
@@ -65,10 +65,7 @@ export const FirebaseContextProvider = (props) => {
     signInWithPopup(Auth, googleProvider)
       .then((res) => {
         // const googleCred = GoogleAuthProvider.credentialFromResult(res);
-        const user = res.user;
-        authenticateUser(user.accessToken, user.uid);
-
-        cb(user);
+        cb(res.user);
       })
       .catch((error) => console.log(error.code, error.message));
 

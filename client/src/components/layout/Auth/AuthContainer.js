@@ -1,7 +1,7 @@
 import React from "react";
 
 // Firebase
-import { useFirebase } from "../../../context/Firebase.context";
+import { useFirebase } from "../../../context/auth/Firebase.context";
 
 // Components
 import MovieBackground from "../standalone/MovieBackground";

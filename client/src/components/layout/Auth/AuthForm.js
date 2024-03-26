@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Formik } from "formik";
 
 // Contexts
-import { useGlobal } from "../../../context/Global.context";
+import { useGlobal } from "../../../context/state/Global.context";
 
 // Schemas
 import { LoginSchema, SignupSchema } from "../../../schemas/Auth.schemas";

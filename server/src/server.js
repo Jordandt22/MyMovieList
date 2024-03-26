@@ -1,144 +1,63 @@
-const express = require('express')
-const cors = require('cors');
-const bodyParser = require('body-parser')
- const bcrypt = require("bcrypt")
- const router = express.Router();
-//const { LoginModel, UserModel } = require("./mongo")
-const UserModel  = require('./mongo');
+require("dotenv").config();
 
+const express = require("express");
+const helmet = require("helmet");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const rateLimiter = require("express-rate-limit");
+const slowDown = require("express-slow-down");
+const UserModel = require("./mongo");
 
+// Controllers
+const { signUp, login } = require("./controllers/Auth/auth.ct");
 
+// App Initialization
+const router = express.Router();
+const app = express();
 
-const app = express()
-
+// App Setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.urlencoded({extended: false}));
-app.use(cors());
+app.use(express.urlencoded({ extended: false }));
+app.use(helmet());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 app.use(express.static("public"));
 app.use(express.json());
 
-// const newUser = new UserModel({
-//     email: 'bob@gmail.com',
-//     username: 'bob123',
-//     password: 'Password#1234',
-//     confirmPassword: 'Password#1234'
-// });
-
-// const newUser = new UserModel({
-//     email_: Body.email_,
-//     username_: Body.username_,
-//     password_: Body.password_,
-//     confirmPassword_: Body.confirmPassword_
-// });
-
-// // Save the new user to the database
-// newUser.save();
-
-
-app.post("/signup", (req, res) => {
-    console.log("Body", req.body);
-
-    // const newUser = new SignupModel (req.body);
-    // newUser.save();
-    // res.status(201).json({newUser});
-
-    // SignupModel.create(req.body)
-    // .then(users => res.json(users))
-    // .catch(err => res.json(err))
-
-    // newUser.save();
-
-    const { email, username, password, confirmPassword } = req.body;
-
-    // Create a new document in the SignupModel collection
-    UserModel.create({ email, username, password, confirmPassword })
-        .then(newUser => {
-            console.log("New user created:", newUser);
-            res.status(201).json(newUser); // Send the newly created user as JSON response
-        })
-        .catch(err => {
-            console.error("Error creating user:", err);
-            res.status(500).json({ error: "Internal server error" }); // Send error response
-        });
-    
+// Rate Limiters
+const timeLimit = 1000 * 60;
+const maxReq = 100;
+const limiter = rateLimiter({
+  windowMs: timeLimit,
+  max: maxReq * 2,
+});
+const speedLimiter = slowDown({
+  windowMs: timeLimit,
+  delayAfter: maxReq,
+  delayMs: () => 300,
 });
 
+app.use(speedLimiter);
+app.use(limiter);
 
-
-app.post("/login", async (req, res) => {
-    // try {
-    //     // Extract login data from request body
-    //     const { email, password } = req.body;
-
-    //     // Find the user in the database by email
-    //     const user = await LoginModel.findOne({ email });
-
-    //     // If user not found, return error
-    //     if (!user) {
-    //         return res.status(404).json({ error: "User not found" });
-    //     }
-
-    //     // Compare passwords
-    //     const passwordMatch = await bcrypt.compare(password, user.password);
-
-    //     // If passwords do not match, return error
-    //     if (!passwordMatch) {
-    //         return res.status(401).json({ error: "Incorrect password" });
-    //     }
-
-    //     // Passwords match, login successful
-    //     // You can generate and send JWT token here for authentication
-
-    //     res.status(200).json({ message: "Login successful" });
-    // } catch (error) {
-    //     console.error("Login error:", error);
-    //     res.status(500).json({ error: "Internal server error" });
-    // }
-
-    app.post("/login", async (req, res) => {
-        try {
-          // Extract login data from request body
-          const { email, password } = req.body;
-      
-          // Find the user in the database by email
-          const user = await LoginModel.findOne({ email });
-      
-          // If user not found, return error
-          if (!user) {
-            return res.status(404).json({ error: "User not found" });
-          }
-      
-          // Compare passwords using bcrypt
-          const passwordMatch = await bcrypt.compare(password, user.password);
-      
-          // If passwords do not match, return error
-          if (!passwordMatch) {
-            return res.status(401).json({ error: "Incorrect password" });
-          }
-      
-          // Passwords match, login successful
-      
-          // Generate and send JWT token (replace with your preferred token generation logic)
-          const token = jwt.sign({ userId: user._id }, "your secret key", { expiresIn: "1h" });
-      
-          res.status(200).json({ message: "Login successful", token });
-        } catch (error) {
-          console.error("Login error:", error);
-          res.status(500).json({ error: "Internal server error" });
-        }
-      });
-
+// Landing Page Route
+app.get("/", (req, res) => {
+  res.send("API Server for MyMovieList is Up and Running !");
 });
 
-app.get("/login", (req, res) => {
-    res.render("Login");
-});
+// API Routes / Endpoints
+app.post("/signup", signUp);
 
-app.get("/signup", async (req,res) => {
-    const result = await UserModel.find();
-    res.send({"User:": result});
-})
+app.post("/login", login);
+
+app.get("/users", async (req, res) => {
+  const result = await UserModel.find();
+  res.send({ "User:": result });
+});
 
 /*
 // Endpoint to submit a movie rating
@@ -182,18 +101,12 @@ router.post('/recommendations', (req, res) => {
 });
 
 module.exports = router;
-
-
 */
 
+// Running the Server
 const port = 3001;
-
 app.listen(port, () => {
-    console.log(`Server running on Port: ${port}`);
-})
+  console.log(`Server running on Port: ${port}`);
+});
 
 module.exports = app;
-
-
-
-
