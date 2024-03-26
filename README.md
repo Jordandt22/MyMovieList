@@ -25,6 +25,15 @@
     3. Then run "npm start" to run the frontend
 
 
+** HOW TO RUN THE BACKEND & DATABASE (Server) **
+
+- MUST have Nodejs installed
+
+  1. Open the terminal in Vscode:
+    1. Go into the server folder: enter "cd server" into the terminal
+    2. Then run "npm install" to install the packages
+    3. Then run "npm run server" to run the server & connect to the database
+
 
 ** HOW TO MAKE CHANGES TO THE GITHUB REPO **
 
