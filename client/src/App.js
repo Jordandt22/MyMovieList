@@ -12,6 +12,11 @@ import Navbar from "./components/layout/Navbar/Navbar";
 import Login from "./components/pages/Login/Login";
 import Loading from "./components/layout/standalone/Loading";
 import Search from "./components/pages/Search/Search";
+import Movie from "./components/pages/Movie/Movie";
+import TopMovies from "./components/pages/TopMovies/TopMovies";
+import TrendingMovies from "./components/pages/TrendingMovies/TrendingMovies";
+import UpcomingMovies from "./components/pages/UpcomingMovies/UpcomingMovies";
+import Recommendations from "./components/pages/Recommendations/Recommendations";
 
 function App() {
   const { pathname } = useLocation();
@@ -38,6 +43,15 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Home />} />
         <Route path="/search" exact element={<Search />} />
+        <Route path="/movie/:movieID" exact element={<Movie />} />
+        <Route path="/top" exact element={<TopMovies />} />
+        <Route path="/trending" exact element={<TrendingMovies />} />
+        <Route path="/upcoming" exact element={<UpcomingMovies />} />
+        <Route
+          path="/recommendations"
+          exact
+          element={isAuth ? <Recommendations /> : <Login />}
+        />
 
         {/* Auth */}
         <Route

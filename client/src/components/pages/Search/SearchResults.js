@@ -16,8 +16,8 @@ function SearchResults() {
   const [page, setPage] = useState(1);
   const { isPending, isError, data, error } = useQuery({
     queryKey: query
-      ? ["SEARCH_MOVIES:" + query, query, page]
-      : ["TRENDING_MOVIES", null, page],
+      ? [`SEARCH?MOVIES:${query}&PAGE:${page}`, query, page]
+      : [`TRENDING_MOVIES?PAGE:${page}`, null, page],
     queryFn: ({ queryKey }) => {
       const queryTerm = queryKey[1];
       const pageNum = queryKey[2];

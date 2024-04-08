@@ -6,6 +6,7 @@
 // Layout
 @import "./layout/standalone/standalone";
 @import "./layout/navbar/navbar";
+@import "./layout/movie/movie";
 
 // Pages
 @import "./pages/home/home";
@@ -23,3 +24,4 @@ body {
   font-family: $font;
   padding-bottom: $spacer-lg;
 }
+

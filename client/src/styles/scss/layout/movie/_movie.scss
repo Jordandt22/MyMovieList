@@ -1,0 +1,114 @@
+// Movies Page Styles
+
+.movies-page {
+  margin-top: $spacer-lg * 2;
+}
+
+.movies-page__title {
+  color: white;
+  font-size: $lg-fs * 1.25;
+  margin-bottom: $spacer-md * 1.5;
+  padding: 0 $padding;
+}
+
+// Movies List
+.movies-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  gap: $spacer-md $spacer * 1.25;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+// Movie Card
+.movie-card__info-box {
+  position: relative;
+  width: 12.5vw;
+  height: 32.5vh;
+
+  &:hover {
+    cursor: pointer;
+
+    .movie-card__img {
+      box-shadow: 0 0 15px 1px rgba(white, 0.75);
+    }
+
+    .movie-card__info {
+      opacity: 1;
+    }
+  }
+}
+
+.movie-card__img,
+.movie-card__fallback-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: all 200ms ease-out;
+  background: $light-black;
+}
+
+.movie-card__fallback-img {
+  color: white;
+  font-weight: 600;
+}
+
+.movie-card__info {
+  opacity: 0;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background: rgba(black, 0.75);
+  transition: all 200ms ease-out;
+
+  svg {
+    $s: 2.5rem;
+    width: $s;
+    height: $s;
+    margin-top: $spacer;
+
+    path {
+      fill: white;
+    }
+  }
+}
+
+.movie-card__title {
+  color: white;
+  max-width: 90%;
+  width: 15ch;
+  font-size: $md-fs * 1.25;
+  margin-bottom: $spacer-small * 0.5;
+  text-overflow: ellipsis;
+  line-height: $spacer * 1.5;
+  text-align: center;
+}
+
+.movie-card__date {
+  color: rgba(white, 0.5);
+  font-size: $sm-fs * 1.25;
+}
+
+.movie-card__sub-title {
+  color: white;
+  max-width: 15ch;
+  font-size: $sm-fs * 1.35;
+  text-overflow: ellipsis;
+  line-height: $spacer * 1.25;
+  text-align: center;
+  margin-top: $spacer-small;
+  text-decoration: none;
+  transition: all 200ms ease-out;
+
+  &:hover {
+    color: $teal;
+  }
+}
