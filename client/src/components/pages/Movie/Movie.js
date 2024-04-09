@@ -7,12 +7,13 @@ import { useTMDB } from "../../../context/data/Tmdb.context";
 
 // Components
 import Loading from "../../layout/standalone/Loading";
+import ErrorPopup from "../../layout/standalone/ErrorPopup";
 
-function Movie(props) {
+function Movie() {
   const { movieID } = useParams();
   const { getMovieByID } = useTMDB().API;
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ["MOVIE_ID:" + movieID, movieID],
+    queryKey: [`MOVIE?ID:${movieID}`, movieID],
     queryFn: ({ queryKey }) => getMovieByID(queryKey[1]),
   });
 
@@ -21,8 +22,7 @@ function Movie(props) {
   }
 
   if (isError || !data) {
-    console.log(error);
-    return <div>{error.message}</div>;
+    return <ErrorPopup message={error.message} />;
   }
 
   console.log(data);

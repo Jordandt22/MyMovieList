@@ -9,6 +9,7 @@ import { useGlobal } from "../../../context/state/Global.context";
 import Loading from "../../layout/standalone/Loading";
 import Movies from "../../layout/Movies/Movies";
 import SearchPageTabs from "./SearchPageTabs";
+import ErrorPopup from "../../layout/standalone/ErrorPopup";
 
 function SearchResults() {
   const { query } = useGlobal().info;
@@ -35,8 +36,7 @@ function SearchResults() {
   }
 
   if (isError || !data) {
-    console.log(error);
-    return <div>{error.message}</div>;
+    return <ErrorPopup message={error.message} />;
   }
 
   const totalPages = data.total_pages;

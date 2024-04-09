@@ -5,6 +5,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Loading from "../standalone/Loading";
 import Movies from "./Movies";
 import SearchPageTabs from "../../pages/Search/SearchPageTabs";
+import ErrorPopup from "../standalone/ErrorPopup";
 
 function MovieList(props) {
   const { APIFunction, title, queryName } = props;
@@ -28,8 +29,7 @@ function MovieList(props) {
   }
 
   if (isError || !data) {
-    console.log(error);
-    return <div>{error.message}</div>;
+    return <ErrorPopup message={error.message} />;
   }
 
   const totalPages = data?.total_pages;

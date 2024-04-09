@@ -9,6 +9,7 @@ import { useUtil } from "../../../context/state/Util.context";
 // Components
 import HeroContent from "./HeroContent";
 import Loading from "../../layout/standalone/Loading";
+import ErrorPopup from "../../layout/standalone/ErrorPopup";
 
 function Home() {
   const { sortMovies } = useUtil();
@@ -46,7 +47,7 @@ function Home() {
   }
 
   if (isError || !data) {
-    return <div>{error.message}</div>;
+    return <ErrorPopup message={error.message} />;
   }
 
   const movies = sortMovies(data.results);
