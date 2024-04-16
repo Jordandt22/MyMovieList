@@ -88,6 +88,8 @@
   font-size: $md-fs * 1.25;
   margin-bottom: $spacer-small * 0.5;
   text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   line-height: $spacer * 1.5;
   text-align: center;
 }
@@ -102,6 +104,8 @@
   max-width: 15ch;
   font-size: $sm-fs * 1.35;
   text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   line-height: $spacer * 1.25;
   text-align: center;
   margin-top: $spacer-small;

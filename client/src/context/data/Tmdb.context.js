@@ -69,7 +69,13 @@ export const TMDBContextProvider = (props) => {
   // GET - Movie by ID
   const getMovieByID = (movieID) =>
     axios
-      .get(getTMDBAPIURL(`/movie/${movieID}`, ""), config)
+      .get(
+        getTMDBAPIURL(
+          `/movie/${movieID}`,
+          "&append_to_response=credits,recommendations"
+        ),
+        config
+      )
       .then((res) => res.data)
       .catch((error) => errorHandler(error));
 

@@ -16,10 +16,7 @@ function MovieCard(props) {
 
   return (
     <div className="movie-card center-vertical">
-      <div
-        className="movie-card__info-box"
-        onClick={() => console.log("Add " + id)}
-      >
+      <div className="movie-card__info-box">
         <object
           data={getTMDBImageURL(backdrop_path)}
           className="movie-card__img"
