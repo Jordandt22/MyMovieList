@@ -7,11 +7,32 @@ import { useFirebase } from "../../../context/auth/Firebase.context";
 import MovieBackground from "../standalone/MovieBackground";
 import Google from "../../svgs/Google";
 
+// Contexts
+import { useAPI } from "../../../context/data/API.context";
+import { updateCurrentUser } from "firebase/auth";
+import { useAuth } from "../../../context/auth/Auth.context";
+
 function AuthContainer(props) {
   const { isLogin } = props;
   const { signInWithGoogle } = useFirebase().functions;
-  const authCallback = (user) => {
-    console.log(user);
+  const { getDBUser } = useAPI().auth;
+  const { authenticateUser } = useAuth();
+
+  const authCallback = async (user, error) => {
+    if (!user || error) return console.log(error);
+
+    const { uid, accessToken } = user;
+    // Get Information from Database
+    await getDBUser(uid, accessToken, (res, APIError) => {
+      if (APIError) return console.log(APIError);
+
+      // Update User State
+      const { email, username } = res.data.user;
+      updateCurrentUser({ uid, email, username });
+
+      // Finish Auth Process
+      authenticateUser(accessToken, uid);
+    });
   };
 
   return (

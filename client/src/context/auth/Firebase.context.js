@@ -69,7 +69,7 @@ export const FirebaseContextProvider = (props) => {
     signInWithPopup(Auth, googleProvider)
       .then((res) => {
         // const googleCred = GoogleAuthProvider.credentialFromResult(res);
-        cb(res.user);
+        cb(res.user, null);
       })
       .catch((error) => console.log(error.code, error.message));
 
@@ -79,6 +79,8 @@ export const FirebaseContextProvider = (props) => {
   // Check Auth Session
   useEffect(() => {
     setLoading(true);
+
+    // Getting Firebase User
     getCurrentUser((user) => {
       if (user) {
         const { accessToken, uid } = user;
@@ -94,12 +96,11 @@ export const FirebaseContextProvider = (props) => {
           // Finish Auth Process
           authenticateUser(accessToken, uid);
         });
-
-        authenticateUser(accessToken, uid);
       }
-
-      setLoading(false);
     });
+
+    setLoading(false);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
