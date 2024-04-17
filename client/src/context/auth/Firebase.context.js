@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect } from "react";
 // Contexts
 import { useGlobal } from "../state/Global.context";
 import { useAuth } from "./Auth.context";
+import { useAPI } from "../data/API.context";
 
 // Firebase
 import { initializeApp } from "firebase/app";
@@ -21,6 +22,7 @@ import {
   EmailAuthProvider,
   getAuth,
 } from "firebase/auth";
+import { useUser } from "../state/User.context";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -56,6 +58,8 @@ export const FirebaseContextProvider = (props) => {
   const firebaseApp = initializeApp(firebaseConfig);
   const Auth = getAuth();
   const { setLoading } = useGlobal().state;
+  const { getDBUser } = useAPI().auth;
+  const { updateUser } = useUser();
   const { authenticateUser, logoutUser } = useAuth();
 
   // Google Auth
@@ -80,7 +84,16 @@ export const FirebaseContextProvider = (props) => {
         const { accessToken, uid } = user;
 
         // Get Information from Database
-        console.log(user);
+        getDBUser(uid, accessToken, (res, APIError) => {
+          if (APIError) return console.log(APIError);
+
+          // Update User State
+          const { email, username } = res.data.user;
+          updateUser({ uid, email, username });
+
+          // Finish Auth Process
+          authenticateUser(accessToken, uid);
+        });
 
         authenticateUser(accessToken, uid);
       }
