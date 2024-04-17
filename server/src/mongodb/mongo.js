@@ -13,6 +13,14 @@ connect
   });
 
 // Create a Schema
+const MovieSchema = new mongoose.Schema({
+  MovieID: {
+    type: String
+  },
+  rating:{
+    type: Number
+  }
+})
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -24,7 +32,10 @@ const UserSchema = new mongoose.Schema({
   uid: {
     type: String,
   },
+
+  lists: [MovieSchema]
 });
+
 
 // Collection part
 //const LoginModel = new mongoose.model("Users", LoginSchema);
