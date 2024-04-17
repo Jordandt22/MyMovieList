@@ -25,4 +25,17 @@ module.exports = {
     const user = await UserModel.create(newUser);
     res.status(200).json({ user, error: null });
   },
+  getUser: async (req, res) => {
+    const { uid } = req.params;
+    const user = await UserModel.find({
+      uid,
+    });
+    if (!user[0])
+      return res.status(404).json({
+        user: null,
+        error: { message: "Unable to find user." },
+      });
+
+    res.status(200).json({ user: user[0], error: null });
+  },
 };

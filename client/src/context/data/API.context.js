@@ -14,15 +14,22 @@ export const APIContextProvider = (props) => {
     },
   });
 
-  // Sign Up DB User
-  const signUpDBUser = (uid, data, accessToken, cb) =>
+  // Create DB User
+  const createDBUser = (uid, data, accessToken, cb) =>
     axios
       .post(REACT_APP_API_URL + `/user/${uid}`, data, config(accessToken))
       .then((res) => cb(res, null))
       .catch((err) => cb(null, err));
 
+  // Get DB User
+  const getDBUser = (uid, accessToken, cb) =>
+    axios
+      .get(REACT_APP_API_URL + `/user/${uid}`, config(accessToken))
+      .then((res) => cb(res, null))
+      .catch((err) => cb(null, err));
+
   return (
-    <APIContext.Provider value={{ auth: { signUpDBUser } }}>
+    <APIContext.Provider value={{ auth: { createDBUser, getDBUser } }}>
       {props.children}
     </APIContext.Provider>
   );
