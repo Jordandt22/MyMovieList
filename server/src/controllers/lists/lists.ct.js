@@ -1,26 +1,25 @@
-// const newUser = new UserModel({
-//     email: 'bob@gmail.com',
-//     username: 'bob123',
-//     password: 'Password#1234',
-//     confirmPassword: 'Password#1234'
-// });
+const UserModel = require("../../mongodb/mongo");
 
-// const newUser = new UserModel({
-//     email_: Body.email_,
-//     username_: Body.username_,
-//     password_: Body.password_,
-//     confirmPassword_: Body.confirmPassword_
-// });
+module.exports = {
+   Addlist: async(req, res) => {
+    const {uid} = req.params
+        const { MovieID, rating } = req.body; // Assuming the movie ID, movie name, and user ID are sent in the request body
 
-// // Save the new user to the database
-// newUser.save();
+        try {
+            // Check if the user exists
+            const user = await UserModel.findOne({uid});
 
-// const newUser = new SignupModel (req.body);
-// newUser.save();
-// res.status(201).json({newUser});
+            if (!user) {
+                return res.status(404).json({ error: "User not found" });
+            }
 
-// SignupModel.create(req.body)
-// .then(users => res.json(users))
-// .catch(err => res.json(err))
+            // Add the movie ID and movie name to the user's list
+            const updatedUser = await UserModel.findOneAndUpdate({uid}, {lists:[...user.lists, {MovieID, rating}]})
 
-// newUser.save();
+            return res.status(200).json({ user: updatedUser, error: null });
+        } catch (error) {
+            console.error("Error adding movie to list:", error);
+            return res.status(500).json({ user: null, error: "Internal server error" });
+        }
+   }
+}

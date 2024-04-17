@@ -46,6 +46,7 @@ app.get("/", (req, res) => {
 
 // API Routes / Endpoints
 app.use("/v1/api/user", require("./routes/user/user.routes"));
+app.use("/v1/api/lists", require("./routes/lists/lists.routes"));
 
 /*
 // Endpoint to submit a movie rating
