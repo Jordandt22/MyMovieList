@@ -9,6 +9,7 @@ import { APIContextProvider } from "./data/API.context";
 
 import { GlobalContextProvider } from "./state/Global.context";
 import { UtilContextProvider } from "./state/Util.context";
+import { UserContextProvider } from "./state/User.context";
 
 function ContextProvider(props) {
   return (
@@ -16,9 +17,11 @@ function ContextProvider(props) {
       <UtilContextProvider>
         <APIContextProvider>
           <AuthContextProvider>
-            <FirebaseContextProvider>
-              <TMDBContextProvider>{props.children}</TMDBContextProvider>
-            </FirebaseContextProvider>
+            <UserContextProvider>
+              <FirebaseContextProvider>
+                <TMDBContextProvider>{props.children}</TMDBContextProvider>
+              </FirebaseContextProvider>
+            </UserContextProvider>
           </AuthContextProvider>
         </APIContextProvider>
       </UtilContextProvider>

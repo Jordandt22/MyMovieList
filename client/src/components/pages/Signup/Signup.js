@@ -4,6 +4,7 @@ import React from "react";
 import { useFirebase } from "../../../context/auth/Firebase.context";
 import { useAPI } from "../../../context/data/API.context";
 import { useAuth } from "../../../context/auth/Auth.context";
+import { useUser } from "../../../context/state/User.context";
 
 // Components
 import AuthContainer from "../../layout/Auth/AuthContainer";
@@ -13,6 +14,7 @@ function Signup() {
   const { createEmailUser } = useFirebase().functions;
   const { signUpDBUser } = useAPI().auth;
   const { authenticateUser } = useAuth();
+  const { updateUser } = useUser();
 
   return (
     <div className="signup-page">
@@ -40,10 +42,10 @@ function Signup() {
 
               // Create User in Database
               signUpDBUser(
+                uid,
                 {
                   username,
                   email,
-                  uid,
                 },
                 accessToken,
                 (res, APIError) => {
@@ -51,6 +53,10 @@ function Signup() {
                     formCallback(APIError);
                     return console.log(APIError);
                   }
+
+                  // Update User State
+                  const { email, username } = res.data.user;
+                  updateUser({ uid, email, username });
 
                   // Finish Auth Process
                   authenticateUser(accessToken, uid);

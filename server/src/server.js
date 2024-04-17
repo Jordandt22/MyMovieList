@@ -6,13 +6,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const rateLimiter = require("express-rate-limit");
 const slowDown = require("express-slow-down");
-const UserModel = require("./mongo");
-
-// Controllers
-const { signUp, login } = require("./controllers/Auth/auth.ct");
 
 // App Initialization
-const router = express.Router();
 const app = express();
 
 // App Setup
@@ -50,14 +45,7 @@ app.get("/", (req, res) => {
 });
 
 // API Routes / Endpoints
-app.post("/signup", signUp);
-
-app.post("/login", login);
-
-app.get("/users", async (req, res) => {
-  const result = await UserModel.find();
-  res.send({ "User:": result });
-});
+app.use("/v1/api/user", require("./routes/user/user.routes"));
 
 /*
 // Endpoint to submit a movie rating

@@ -17,11 +17,12 @@ import TopMovies from "./components/pages/TopMovies/TopMovies";
 import TrendingMovies from "./components/pages/TrendingMovies/TrendingMovies";
 import UpcomingMovies from "./components/pages/UpcomingMovies/UpcomingMovies";
 import Recommendations from "./components/pages/Recommendations/Recommendations";
+import Profile from "./components/pages/Profile/Profile";
 
 function App() {
   const { pathname } = useLocation();
   const { isLoading } = useGlobal().state;
-  const { isAuth, uid } = useAuth().authState;
+  const { isAuth } = useAuth().authState;
 
   useEffect(() => {
     window.scrollTo({
@@ -52,21 +53,22 @@ function App() {
           exact
           element={isAuth ? <Recommendations /> : <Login />}
         />
+        <Route
+          path="/profile"
+          exact
+          element={isAuth ? <Profile /> : <Login />}
+        />
 
         {/* Auth */}
         <Route
           path="/login"
           exact
-          element={
-            isAuth ? <Navigate to={"/user/" + uid} replace /> : <Login />
-          }
+          element={isAuth ? <Navigate to="/profile" replace /> : <Login />}
         />
         <Route
           path="/signup"
           exact
-          element={
-            isAuth ? <Navigate to={"/user/" + uid} replace /> : <Signup />
-          }
+          element={isAuth ? <Navigate to="/profile" replace /> : <Signup />}
         />
 
         {/* Not Found */}

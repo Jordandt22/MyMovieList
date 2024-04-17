@@ -15,9 +15,9 @@ export const APIContextProvider = (props) => {
   });
 
   // Sign Up DB User
-  const signUpDBUser = (data, accessToken, cb) =>
+  const signUpDBUser = (uid, data, accessToken, cb) =>
     axios
-      .post(REACT_APP_API_URL + "/signup", data, config(accessToken))
+      .post(REACT_APP_API_URL + `/user/${uid}`, data, config(accessToken))
       .then((res) => cb(res, null))
       .catch((err) => cb(null, err));
 
