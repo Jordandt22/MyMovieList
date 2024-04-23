@@ -18,6 +18,10 @@ function Navbar() {
       path: "/",
     },
     {
+      label: "Discover",
+      path: "/search",
+    },
+    {
       label: "Top Rated",
       path: "/top",
     },
@@ -30,12 +34,8 @@ function Navbar() {
       path: "/upcoming",
     },
     {
-      label: "Recommendations",
-      path: "/recommendations",
-    },
-    {
-      label: "Movie List",
-      path: "/list",
+      label: "Genres",
+      path: "/genres",
     },
   ];
 

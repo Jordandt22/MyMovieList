@@ -18,6 +18,8 @@ import TrendingMovies from "./components/pages/TrendingMovies/TrendingMovies";
 import UpcomingMovies from "./components/pages/UpcomingMovies/UpcomingMovies";
 import Recommendations from "./components/pages/Recommendations/Recommendations";
 import MovieList from "./components/pages/MovieList/MovieList";
+import MoviesByGenre from "./components/pages/MoviesByGenre/MoviesByGenre";
+import Genres from "./components/pages/Genres/Genres";
 
 function App() {
   const { pathname } = useLocation();
@@ -48,6 +50,8 @@ function App() {
         <Route path="/top" exact element={<TopMovies />} />
         <Route path="/trending" exact element={<TrendingMovies />} />
         <Route path="/upcoming" exact element={<UpcomingMovies />} />
+        <Route path="/genres" exact element={<Genres />} />
+        <Route path="/genre/:genreID" exact element={<MoviesByGenre />} />
         <Route
           path="/recommendations"
           exact

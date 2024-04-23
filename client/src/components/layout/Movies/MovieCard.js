@@ -50,7 +50,7 @@ function MovieCard(props) {
                 if (isAuth) {
                   setMoviePopup({
                     show: true,
-                    movie: props.movie,
+                    movie,
                   });
                 } else {
                   navigate("/login");
