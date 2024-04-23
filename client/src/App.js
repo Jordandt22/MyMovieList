@@ -17,7 +17,7 @@ import TopMovies from "./components/pages/TopMovies/TopMovies";
 import TrendingMovies from "./components/pages/TrendingMovies/TrendingMovies";
 import UpcomingMovies from "./components/pages/UpcomingMovies/UpcomingMovies";
 import Recommendations from "./components/pages/Recommendations/Recommendations";
-import Profile from "./components/pages/Profile/Profile";
+import MovieList from "./components/pages/MovieList/MovieList";
 
 function App() {
   const { pathname } = useLocation();
@@ -54,21 +54,21 @@ function App() {
           element={isAuth ? <Recommendations /> : <Login />}
         />
         <Route
-          path="/profile"
+          path="/list"
           exact
-          element={isAuth ? <Profile /> : <Login />}
+          element={isAuth ? <MovieList /> : <Login />}
         />
 
         {/* Auth */}
         <Route
           path="/login"
           exact
-          element={isAuth ? <Navigate to="/profile" replace /> : <Login />}
+          element={isAuth ? <Navigate to="/list" replace /> : <Login />}
         />
         <Route
           path="/signup"
           exact
-          element={isAuth ? <Navigate to="/profile" replace /> : <Signup />}
+          element={isAuth ? <Navigate to="/list" replace /> : <Signup />}
         />
 
         {/* Not Found */}

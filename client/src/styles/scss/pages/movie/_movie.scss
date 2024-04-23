@@ -153,7 +153,8 @@
   }
 }
 
-.movie-stats__btn {
+.movie-stats__btn,
+.movie-stats__edit {
   display: block;
   outline: none;
   border: 2px solid white;
@@ -162,14 +163,41 @@
   color: white;
   padding: $spacer-small * 0.5 $spacer-md;
   font-weight: bold;
-  margin: 0 auto;
-  margin-top: $spacer-md;
   transition: all 200ms ease-out;
 
   &:hover {
     cursor: pointer;
     background: $blue;
     border-color: $blue;
+  }
+}
+
+.movie-stats__btn {
+  margin: 0 auto;
+  margin-top: $spacer * 1.5;
+}
+
+.movie-stats__rating-box {
+  margin-top: $spacer-md;
+  width: 100%;
+}
+
+.movie-stats__edit {
+  width: 100%;
+  margin-top: $spacer-small * 1.25;
+}
+
+.movie-stats__user-rating {
+  width: 100%;
+  background: $teal;
+  border-radius: 25px;
+  padding: $spacer-small * 0.5 $spacer-md;
+  color: white;
+  text-align: center;
+  font-size: $sm-fs * 1.25;
+
+  svg {
+    margin-right: $spacer-small * 0.5;
   }
 }
 

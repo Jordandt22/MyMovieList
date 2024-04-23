@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 
 // Schemas
-import { QuerySchema } from "../../../schemas/Query.schemas";
+import { QuerySchema } from "../../../schemas/Movie.schemas";
 
 // Contexts
 import { useGlobal } from "../../../context/state/Global.context";

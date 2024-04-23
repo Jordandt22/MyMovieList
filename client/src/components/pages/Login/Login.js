@@ -43,8 +43,8 @@ function Login() {
                 }
 
                 // Update User State
-                const { email, username } = res.data.user;
-                updateUser({ uid, email, username });
+                const { email, username, ratedMovies } = res.data.user;
+                updateUser({ uid, email, username, ratedMovies });
 
                 // Finish Auth Process
                 authenticateUser(accessToken, uid);
