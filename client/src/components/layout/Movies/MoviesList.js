@@ -6,6 +6,7 @@ import Loading from "../standalone/Loading";
 import Movies from "./Movies";
 import SearchPageTabs from "../../pages/Search/SearchPageTabs";
 import ErrorPopup from "../standalone/ErrorPopup";
+import MovieRatingPopup from "./MovieRatingPopup";
 
 function MovieList(props) {
   const { APIFunction, title, queryName } = props;
@@ -16,6 +17,13 @@ function MovieList(props) {
     placeholderData: keepPreviousData,
   });
 
+  // Movie Popup
+  const [moviePopup, setMoviePopup] = useState({
+    show: false,
+    movie: null,
+  });
+
+  // Reset Scroll View
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -36,12 +44,20 @@ function MovieList(props) {
   return (
     <div className="movies-page">
       <h1 className="movies-page__title">{title}</h1>
-      <Movies movies={data?.results} />
+      <Movies setMoviePopup={setMoviePopup} movies={data?.results} />
       <SearchPageTabs
         totalPages={totalPages >= 5 ? 5 : totalPages}
         page={page}
         setPage={setPage}
       />
+
+      {/* Movie Rating Popup */}
+      {moviePopup.show && (
+        <MovieRatingPopup
+          movie={moviePopup.movie}
+          setMoviePopup={setMoviePopup}
+        />
+      )}
     </div>
   );
 }

@@ -10,6 +10,7 @@ import Loading from "../../layout/standalone/Loading";
 import Movies from "../../layout/Movies/Movies";
 import SearchPageTabs from "./SearchPageTabs";
 import ErrorPopup from "../../layout/standalone/ErrorPopup";
+import MovieRatingPopup from "../../layout/Movies/MovieRatingPopup";
 
 function SearchResults() {
   const { query } = useGlobal().info;
@@ -31,6 +32,12 @@ function SearchResults() {
     placeholderData: keepPreviousData,
   });
 
+  // Movie Popup
+  const [moviePopup, setMoviePopup] = useState({
+    show: false,
+    movie: null,
+  });
+
   if (isPending) {
     return <Loading />;
   }
@@ -45,12 +52,20 @@ function SearchResults() {
       <h1 className="search-results__title">
         {query ? `Results for "${query}"` : "Trending Movies"}
       </h1>
-      <Movies movies={data.results} />
+      <Movies setMoviePopup={setMoviePopup} movies={data.results} />
       <SearchPageTabs
         totalPages={totalPages >= 5 ? 5 : totalPages}
         page={page}
         setPage={setPage}
       />
+
+      {/* Movie Rating Popup */}
+      {moviePopup.show && (
+        <MovieRatingPopup
+          movie={moviePopup.movie}
+          setMoviePopup={setMoviePopup}
+        />
+      )}
     </div>
   );
 }

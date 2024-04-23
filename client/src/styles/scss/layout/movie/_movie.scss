@@ -68,17 +68,6 @@
   border-radius: 15px;
   background: rgba(black, 0.75);
   transition: all 200ms ease-out;
-
-  svg {
-    $s: 2.5rem;
-    width: $s;
-    height: $s;
-    margin-top: $spacer;
-
-    path {
-      fill: white;
-    }
-  }
 }
 
 .movie-card__title {
@@ -114,6 +103,47 @@
 
   &:hover {
     color: $teal;
+  }
+}
+
+.movie-card__add {
+  outline: none;
+  border: none;
+  background: transparent;
+  margin-top: $spacer;
+
+  svg {
+    $s: 2.5rem;
+    width: $s;
+    height: $s;
+    transition: all 200ms ease-out;
+
+    path {
+      fill: white;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    svg path {
+      fill: $blue;
+    }
+  }
+}
+
+.movie-card__rating {
+  background: $teal;
+  color: white;
+  padding: $spacer-small * 0.35 $spacer * 1.5;
+  border-radius: 25px;
+  margin-top: $spacer;
+
+  svg {
+    $s: 1rem;
+    width: $s;
+    height: $s;
+    margin-right: $spacer-small * 0.25;
   }
 }
 
