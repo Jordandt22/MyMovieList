@@ -32,7 +32,7 @@ export const APIContextProvider = (props) => {
   const addMovieToList = (authState, movie, cb) =>
     axios
       .post(
-        REACT_APP_API_URL + `/lists/${authState.uid}`,
+        REACT_APP_API_URL + `/lists/rated/${authState.uid}`,
         movie,
         config(authState.accessToken)
       )
