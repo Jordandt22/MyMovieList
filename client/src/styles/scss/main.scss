@@ -13,7 +13,7 @@
 @import "./pages/auth/auth";
 @import "./pages/search/search";
 @import "./pages/movie/movie";
-
+@import "./pages/genres/genres";
 
 // Main Styles
 body {
@@ -26,4 +26,3 @@ body {
   font-family: $font;
   padding-bottom: $spacer-lg;
 }
-

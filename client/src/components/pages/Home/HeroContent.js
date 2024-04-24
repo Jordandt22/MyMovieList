@@ -1,19 +1,27 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 // Contexts
 import { useTMDB } from "../../../context/data/Tmdb.context";
 import { useUtil } from "../../../context/state/Util.context";
+import { useAuth } from "../../../context/auth/Auth.context";
+import { useUser } from "../../../context/state/User.context";
 
 // Componentss
 import CirclePlus from "../../svgs/CirclePlus";
+import Star from "../../svgs/Star";
 
 function HeroContent(props) {
   const {
     movie: { id, backdrop_path, title, release_date },
+    setMoviePopup,
   } = props;
+  const navigate = useNavigate();
   const { parseDate } = useUtil();
+  const { isAuth } = useAuth().authState;
   const { getTMDBImageURL } = useTMDB();
+  const { checkRatedMovies } = useUser();
+  const { alreadyRated, movie: userMovieData } = checkRatedMovies(id);
 
   return (
     <div
@@ -31,10 +39,30 @@ function HeroContent(props) {
           <NavLink className="hero__link" to={`/movie/${id}`}>
             More Info
           </NavLink>
-          <button type="button" className="hero__add row">
-            <CirclePlus />
-            Add to List
-          </button>
+          {alreadyRated ? (
+            <p className="hero__rating row">
+              <Star />
+              {userMovieData.rating}/10
+            </p>
+          ) : (
+            <button
+              type="button"
+              className="hero__add row"
+              onClick={() => {
+                if (isAuth) {
+                  setMoviePopup({
+                    show: true,
+                    movie: props.movie,
+                  });
+                } else {
+                  navigate("/login");
+                }
+              }}
+            >
+              <CirclePlus />
+              Add to List
+            </button>
+          )}
         </div>
       </div>
     </div>

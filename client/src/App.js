@@ -17,7 +17,9 @@ import TopMovies from "./components/pages/TopMovies/TopMovies";
 import TrendingMovies from "./components/pages/TrendingMovies/TrendingMovies";
 import UpcomingMovies from "./components/pages/UpcomingMovies/UpcomingMovies";
 import Recommendations from "./components/pages/Recommendations/Recommendations";
-import Profile from "./components/pages/Profile/Profile";
+import MovieList from "./components/pages/MovieList/MovieList";
+import MoviesByGenre from "./components/pages/MoviesByGenre/MoviesByGenre";
+import Genres from "./components/pages/Genres/Genres";
 
 function App() {
   const { pathname } = useLocation();
@@ -48,27 +50,29 @@ function App() {
         <Route path="/top" exact element={<TopMovies />} />
         <Route path="/trending" exact element={<TrendingMovies />} />
         <Route path="/upcoming" exact element={<UpcomingMovies />} />
+        <Route path="/genres" exact element={<Genres />} />
+        <Route path="/genre/:genreID" exact element={<MoviesByGenre />} />
         <Route
           path="/recommendations"
           exact
           element={isAuth ? <Recommendations /> : <Login />}
         />
         <Route
-          path="/profile"
+          path="/list"
           exact
-          element={isAuth ? <Profile /> : <Login />}
+          element={isAuth ? <MovieList /> : <Login />}
         />
 
         {/* Auth */}
         <Route
           path="/login"
           exact
-          element={isAuth ? <Navigate to="/profile" replace /> : <Login />}
+          element={isAuth ? <Navigate to="/list" replace /> : <Login />}
         />
         <Route
           path="/signup"
           exact
-          element={isAuth ? <Navigate to="/profile" replace /> : <Signup />}
+          element={isAuth ? <Navigate to="/list" replace /> : <Signup />}
         />
 
         {/* Not Found */}

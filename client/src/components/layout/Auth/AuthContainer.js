@@ -7,11 +7,88 @@ import { useFirebase } from "../../../context/auth/Firebase.context";
 import MovieBackground from "../standalone/MovieBackground";
 import Google from "../../svgs/Google";
 
+// Contexts
+import { useAPI } from "../../../context/data/API.context";
+import { useAuth } from "../../../context/auth/Auth.context";
+import { useUser } from "../../../context/state/User.context";
+
 function AuthContainer(props) {
   const { isLogin } = props;
   const { signInWithGoogle } = useFirebase().functions;
-  const authCallback = (user) => {
-    console.log(user);
+  const { createDBUser, getDBUser } = useAPI().auth;
+  const { authenticateUser } = useAuth();
+  const { updateUser } = useUser();
+
+  // Auth and Update User
+  const authAndUpdateUser = (uid, accessToken, user) => {
+    // Update User State
+    const { email, username, ratedMovies } = user;
+    updateUser({ uid, email, username, ratedMovies });
+
+    // Finish Auth Process
+    authenticateUser(accessToken, uid);
+  };
+
+  // Create Database User
+  const createDBUserErrorHandler = async (uid, accessToken, APIError) => {
+    if (APIError.response.status === 403) {
+      await getDBUser(uid, accessToken, async (res, APIError) => {
+        if (APIError) return console.log(APIError);
+
+        authAndUpdateUser(uid, accessToken, res.data.user);
+      });
+    }
+
+    console.log(APIError);
+  };
+
+  // Get Database User
+  const getDBUserErrorHandler = async (uid, accessToken, data, APIError) => {
+    if (APIError.response.status === 404) {
+      await createDBUser(uid, data, accessToken, async (res, APIError) => {
+        if (APIError) return console.log(APIError);
+
+        authAndUpdateUser(uid, accessToken, res.data.user);
+      });
+    }
+
+    console.log(APIError);
+  };
+
+  // Auth Callback
+  const authCallback = async (user, error) => {
+    if (!user || error) return console.log(error);
+    // User Data from Firebase and Google
+    const { uid, accessToken, displayName, email } = user;
+
+    // Get Information from Database
+    if (isLogin) {
+      // Getting DB User
+      await getDBUser(uid, accessToken, async (res, APIError) => {
+        if (APIError)
+          return await getDBUserErrorHandler(
+            uid,
+            accessToken,
+            { username: displayName, email },
+            APIError
+          );
+
+        authAndUpdateUser(uid, accessToken, res.data.user);
+      });
+    } else {
+      // Creating  New DB User
+      await createDBUser(
+        uid,
+        { username: displayName, email },
+        accessToken,
+        async (res, APIError) => {
+          if (APIError)
+            return createDBUserErrorHandler(uid, accessToken, APIError);
+
+          authAndUpdateUser(uid, accessToken, res.data.user);
+        }
+      );
+    }
   };
 
   return (
@@ -45,7 +122,7 @@ function AuthContainer(props) {
           </h2>
           <button
             className="auth-form__google center"
-            onClick={() => signInWithGoogle(authCallback)}
+            onClick={async () => await signInWithGoogle(authCallback)}
           >
             <Google /> Google
           </button>

@@ -4,12 +4,18 @@ import React from "react";
 import MovieCard from "./MovieCard";
 
 function Movies(props) {
-  const { movies } = props;
+  const { movies, setMoviePopup } = props;
 
   return (
     <div className="movies-list">
       {movies.map((movie) => {
-        return <MovieCard key={movie.id} movie={movie} />;
+        return (
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            setMoviePopup={setMoviePopup}
+          />
+        );
       })}
     </div>
   );

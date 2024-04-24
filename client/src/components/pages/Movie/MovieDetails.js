@@ -1,9 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 // Contexts
 import { useTMDB } from "../../../context/data/Tmdb.context";
 import { useUtil } from "../../../context/state/Util.context";
+import { useUser } from "../../../context/state/User.context";
+import { useAuth } from "../../../context/auth/Auth.context";
 
 // Components
 import Star from "../../svgs/Star";
@@ -13,14 +15,22 @@ import Globle from "../../svgs/Globle";
 import FilmCamera from "../../svgs/FilmCamera";
 
 function MovieDetails(props) {
-  const { data } = props;
+  const { data, setMoviePopup } = props;
+  const { isAuth } = useAuth().authState;
   const { getTMDBImageURL } = useTMDB();
   const { parseDate } = useUtil();
+  const { checkRatedMovies } = useUser();
+  const { alreadyRated, movie: userMovieData } = checkRatedMovies(data.id);
+  const navigate = useNavigate();
+
+  // Movie Duration & Currency Formatting
   const hours = Math.floor(data.runtime / 60);
   const minutes = data.runtime % 60;
   const roundedRating = Math.round(data.vote_average * 10) / 10;
   const formatMoney = (val) =>
     "$" + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ".00";
+
+  // Movie Stats
   const stats = [
     { icon: <Star />, label: "Rating", value: `${roundedRating}/10` },
     {
@@ -113,9 +123,34 @@ function MovieDetails(props) {
             </div>
           );
         })}
-        <button type="button" className="movie-stats__btn">
-          Add to List
-        </button>
+        {alreadyRated ? (
+          <div className="center-vertical movie-stats__rating-box">
+            <p className="movie-stats__user-rating center">
+              <Star />
+              {userMovieData.rating}/10
+            </p>
+            <button type="button" className="movie-stats__edit">
+              Edit Rating
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className="movie-stats__btn"
+            onClick={() => {
+              if (isAuth) {
+                setMoviePopup({
+                  show: true,
+                  movie: data,
+                });
+              } else {
+                navigate("/login");
+              }
+            }}
+          >
+            Add to List
+          </button>
+        )}
       </div>
     </div>
   );

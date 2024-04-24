@@ -10,6 +10,7 @@ import { useUtil } from "../../../context/state/Util.context";
 import HeroContent from "./HeroContent";
 import Loading from "../../layout/standalone/Loading";
 import ErrorPopup from "../../layout/standalone/ErrorPopup";
+import MovieRatingPopup from "../../layout/Movies/MovieRatingPopup";
 
 function Home() {
   const { sortMovies } = useUtil();
@@ -17,6 +18,12 @@ function Home() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["NOW_PLAYING_MOVIES"],
     queryFn: getNowPlayingMovies,
+  });
+
+  // Movie Popup
+  const [moviePopup, setMoviePopup] = useState({
+    show: false,
+    movie: null,
   });
 
   // Animation - Image Carousel
@@ -55,9 +62,17 @@ function Home() {
     <div className="home-page">
       {transitions((style, i) => (
         <animated.div style={{ ...style }}>
-          <HeroContent movie={movies[i]} />
+          <HeroContent setMoviePopup={setMoviePopup} movie={movies[i]} />
         </animated.div>
       ))}
+
+      {/* Movie Rating Popup */}
+      {moviePopup.show && (
+        <MovieRatingPopup
+          movie={moviePopup.movie}
+          setMoviePopup={setMoviePopup}
+        />
+      )}
     </div>
   );
 }

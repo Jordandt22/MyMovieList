@@ -28,8 +28,21 @@ export const APIContextProvider = (props) => {
       .then((res) => cb(res, null))
       .catch((err) => cb(null, err));
 
+  // Add Movie to List
+  const addMovieToList = (authState, movie, cb) =>
+    axios
+      .post(
+        REACT_APP_API_URL + `/lists/${authState.uid}`,
+        movie,
+        config(authState.accessToken)
+      )
+      .then((res) => cb(res, null))
+      .catch((err) => cb(null, err));
+
   return (
-    <APIContext.Provider value={{ auth: { createDBUser, getDBUser } }}>
+    <APIContext.Provider
+      value={{ auth: { createDBUser, getDBUser }, movie: { addMovieToList } }}
+    >
       {props.children}
     </APIContext.Provider>
   );

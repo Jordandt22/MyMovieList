@@ -6,8 +6,8 @@ import { useAuth } from "../../../context/auth/Auth.context";
 import { useFirebase } from "../../../context/auth/Firebase.context";
 
 // Components
-import User from "../../svgs/User";
 import SearchBar from "./SearchBar";
+import Exit from "../../svgs/Exit";
 
 function Navbar() {
   const { isAuth } = useAuth().authState;
@@ -16,6 +16,10 @@ function Navbar() {
     {
       label: "Home",
       path: "/",
+    },
+    {
+      label: "Discover",
+      path: "/search",
     },
     {
       label: "Top Rated",
@@ -30,8 +34,8 @@ function Navbar() {
       path: "/upcoming",
     },
     {
-      label: "Recommendations",
-      path: "/recommendations",
+      label: "Genres",
+      path: "/genres",
     },
   ];
 
@@ -59,8 +63,7 @@ function Navbar() {
             className="navbar__profile center"
             onClick={logoutFirebaseUser}
           >
-            {/* ---- Change onClick ---- */}
-            <User />
+            <Exit />
           </button>
         ) : (
           <NavLink to="/login" className="navbar__login">

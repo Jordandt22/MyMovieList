@@ -8,7 +8,7 @@ module.exports = {
       uid,
     });
     if (accountAlreadyExists)
-      return res.status(500).json({
+      return res.status(403).json({
         user: null,
         error: { message: "This account has already been created." },
       });

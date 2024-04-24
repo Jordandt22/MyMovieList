@@ -90,3 +90,18 @@
     }
   }
 }
+
+.hero__rating {
+  color: white;
+  background: $teal;
+  border-radius: 25px;
+  font-size: $sm-fs * 1.15;
+  padding: $spacer-small * 0.5 $spacer * 1.75;
+
+  svg {
+    $s: 1rem;
+    width: $s;
+    height: $s;
+    margin-right: $spacer-small * 0.5;
+  }
+}

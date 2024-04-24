@@ -28,6 +28,89 @@ export const TMDBContextProvider = (props) => {
     );
   };
 
+  // Genres
+  const getGenres = () => [
+    {
+      id: 28,
+      name: "Action",
+    },
+    {
+      id: 12,
+      name: "Adventure",
+    },
+    {
+      id: 16,
+      name: "Animation",
+    },
+    {
+      id: 35,
+      name: "Comedy",
+    },
+    {
+      id: 80,
+      name: "Crime",
+    },
+    {
+      id: 99,
+      name: "Documentary",
+    },
+    {
+      id: 18,
+      name: "Drama",
+    },
+    {
+      id: 10751,
+      name: "Family",
+    },
+    {
+      id: 14,
+      name: "Fantasy",
+    },
+    {
+      id: 36,
+      name: "History",
+    },
+    {
+      id: 27,
+      name: "Horror",
+    },
+    {
+      id: 10402,
+      name: "Music",
+    },
+    {
+      id: 9648,
+      name: "Mystery",
+    },
+    {
+      id: 10749,
+      name: "Romance",
+    },
+    {
+      id: 878,
+      name: "Science Fiction",
+    },
+    {
+      id: 10770,
+      name: "TV Movie",
+    },
+    {
+      id: 53,
+      name: "Thriller",
+    },
+    {
+      id: 10752,
+      name: "War",
+    },
+    {
+      id: 37,
+      name: "Western",
+    },
+  ];
+
+  const getGenre = (genreID) =>
+    getGenres().filter((genre) => genre.id.toString() === genreID)[0];
+
   // GET - Trending Movies
   const getTrendingMovies = (page) =>
     axios
@@ -66,6 +149,19 @@ export const TMDBContextProvider = (props) => {
       .then((res) => res.data)
       .catch((error) => errorHandler(error));
 
+  // GET - Get Movies for a Specific Genre
+  const getMoviesByGenre = (genreID, page) =>
+    axios
+      .get(
+        getTMDBAPIURL(
+          "/discover/movie",
+          `&with_genres=${genreID}&page=${page}&sort_by=popularity.desc`
+        ),
+        config
+      )
+      .then((res) => res.data)
+      .catch((error) => errorHandler(error));
+
   // GET - Movie by ID
   const getMovieByID = (movieID) =>
     axios
@@ -83,6 +179,8 @@ export const TMDBContextProvider = (props) => {
     <TMDBContext.Provider
       value={{
         getTMDBImageURL,
+        getGenres,
+        getGenre,
         API: {
           getTrendingMovies,
           getNowPlayingMovies,
@@ -90,6 +188,7 @@ export const TMDBContextProvider = (props) => {
           getMovieByID,
           getTopRatedMovies,
           getUpcomingMovies,
+          getMoviesByGenre,
         },
       }}
     >

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -12,6 +12,7 @@ import MovieBackground from "../../layout/standalone/MovieBackground";
 import MovieDetails from "./MovieDetails";
 import MovieCast from "./MovieCast";
 import SimilarMovies from "./SimilarMovies";
+import MovieRatingPopup from "../../layout/Movies/MovieRatingPopup";
 
 function Movie() {
   const { movieID } = useParams();
@@ -20,6 +21,12 @@ function Movie() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: [`MOVIE?ID:${movieID}`, movieID],
     queryFn: ({ queryKey }) => getMovieByID(queryKey[1]),
+  });
+
+  // Movie Popup
+  const [moviePopup, setMoviePopup] = useState({
+    show: false,
+    movie: null,
   });
 
   if (isPending) {
@@ -33,9 +40,14 @@ function Movie() {
   return (
     <div className="movie-page">
       <MovieBackground url={getTMDBImageURL(data.backdrop_path)} />
-      <MovieDetails data={data} />
+      <MovieDetails data={data} setMoviePopup={setMoviePopup} />
       <MovieCast data={data} />
       <SimilarMovies data={data} />
+
+      {/* Movie Rating Popup */}
+      {moviePopup.show && (
+        <MovieRatingPopup movie={data} setMoviePopup={setMoviePopup} />
+      )}
     </div>
   );
 }

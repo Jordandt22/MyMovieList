@@ -5,7 +5,7 @@ const { authUser } = require("../../middlewares/auth.mw");
 const { Addlist, Deletelist, Editlist } = require("../../controllers/lists/lists.ct");
 
 // POST - Create User
-listRouter.post("/:uid", Addlist);
+listRouter.post("/:uid", authUser, Addlist);
 
 
 // POST - Create User
