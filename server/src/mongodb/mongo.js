@@ -13,6 +13,14 @@ connect
   });
 
 // Create a Schema
+
+const GenreSchema = new mongoose.Schema({
+  genreID: {
+    type: Number
+  }
+});
+
+
 const MovieSchema = new mongoose.Schema({
   movieID: {
     type: String
@@ -20,7 +28,11 @@ const MovieSchema = new mongoose.Schema({
   rating: {
     type: Number,
   },
+  genres:[GenreSchema]
 });
+
+
+
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -34,6 +46,8 @@ const UserSchema = new mongoose.Schema({
   },
 
   ratedMovies: [MovieSchema]
+
+  
 });
 
 // Collection part
