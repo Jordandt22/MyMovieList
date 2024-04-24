@@ -14,7 +14,7 @@ connect
 
 // Create a Schema
 const MovieSchema = new mongoose.Schema({
-  MovieID: {
+  movieID: {
     type: String
   },
   rating:{
@@ -33,7 +33,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
 
-  lists: [MovieSchema]
+  ratedMovies: [MovieSchema]
 });
 
 
