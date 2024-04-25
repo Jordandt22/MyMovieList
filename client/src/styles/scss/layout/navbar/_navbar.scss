@@ -156,3 +156,127 @@
     }
   }
 }
+
+// Profile Dropdown
+.profile-dropdown {
+  position: absolute;
+  bottom: -42.5vh;
+  right: $padding;
+  background: $light-black;
+  width: 20vw;
+  border-radius: 15px;
+  padding: $spacer-small * 1.25;
+  box-shadow: 0 0 15px 10px black;
+
+  hr {
+    border-color: rgba(white, 0.35);
+    border-width: 1.5px;
+    width: 100%;
+    margin: $spacer-small * 1.25 0;
+  }
+}
+
+.profile-dropdown__img-box {
+  margin-bottom: $spacer;
+}
+
+.profile-dropdown__img {
+  $s: 2.5rem;
+  width: $s;
+  height: $s;
+  border: none;
+  background: $teal;
+  border-radius: 50%;
+  padding: $spacer-small * 0.5;
+  margin-right: $spacer-small;
+
+  svg {
+    $s: 1.5rem;
+    width: $s;
+    height: $s;
+
+    path,
+    circle {
+      fill: white;
+      stroke: white;
+    }
+  }
+}
+
+.profile-info__username {
+  color: white;
+  margin-bottom: $spacer-small * 0.5;
+  font-size: $sm-fs * 1.15;
+}
+
+.profile-info__email {
+  color: rgba(white, 0.35);
+  font-size: $sm-fs * 0.9;
+  font-weight: 300;
+}
+
+.profile-link {
+  outline: none;
+  border: none;
+  background: transparent;
+  color: white;
+  text-decoration: none;
+  margin-bottom: $spacer-small;
+  border-radius: 25px;
+  transition: all 200ms ease-out;
+
+  &:hover {
+    cursor: pointer;
+    background: $dark-black;
+    padding: $spacer-small * 0.5;
+
+    .profile-link__right {
+      opacity: 1;
+    }
+  }
+}
+
+.profile-link__icon-box {
+  $s: 2.25rem;
+  width: $s;
+  height: $s;
+  background: rgba(#303030, 0.5);
+  border-radius: 50%;
+  padding: 0 $spacer-small * 0.35;
+  margin-right: $spacer-small * 0.75;
+  transition: all 200ms ease-out;
+
+  svg {
+    path {
+      fill: white;
+    }
+  }
+}
+
+#profile-star {
+  width: 80%;
+  height: 80%;
+}
+
+.profile-link__right {
+  opacity: 0;
+  transition: all 200ms ease-out;
+
+  path {
+    fill: white;
+  }
+}
+
+.profile-logout {
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+    background: $dark-blue;
+    padding: $spacer-small * 0.5;
+
+    .profile-link__icon-box {
+      background: $blue;
+    }
+  }
+}

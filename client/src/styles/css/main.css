@@ -495,6 +495,115 @@ html {
   fill: white;
 }
 
+.profile-dropdown {
+  position: absolute;
+  bottom: -42.5vh;
+  right: 7.5%;
+  background: #131313;
+  width: 20vw;
+  border-radius: 15px;
+  padding: 1.25rem;
+  box-shadow: 0 0 15px 10px black;
+}
+.profile-dropdown hr {
+  border-color: rgba(255, 255, 255, 0.35);
+  border-width: 1.5px;
+  width: 100%;
+  margin: 1.25rem 0;
+}
+
+.profile-dropdown__img-box {
+  margin-bottom: 1.5rem;
+}
+
+.profile-dropdown__img {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  background: #00d8b4;
+  border-radius: 50%;
+  padding: 0.5rem;
+  margin-right: 1rem;
+}
+.profile-dropdown__img svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.profile-dropdown__img svg path,
+.profile-dropdown__img svg circle {
+  fill: white;
+  stroke: white;
+}
+
+.profile-info__username {
+  color: white;
+  margin-bottom: 0.5rem;
+  font-size: 1.035rem;
+}
+
+.profile-info__email {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.81rem;
+  font-weight: 300;
+}
+
+.profile-link {
+  outline: none;
+  border: none;
+  background: transparent;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  border-radius: 25px;
+  transition: all 200ms ease-out;
+}
+.profile-link:hover {
+  cursor: pointer;
+  background: #090909;
+  padding: 0.5rem;
+}
+.profile-link:hover .profile-link__right {
+  opacity: 1;
+}
+
+.profile-link__icon-box {
+  width: 2.25rem;
+  height: 2.25rem;
+  background: rgba(48, 48, 48, 0.5);
+  border-radius: 50%;
+  padding: 0 0.35rem;
+  margin-right: 0.75rem;
+  transition: all 200ms ease-out;
+}
+.profile-link__icon-box svg path {
+  fill: white;
+}
+
+#profile-star {
+  width: 80%;
+  height: 80%;
+}
+
+.profile-link__right {
+  opacity: 0;
+  transition: all 200ms ease-out;
+}
+.profile-link__right path {
+  fill: white;
+}
+
+.profile-logout {
+  padding: 0;
+}
+.profile-logout:hover {
+  cursor: pointer;
+  background: #00909d;
+  padding: 0.5rem;
+}
+.profile-logout:hover .profile-link__icon-box {
+  background: #00c6d8;
+}
+
 .movies-page {
   margin-top: 12rem;
 }
@@ -812,7 +921,7 @@ html {
 
 .auth-container {
   width: 100vw;
-  min-height: 100vh;
+  min-height: 80vh;
   padding-top: 12rem;
 }
 

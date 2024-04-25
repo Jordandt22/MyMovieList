@@ -1,16 +1,28 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 // Contexts
 import { useAuth } from "../../../context/auth/Auth.context";
 import { useFirebase } from "../../../context/auth/Firebase.context";
+import { useUser } from "../../../context/state/User.context";
 
 // Components
 import SearchBar from "./SearchBar";
 import Exit from "../../svgs/Exit";
+import User from "../../svgs/User";
+import Setting from "../../svgs/Setting";
+import RightArrow from "../../svgs/RightArrow";
+import List from "../../svgs/List";
+import Star from "../../svgs/Star";
+import Close from "../../svgs/Close";
 
 function Navbar() {
+  const { pathname } = useLocation();
   const { isAuth } = useAuth().authState;
+  const {
+    user: { email, username },
+  } = useUser();
+  const [openDropdown, setOpenDropdown] = useState(false);
   const { logoutFirebaseUser } = useFirebase().functions;
   const links = [
     {
@@ -39,6 +51,29 @@ function Navbar() {
     },
   ];
 
+  // Profile Dropdown Links
+  const profileLinks = [
+    {
+      icon: <Setting className="profile-link__icon" />,
+      label: "Settings",
+      path: "/profile",
+    },
+    {
+      icon: <List className="profile-link__icon" />,
+      label: "Movive List",
+      path: "/list",
+    },
+    {
+      icon: <Star id="profile-star" className="profile-link__icon" />,
+      label: "Recommendations",
+      path: "/recommendations",
+    },
+  ];
+
+  useEffect(() => {
+    setOpenDropdown(false);
+  }, [pathname]);
+
   return (
     <div className="navbar between-row">
       <div className="row">
@@ -61,9 +96,9 @@ function Navbar() {
         {isAuth ? (
           <button
             className="navbar__profile center"
-            onClick={logoutFirebaseUser}
+            onClick={() => setOpenDropdown((curState) => !curState)}
           >
-            <Exit />
+            {openDropdown ? <Close /> : <User />}
           </button>
         ) : (
           <NavLink to="/login" className="navbar__login">
@@ -71,6 +106,58 @@ function Navbar() {
           </NavLink>
         )}
       </div>
+
+      {/* Profile Dropdown */}
+      {openDropdown && (
+        <div className="profile-dropdown">
+          {/* Profile Image and Info */}
+          <div className="profile-dropdown__img-box row">
+            <div className="profile-dropdown__img center">
+              <User />
+            </div>
+            <div className="profile-info">
+              <h1 className="profile-info__username">{username}</h1>
+              <p className="profile-info__email">{email}</p>
+            </div>
+          </div>
+          <hr />
+          {/* Profile Link */}
+          {profileLinks.map((link) => {
+            const { icon, label, path } = link;
+
+            return (
+              <NavLink
+                key={"profile-" + label}
+                to={path}
+                className="profile-link between-row"
+              >
+                <div className="row">
+                  <div className="profile-link__icon-box center">{icon}</div>
+                  {label}
+                </div>
+
+                <RightArrow className="profile-link__right" />
+              </NavLink>
+            );
+          })}
+
+          {/* Logout Button */}
+          <div
+            className="profile-link profile-logout between-row"
+            onClick={() => {
+              logoutFirebaseUser();
+              setOpenDropdown(false);
+            }}
+          >
+            <div className="row">
+              <div className="profile-link__icon-box center">
+                <Exit className="profile-link__icon" />
+              </div>
+              Logout
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

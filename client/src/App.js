@@ -67,12 +67,12 @@ function App() {
         <Route
           path="/login"
           exact
-          element={isAuth ? <Navigate to="/list" replace /> : <Login />}
+          element={isAuth ? <Navigate to="/Profile" replace /> : <Login />}
         />
         <Route
           path="/signup"
           exact
-          element={isAuth ? <Navigate to="/list" replace /> : <Signup />}
+          element={isAuth ? <Navigate to="/Profile" replace /> : <Signup />}
         />
 
         {/* Not Found */}

@@ -1,8 +1,7 @@
 // Log In & Sign Up Pages Styles
-
 .auth-container {
   width: 100vw;
-  min-height: 100vh;
+  min-height: 80vh;
   padding-top: $spacer-lg * 2;
 }
 
@@ -28,7 +27,6 @@
 }
 
 // Left Side
-
 .auth-form__title {
   color: white;
   font-size: $md-fs * 1.25;
