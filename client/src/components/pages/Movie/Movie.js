@@ -46,7 +46,10 @@ function Movie() {
 
       {/* Movie Rating Popup */}
       {moviePopup.show && (
-        <MovieRatingPopup movie={data} setMoviePopup={setMoviePopup} />
+        <MovieRatingPopup
+          movie={moviePopup.movie}
+          setMoviePopup={setMoviePopup}
+        />
       )}
     </div>
   );

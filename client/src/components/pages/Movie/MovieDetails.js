@@ -60,6 +60,10 @@ function MovieDetails(props) {
     },
   ];
 
+  // Formatting Genres
+  const genre_ids = [];
+  data.genres.map((genre) => genre_ids.push(genre.id));
+
   return (
     <div className="movie-details between-row">
       <main className="row">
@@ -141,7 +145,10 @@ function MovieDetails(props) {
               if (isAuth) {
                 setMoviePopup({
                   show: true,
-                  movie: data,
+                  movie: {
+                    ...data,
+                    genre_ids,
+                  },
                 });
               } else {
                 navigate("/login");

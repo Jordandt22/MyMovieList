@@ -1,105 +1,115 @@
 const UserModel = require("../../mongodb/mongo");
 
-
 module.exports = {
-  Addlist: async(req, res) => {
-   const {uid} = req.params
-       const { movieID, rating } = req.body; // Assuming the movie ID, movie name, and user ID are sent in the request body
+  addList: async (req, res) => {
+    const { uid } = req.params;
+    const { movieID, rating, genres } = req.body;4
 
+    try {
+      // Check if the user exists
+      const user = await UserModel.findOne({ uid });
 
-       try {
-           // Check if the user exists
-           const user = await UserModel.findOne({uid});
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
 
+      // Formatting the Genres
+      const formattedGenres = [];
+      genres.map((genreID) => formattedGenres.push({ genreID }));
 
-           if (!user) {
-               return res.status(404).json({ error: "User not found" });
-           }
+      // Add the movie ID, rating, and genre IDs to the user's list
+      const updatedUser = await UserModel.findOneAndUpdate(
+        { uid },
+        {
+          ratedMovies: [
+            ...user.ratedMovies,
+            { movieID, rating, genres: formattedGenres },
+          ],
+        },
+        { returnDocument: "after" }
+      );
 
-
-           // Add the movie ID and movie name to the user's list
-           const updatedUser = await UserModel.findOneAndUpdate({uid}, {ratedMovies:[...user.ratedMovies, {movieID, rating}]},
-               {returnDocument: "after"}
-               );
-
-
-           return res.status(200).json({ user: updatedUser, error: null });
-       } catch (error) {
-           console.error("Error adding movie to list:", error);
-           return res.status(500).json({ user: null, error: "Internal server error" });
-       }
+      return res.status(200).json({ user: updatedUser, error: null });
+    } catch (error) {
+      console.error("Error adding movie to list:", error);
+      return res
+        .status(500)
+        .json({ user: null, error: "Internal server error" });
+    }
   },
+  editList: async (req, res) => {
+    const { uid } = req.params;
+    const { movieID, rating } = req.body; // movie ID and new rating are sent in the request body
 
+    try {
+      // Check if the user exists
+      const user = await UserModel.findOne({ uid });
 
-  Editlist: async (req, res) => {
-   const { uid } = req.params;
-   const { movieID, rating } = req.body; // movie ID and new rating are sent in the request body
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
 
+      // Find the index of the movie in the user's list
+      const movieIndex = user.ratedMovies.findIndex(
+        (item) => item.movieID === movieID
+      );
 
-   try {
-       // Check if the user exists
-       const user = await UserModel.findOne({ uid });
+      if (movieIndex === -1) {
+        return res
+          .status(404)
+          .json({ error: "Movie not found in user's list" });
+      }
 
+      // Update the rating of the movie in the user's list
+      user.ratedMovies[movieIndex].rating = rating;
 
-       if (!user) {
-           return res.status(404).json({ error: "User not found" });
-       }
+      // Update the user's document in the database
+      const updatedUser = await UserModel.findOneAndUpdate(
+        { uid },
+        { ratedMovies: user.ratedMovies },
+        { new: true },
+        { returnDocument: "after" }
+      );
 
+      return res.status(200).json({ user: updatedUser, error: null });
+    } catch (error) {
+      console.error("Error editing movie in list:", error);
+      return res
+        .status(500)
+        .json({ user: null, error: "Internal server error" });
+    }
+  },
+  deleteList: async (req, res) => {
+    const { uid } = req.params;
+    const { movieID } = req.body; //Recieve MovieID
 
-       // Find the index of the movie in the user's list
-       const movieIndex = user.ratedMovies.findIndex(item => item.movieID === movieID);
+    try {
+      // Check if the user exists
+      const user = await UserModel.findOne({ uid });
 
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
 
-       if (movieIndex === -1) {
-           return res.status(404).json({ error: "Movie not found in user's list" });
-       }
+      // Find the index of the movie in the user's list
+      const updatedlist = user.ratedMovies.filter(
+        (item) => item.movieID !== movieID
+      );
 
+      // Update the user's document in the database
+      const updatedUser = await UserModel.findOneAndUpdate(
+        { uid },
+        { ratedMovies: updatedlist },
+        { new: true },
+        { returnDocument: "after" }
+      );
 
-       // Update the rating of the movie in the user's list
-       user.ratedMovies[movieIndex].rating = rating;
-
-
-       // Update the user's document in the database
-       const updatedUser = await UserModel.findOneAndUpdate({ uid }, { ratedMovies: user.ratedMovies }, { new: true },
-           {returnDocument: "after"});
-
-
-       return res.status(200).json({ user: updatedUser, error: null });
-   } catch (error) {
-       console.error("Error editing movie in list:", error);
-       return res.status(500).json({ user: null, error: "Internal server error" });
-   }
-},
-
-
-Deletelist: async (req, res) => {
-   const { uid } = req.params;
-   const { movieID } = req.body; //Recieve MovieID
-
-
-   try {
-       // Check if the user exists
-       const user = await UserModel.findOne({ uid });
-
-
-       if (!user) {
-           return res.status(404).json({ error: "User not found" });
-       }
-
-
-       // Find the index of the movie in the user's list
-       const updatedlist = user.ratedMovies.filter(item => item.movieID !== movieID);
-
-
-       // Update the user's document in the database
-       const updatedUser = await UserModel.findOneAndUpdate({ uid }, { ratedMovies: updatedlist }, { new: true },
-           {returnDocument: "after"});
-
-
-       return res.status(200).json({ user: updatedUser, error: null });
-   } catch (error) {
-       console.error("Error deleting movie from list:", error);
-       return res.status(500).json({ user: null, error: "Internal server error" });
-   }
-}
-}
+      return res.status(200).json({ user: updatedUser, error: null });
+    } catch (error) {
+      console.error("Error deleting movie from list:", error);
+      return res
+        .status(500)
+        .json({ user: null, error: "Internal server error" });
+    }
+  },
+};

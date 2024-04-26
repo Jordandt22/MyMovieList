@@ -232,6 +232,10 @@ html {
   z-index: 20000;
 }
 
+.loading {
+  position: fixed;
+}
+
 .loader {
   width: 48px;
   height: 48px;

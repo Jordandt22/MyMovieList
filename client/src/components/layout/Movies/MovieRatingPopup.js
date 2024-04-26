@@ -13,7 +13,7 @@ import { useUser } from "../../../context/state/User.context";
 
 function MovieRatingPopup(props) {
   const {
-    movie: { id, title, poster_path },
+    movie: { id, title, poster_path, genre_ids },
     setMoviePopup,
   } = props;
   const { authState } = useAuth();
@@ -40,7 +40,7 @@ function MovieRatingPopup(props) {
 
             addMovieToList(
               authState,
-              { movieID: id, rating: values.rating },
+              { movieID: id, rating: values.rating, genres: genre_ids },
               (res, APIError) => {
                 if (APIError) return console.log(APIError);
 
