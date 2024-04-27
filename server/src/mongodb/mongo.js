@@ -45,8 +45,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
 
-  ratedMovies: [MovieSchema]
+  ratedMovies: [MovieSchema],
 
+  profilePicture:{
+    type:String,
+
+  }
   
 });
 
