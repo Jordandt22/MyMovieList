@@ -7,21 +7,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const rateLimiter = require("express-rate-limit");
 const slowDown = require("express-slow-down");
-
-//Profile picture Van April 26
-const multer = require('multer');
-// Multer to handle file uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    // Specify the directory where uploaded files will be stored
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    // Generate a unique filename for the uploaded file
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-const upload = multer({ storage: storage });
+const upload = require("./middlewares/upload");
+const UserModel = require("./mongodb/mongo");
 
 // App Initialization
 const app = express();
@@ -55,6 +42,8 @@ const speedLimiter = slowDown({
 
 app.use(speedLimiter);
 app.use(limiter);
+
+app.use(upload.single('file'));
 
 // Landing Page Route
 app.get("/", (req, res) => {
@@ -109,6 +98,7 @@ router.post('/recommendations', (req, res) => {
 module.exports = router;
 */
 
+
 // Running the Server
 const port = 3001;
 app.listen(port, () => {
@@ -116,35 +106,3 @@ app.listen(port, () => {
 });
 
 module.exports = app;
-
-// Post for uploading a picture (profile)  Van APril 26
-app.post('/upload/:uid', upload.single('file'), async (req, res) => {
-  try {
-    const { uid } = req.params; 
-    const uploadedFile = req.file;
-
-    // Check if file was uploaded
-    if (!uploadedFile) {
-      return res.status(400).json({ error: 'No file uploaded' });
-    }
-
-    // Find the user by uid
-    const user = await UserModel.findById(uid);
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    // Update the profilePicture field with the file path or URL
-    user.profilePicture = uploadedFile.path; // Assuming multer saves the file locally
-
-    // Save the updated user object to the database
-    await user.save();
-
-    // Send a response indicating successful upload
-    res.json({ message: 'Profile picture uploaded successfully', user });
-  } catch (error) {
-    console.error('Error uploading profile picture:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
