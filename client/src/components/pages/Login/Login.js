@@ -12,7 +12,7 @@ import AuthForm from "../../layout/Auth/AuthForm";
 
 function Login() {
   const { signInEmailUser } = useFirebase().functions;
-  const { getDBUser } = useAPI().auth;
+  const { getDBUser } = useAPI().user;
   const { updateUser } = useUser();
   const { authenticateUser } = useAuth();
 

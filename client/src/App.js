@@ -20,6 +20,7 @@ import Recommendations from "./components/pages/Recommendations/Recommendations"
 import MovieList from "./components/pages/MovieList/MovieList";
 import MoviesByGenre from "./components/pages/MoviesByGenre/MoviesByGenre";
 import Genres from "./components/pages/Genres/Genres";
+import Settings from "./components/pages/Settings/Settings";
 
 function App() {
   const { pathname } = useLocation();
@@ -63,16 +64,21 @@ function App() {
           element={isAuth ? <MovieList /> : <Login />}
         />
 
-        {/* Auth */}
+        {/* User & Auth */}
         <Route
           path="/login"
           exact
-          element={isAuth ? <Navigate to="/Profile" replace /> : <Login />}
+          element={isAuth ? <Navigate to="/settings" replace /> : <Login />}
         />
         <Route
           path="/signup"
           exact
-          element={isAuth ? <Navigate to="/Profile" replace /> : <Signup />}
+          element={isAuth ? <Navigate to="/settings" replace /> : <Signup />}
+        />
+        <Route
+          path="/settings"
+          exact
+          element={isAuth ? <Settings /> : <Navigate to="/login" replace />}
         />
 
         {/* Not Found */}

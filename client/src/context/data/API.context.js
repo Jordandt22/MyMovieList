@@ -14,6 +14,8 @@ export const APIContextProvider = (props) => {
     },
   });
 
+  // ---- User ----
+
   // Create DB User
   const createDBUser = (uid, data, accessToken, cb) =>
     axios
@@ -28,6 +30,15 @@ export const APIContextProvider = (props) => {
       .then((res) => cb(res, null))
       .catch((err) => cb(null, err));
 
+  // Delete User
+  const deleteDBUser = (uid, accessToken, cb) =>
+    axios
+      .delete(REACT_APP_API_URL + `/user/${uid}`, config(accessToken))
+      .then((res) => cb(res, null))
+      .catch((err) => cb(null, err));
+
+  // ---- Movie Lists ----
+
   // Add Movie to List
   const addMovieToList = (authState, movie, cb) =>
     axios
@@ -41,7 +52,10 @@ export const APIContextProvider = (props) => {
 
   return (
     <APIContext.Provider
-      value={{ auth: { createDBUser, getDBUser }, movie: { addMovieToList } }}
+      value={{
+        user: { createDBUser, getDBUser, deleteDBUser },
+        movie: { addMovieToList },
+      }}
     >
       {props.children}
     </APIContext.Provider>

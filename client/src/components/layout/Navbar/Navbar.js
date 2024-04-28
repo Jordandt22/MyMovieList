@@ -56,7 +56,7 @@ function Navbar() {
     {
       icon: <Setting className="profile-link__icon" />,
       label: "Settings",
-      path: "/profile",
+      path: "/settings",
     },
     {
       icon: <List className="profile-link__icon" />,

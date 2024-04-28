@@ -15,7 +15,7 @@ import { useUser } from "../../../context/state/User.context";
 function AuthContainer(props) {
   const { isLogin } = props;
   const { signInWithGoogle } = useFirebase().functions;
-  const { createDBUser, getDBUser } = useAPI().auth;
+  const { createDBUser, getDBUser } = useAPI().user;
   const { authenticateUser } = useAuth();
   const { updateUser } = useUser();
 

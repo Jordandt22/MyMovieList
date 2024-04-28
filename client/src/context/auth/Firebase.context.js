@@ -58,7 +58,7 @@ export const FirebaseContextProvider = (props) => {
   const firebaseApp = initializeApp(firebaseConfig);
   const Auth = getAuth();
   const { setLoading } = useGlobal().state;
-  const { getDBUser } = useAPI().auth;
+  const { getDBUser } = useAPI().user;
   const { updateUser } = useUser();
   const { authenticateUser, logoutUser } = useAuth();
 
