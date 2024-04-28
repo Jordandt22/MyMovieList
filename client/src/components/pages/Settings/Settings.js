@@ -2,40 +2,23 @@ import React, { useState } from "react";
 
 // Contexts
 import { useUser } from "../../../context/state/User.context";
-import { useAPI } from "../../../context/data/API.context";
-import { useFirebase } from "../../../context/auth/Firebase.context";
-import { useAuth } from "../../../context/auth/Auth.context";
-import { useGlobal } from "../../../context/state/Global.context";
 
 // Components
 import Email from "../../svgs/Email";
 import User from "../../svgs/User";
+import WarningPopup from "./WarningPopup";
+import ImageFileInputPopup from "./ImageFileInputPopup";
 
 function Settings() {
   const {
     user: { email, username, profilePicture },
   } = useUser();
-  const { setLoading } = useGlobal().state;
-  const { uid, accessToken } = useAuth().authState;
-  const { deleteDBUser } = useAPI().user;
-  const { deleteFirebaseUser } = useFirebase().functions;
 
   // Warning Popup
   const [showWarning, setShowWarning] = useState(false);
 
-  // Delete User from Firebase and Database
-  const deleteUserHandler = async () => {
-    setLoading(true);
-    await deleteDBUser(uid, accessToken, async (res, APIError) => {
-      if (APIError) return console.log(APIError);
-
-      await deleteFirebaseUser();
-
-      // Reset
-      setShowWarning(false);
-      setLoading(false);
-    });
-  };
+  // Image File Input Popup
+  const [showImageFileInput, setShowImageFileInput] = useState(false);
 
   return (
     <div className="settings-page">
@@ -54,8 +37,12 @@ function Settings() {
             <div className="user-info__profilePic center">
               {!profilePicture ? "None" : "IMAGE HERE"}
             </div>
-            <button type="button" className="user-info__edit">
-              Edit Photo
+            <button
+              type="button"
+              className="user-info__edit"
+              onClick={() => setShowImageFileInput(true)}
+            >
+              {profilePicture ? "Edit" : "Add"} Photo
             </button>
           </div>
         </div>
@@ -90,32 +77,11 @@ function Settings() {
       </main>
 
       {/* Warning Popup */}
-      {showWarning && (
-        <div className="warning-popup center">
-          <div className="warning-popup__box center-vertical">
-            <h1 className="warning-popup__title">Are you sure?</h1>
-            <p className="warning-popup__desc">
-              By clicking the "Delete" button, all the data connected to your
-              account will be deleted and lost forever.
-            </p>
-            <div className="between-row">
-              <button
-                type="button"
-                className="warning-popup__delete"
-                onClick={async () => await deleteUserHandler()}
-              >
-                Delete
-              </button>
-              <button
-                type="button"
-                className="warning-popup__cancel"
-                onClick={() => setShowWarning(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+      {showWarning && <WarningPopup setShowWarning={setShowWarning} />}
+
+      {/* Image File Input Popup */}
+      {showImageFileInput && (
+        <ImageFileInputPopup setShowImageFileInput={setShowImageFileInput} />
       )}
     </div>
   );

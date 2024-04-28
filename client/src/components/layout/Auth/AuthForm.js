@@ -6,7 +6,7 @@ import { Formik } from "formik";
 import { useGlobal } from "../../../context/state/Global.context";
 
 // Schemas
-import { LoginSchema, SignupSchema } from "../../../schemas/Auth.schemas";
+import { LoginSchema, SignupSchema } from "../../../schemas/User.schemas";
 
 // Components
 import Error from "../../svgs/Error";

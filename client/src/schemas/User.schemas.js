@@ -43,3 +43,27 @@ export const SignupSchema = Yup.object().shape({
     )
     .required("You must confirm your password."),
 });
+
+// Image Requirements
+const MAX_FILE_SIZE = 102400 * 10; // 1000kb = 1mb
+
+const validFileExtensions = {
+  image: ["jpg", "png", "jpeg"],
+};
+
+const isValidFileType = (fileName, fileType) =>
+  fileName &&
+  validFileExtensions[fileType].indexOf(fileName.split(".").pop()) > -1;
+
+export const ProfilePictureSchema = Yup.object().shape({
+  profilePicture: Yup.mixed()
+    .required("Required")
+    .test("is-valid-type", "Not a valid image type", (value) =>
+      isValidFileType(value && value.name.toLowerCase(), "image")
+    )
+    .test(
+      "is-valid-size",
+      "Max allowed size is 100KB",
+      (value) => value && value.size <= MAX_FILE_SIZE
+    ),
+});

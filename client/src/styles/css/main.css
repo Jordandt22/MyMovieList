@@ -1653,7 +1653,8 @@ html {
   transform: scale(0.95);
 }
 
-.warning-popup {
+.warning-popup,
+.imgFileInput-popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -1663,14 +1664,16 @@ html {
   z-index: 15000;
 }
 
-.warning-popup__box {
+.warning-popup__box,
+.imgFileInput-popup__box {
   width: 30vw;
   background: #343d45;
   border-radius: 5px;
   padding: 2.25rem;
 }
 
-.warning-popup__title {
+.warning-popup__title,
+.imgFileInput-popup__title {
   color: white;
   font-size: 1.5rem;
   text-align: center;
@@ -1715,6 +1718,83 @@ html {
   cursor: pointer;
   background: #00909d;
   border-color: #00909d;
+}
+
+.imgFileInput-popup__input-box {
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.imgFileInput-popup__empty {
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 5px;
+  background: lightgrey;
+  color: grey;
+  margin-bottom: 1.5rem;
+}
+
+.imgFileInput-popup__preview {
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 5px;
+  background: lightgrey;
+  margin-bottom: 0.5rem;
+}
+
+.imgFileInput-popup__preview-name {
+  color: lightgrey;
+  font-weight: 400;
+  margin-bottom: 1.25rem;
+}
+
+.imgFileInput-popup__input {
+  display: inline-block;
+  border: 2px solid #00d8b4;
+  padding: 0.5rem 3rem;
+  border-radius: 25px;
+  color: #00d8b4;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 200ms ease-out;
+}
+.imgFileInput-popup__input input[type=file] {
+  display: none;
+}
+.imgFileInput-popup__input:hover {
+  cursor: pointer;
+  background: #00d8b4;
+  color: white;
+}
+
+.imgFileInput-popup__save,
+.imgFileInput-popup__cancel {
+  outline: none;
+  border: 2px solid #00c6d8;
+  background: transparent;
+  color: #00c6d8;
+  border-radius: 25px;
+  font-weight: 600;
+  padding: 0.5rem 3rem;
+  margin-right: 1rem;
+  transition: all 200ms ease-out;
+}
+.imgFileInput-popup__save:hover,
+.imgFileInput-popup__cancel:hover {
+  cursor: pointer;
+  background: #00c6d8;
+  color: white;
+}
+
+.imgFileInput-popup__cancel {
+  border-color: #ff2b2b;
+  color: #ff2b2b;
+  margin-right: 0;
+}
+.imgFileInput-popup__cancel:hover {
+  cursor: pointer;
+  background: #ff2b2b;
+  color: white;
 }
 
 body {

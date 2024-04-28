@@ -8,9 +8,10 @@ export const APIContextProvider = (props) => {
   const { REACT_APP_API_URL } = process.env;
 
   // Setting Access Token
-  const config = (accessToken) => ({
+  const config = (accessToken, headerOptions) => ({
     headers: {
       Authorization: `Bearer ${accessToken}`,
+      ...headerOptions,
     },
   });
 
@@ -29,6 +30,19 @@ export const APIContextProvider = (props) => {
       .get(REACT_APP_API_URL + `/user/${uid}`, config(accessToken))
       .then((res) => cb(res, null))
       .catch((err) => cb(null, err));
+
+  const updateProfilePicture = (uid, accessToken, file, cb) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    return axios
+      .post(
+        REACT_APP_API_URL + `/user/upload/${uid}`,
+        formData,
+        config(accessToken, { "Content-Type": "multipart/form-data" })
+      )
+      .then((res) => cb(res, null))
+      .catch((err) => cb(null, err));
+  };
 
   // Delete User
   const deleteDBUser = (uid, accessToken, cb) =>
@@ -53,7 +67,7 @@ export const APIContextProvider = (props) => {
   return (
     <APIContext.Provider
       value={{
-        user: { createDBUser, getDBUser, deleteDBUser },
+        user: { createDBUser, getDBUser, updateProfilePicture, deleteDBUser },
         movie: { addMovieToList },
       }}
     >

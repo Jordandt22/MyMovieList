@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Contexts
 import { useGlobal } from "../state/Global.context";
@@ -61,6 +62,7 @@ export const FirebaseContextProvider = (props) => {
   const { getDBUser } = useAPI().user;
   const { updateUser } = useUser();
   const { authenticateUser, logoutUser } = useAuth();
+  const navigate = useNavigate();
 
   // Google Auth
   const googleProvider = new GoogleAuthProvider();
@@ -95,6 +97,10 @@ export const FirebaseContextProvider = (props) => {
 
           // Finish Auth Process
           authenticateUser(accessToken, uid);
+
+          // Go to the previous page the user was on
+          const lastStoredPage = localStorage.getItem("lastStoredPage");
+          if (lastStoredPage) navigate(lastStoredPage);
         });
       }
     });
