@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
 // Contexts
@@ -10,7 +10,7 @@ import ErrorPopup from "../../layout/standalone/ErrorPopup";
 import RatedMovieCard from "./RatedMovieCard";
 
 function MovieCardQuery(props) {
-  const { movieID, rating } = props;
+  const { movieID, rating, setMoviePopup } = props;
   const { getMovieByID } = useTMDB().API;
   const { isPending, isError, data, error } = useQuery({
     queryKey: [`MOVIE?ID:${movieID}`, movieID],
@@ -25,7 +25,13 @@ function MovieCardQuery(props) {
     return <ErrorPopup message={error.message} />;
   }
 
-  return <RatedMovieCard movie={data} rating={rating} />;
+  return (
+    <RatedMovieCard
+      movie={data}
+      rating={rating}
+      setMoviePopup={setMoviePopup}
+    />
+  );
 }
 
 export default MovieCardQuery;

@@ -13,7 +13,7 @@ import { useUser } from "../../../context/state/User.context";
 import Star from "../../svgs/Star";
 
 function RatedMovieCard(props) {
-  const { movie, rating } = props;
+  const { movie, rating, setMoviePopup } = props;
   const { id, poster_path, title, release_date } = movie;
   const { getTMDBImageURL } = useTMDB();
   const { parseDate } = useUtil();
@@ -53,7 +53,16 @@ function RatedMovieCard(props) {
         <div className="movie-card__info center">
           <h2 className="movie-card__title">{title}</h2>
           <p className="movie-card__date">{parseDate(release_date)}</p>
-          <button type="button" className="movie-card__edit">
+          <button
+            type="button"
+            className="movie-card__edit"
+            onClick={() =>
+              setMoviePopup({
+                show: true,
+                movie: { ...movie, rating },
+              })
+            }
+          >
             Edit
           </button>
           <button

@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Contexts
 import { useUser } from "../../../context/state/User.context";
 
 // Components
 import MovieCardQuery from "./MovieCardQuery";
+import MovieRatingPopup from "../../layout/Movies/MovieRatingPopup";
 
 function MovieList() {
   const {
     user: { username, ratedMovies },
   } = useUser();
   const sortedRatedMovies = ratedMovies.sort((a, b) => b.rating - a.rating);
+
+  // Movie Popup
+  const [moviePopup, setMoviePopup] = useState({
+    show: false,
+    movie: null,
+  });
 
   return (
     <div className="list-page">
@@ -23,10 +30,24 @@ function MovieList() {
           const { movieID, rating } = movie;
 
           return (
-            <MovieCardQuery key={movieID} movieID={movieID} rating={rating} />
+            <MovieCardQuery
+              key={movieID}
+              movieID={movieID}
+              rating={rating}
+              setMoviePopup={setMoviePopup}
+            />
           );
         })}
       </div>
+
+      {/* Movie Rating Popup */}
+      {moviePopup.show && (
+        <MovieRatingPopup
+          movie={moviePopup.movie}
+          setMoviePopup={setMoviePopup}
+          isEditPopup={true}
+        />
+      )}
     </div>
   );
 }
