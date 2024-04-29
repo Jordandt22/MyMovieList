@@ -31,6 +31,11 @@ const MovieSchema = new mongoose.Schema({
   genres:[GenreSchema]
 });
 
+const bookmark = new mongoose.Schema({
+  movieID: {
+    type: String
+  },
+});
 
 
 
@@ -45,6 +50,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   ratedMovies: [MovieSchema],
+
+  bookmarked: [bookmark],
+
   profilePicture:{
     type:String,
   }
