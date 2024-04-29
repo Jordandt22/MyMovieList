@@ -4,7 +4,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 // Contexts
 import { useTMDB } from "../../../context/data/Tmdb.context";
 import { useUtil } from "../../../context/state/Util.context";
-import { useUser } from "../../../context/state/User.context";
 import { useAuth } from "../../../context/auth/Auth.context";
 
 // Components

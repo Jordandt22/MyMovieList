@@ -22,7 +22,7 @@ module.exports = {
         }
       });
 
-      // Get top 3 most frequent genres
+      // Get top 5 most frequent genres
       const topGenres = Object.keys(genreCounts)
         .sort((a, b) => genreCounts[b] - genreCounts[a])
         .slice(0, 5);

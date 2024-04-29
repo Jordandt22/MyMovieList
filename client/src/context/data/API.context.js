@@ -85,11 +85,26 @@ export const APIContextProvider = (props) => {
       .then((res) => cb(res, null))
       .catch((err) => cb(null, err));
 
+  // Get Movie Recommendations
+  const getRecommendations = (authState, cb) =>
+    axios
+      .get(
+        REACT_APP_API_URL + `/lists/recommendations/${authState.uid}`,
+        config(authState.accessToken)
+      )
+      .then((res) => cb(res, null))
+      .catch((err) => cb(null, err));
+
   return (
     <APIContext.Provider
       value={{
         user: { createDBUser, getDBUser, updateProfilePicture, deleteDBUser },
-        movie: { addMovieToList, editMovieInList, deleteMovieFromList },
+        movie: {
+          addMovieToList,
+          editMovieInList,
+          deleteMovieFromList,
+          getRecommendations,
+        },
       }}
     >
       {props.children}

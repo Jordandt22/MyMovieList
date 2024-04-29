@@ -1800,6 +1800,9 @@ html {
 .list-page {
   padding: 10.5rem 7.5%;
 }
+.list-page main {
+  align-items: flex-start;
+}
 
 .list-page__title {
   color: white;
@@ -1811,7 +1814,7 @@ html {
 }
 
 .movies-container {
-  width: 100%;
+  width: 70%;
   display: flex;
   flex-wrap: wrap;
   gap: 3rem 1.875rem;
@@ -1857,6 +1860,60 @@ html {
 .movie-card__delete:hover {
   cursor: pointer;
   background: #ff2b2b;
+  color: white;
+}
+
+.list-info {
+  width: 30%;
+  background: #343d45;
+  border-radius: 5px;
+  padding: 1.5rem;
+}
+
+.list-info__title {
+  color: white;
+  font-size: 1.125rem;
+  margin-bottom: 1.25rem;
+}
+
+.list-info__genres {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.list-info__genre {
+  width: fit-content;
+  color: lightgrey;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  transition: all 200ms ease-out;
+}
+.list-info__genre:hover {
+  cursor: pointer;
+  background: #00d8b4;
+  border-radius: 25px;
+  padding: 0.5rem 1.5rem;
+  color: white;
+}
+
+.list-info__rec {
+  display: block;
+  width: fit-content;
+  outline: none;
+  border: 2px solid #00d8b4;
+  background: transparent;
+  color: #00d8b4;
+  padding: 0.5rem 1.5rem;
+  border-radius: 25px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+  transition: all 200ms ease-out;
+  text-decoration: none;
+}
+.list-info__rec:hover {
+  cursor: pointer;
+  background: #00d8b4;
   color: white;
 }
 

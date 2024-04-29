@@ -1,6 +1,10 @@
 // Movies List Page Styles
 .list-page {
   padding: $spacer-lg * 1.75 $padding;
+
+  main {
+    align-items: flex-start;
+  }
 }
 
 .list-page__title {
@@ -14,7 +18,7 @@
 }
 
 .movies-container {
-  width: 100%;
+  width: 70%;
   display: flex;
   flex-wrap: wrap;
   gap: $spacer-md $spacer * 1.25;
@@ -67,6 +71,63 @@
   &:hover {
     cursor: pointer;
     background: $red;
+    color: white;
+  }
+}
+
+// Movie List Info
+.list-info {
+  width: 30%;
+  background: $blue-gray;
+  border-radius: 5px;
+  padding: $spacer;
+}
+
+.list-info__title {
+  color: white;
+  font-size: $sm-fs * 1.25;
+  margin-bottom: $spacer-small * 1.25;
+}
+
+.list-info__genres {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $spacer-small;
+}
+
+.list-info__genre {
+  width: fit-content;
+  color: lightgrey;
+  margin-bottom: $spacer-small;
+  text-decoration: none;
+  transition: all 200ms ease-out;
+
+  &:hover {
+    cursor: pointer;
+    background: $teal;
+    border-radius: 25px;
+    padding: $spacer-small * 0.5 $spacer;
+    color: white;
+  }
+}
+
+.list-info__rec {
+  display: block;
+  width: fit-content;
+  outline: none;
+  border: 2px solid $teal;
+  background: transparent;
+  color: $teal;
+  padding: $spacer-small * 0.5 $spacer;
+  border-radius: 25px;
+  margin: 0 auto;
+  font-size: $sm-fs;
+  transition: all 200ms ease-out;
+  text-decoration: none;
+
+  &:hover {
+    cursor: pointer;
+    background: $teal;
     color: white;
   }
 }
