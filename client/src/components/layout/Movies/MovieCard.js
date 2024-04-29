@@ -13,7 +13,7 @@ import Star from "../../svgs/Star";
 
 function MovieCard(props) {
   const { movie, setMoviePopup } = props;
-  const { id, backdrop_path, title, release_date } = movie;
+  const { id, poster_path, title, release_date } = movie;
   const navigate = useNavigate();
   const { parseDate } = useUtil();
   const { isAuth } = useAuth().authState;
@@ -25,7 +25,7 @@ function MovieCard(props) {
     <div className="movie-card center-vertical">
       <div className="movie-card__info-box">
         <object
-          data={getTMDBImageURL(backdrop_path)}
+          data={getTMDBImageURL(poster_path)}
           className="movie-card__img"
           type="image/jpg"
         >

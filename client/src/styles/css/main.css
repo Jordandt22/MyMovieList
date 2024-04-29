@@ -1797,6 +1797,69 @@ html {
   color: white;
 }
 
+.list-page {
+  padding: 10.5rem 7.5%;
+}
+
+.list-page__title {
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+.list-page__title span {
+  color: #00c6d8;
+}
+
+.movies-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem 1.875rem;
+}
+.movies-container .movie-card__date {
+  margin-bottom: 1.5rem;
+}
+.movies-container .movie-card__rating {
+  margin-top: 0.75rem;
+  background: transparent;
+  border: 2px solid #00d8b4;
+  color: #00d8b4;
+  transition: all 200ms ease-out;
+}
+.movies-container .movie-card:hover .movie-card__rating {
+  background: #00d8b4;
+  color: white;
+}
+
+.movie-card__edit,
+.movie-card__delete {
+  outline: none;
+  border: 2px solid #00d8b4;
+  background: transparent;
+  color: #00d8b4;
+  border-radius: 25px;
+  font-weight: 600;
+  padding: 0.25rem 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 200ms ease-out;
+}
+.movie-card__edit:hover,
+.movie-card__delete:hover {
+  cursor: pointer;
+  background: #00d8b4;
+  color: white;
+}
+
+.movie-card__delete {
+  border-color: #ff2b2b;
+  color: #ff2b2b;
+}
+.movie-card__delete:hover {
+  cursor: pointer;
+  background: #ff2b2b;
+  color: white;
+}
+
 body {
   overflow-x: hidden;
   font-family: "Oswald", sans-serif;

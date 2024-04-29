@@ -44,7 +44,6 @@ const UserSchema = new mongoose.Schema({
   uid: {
     type: String,
   },
-
   ratedMovies: [MovieSchema],
   profilePicture:{
     type:String,

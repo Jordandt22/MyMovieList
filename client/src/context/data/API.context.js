@@ -64,11 +64,32 @@ export const APIContextProvider = (props) => {
       .then((res) => cb(res, null))
       .catch((err) => cb(null, err));
 
+  // Edit Movie in List
+  const editMovieInList = (authState, movie, cb) =>
+    axios
+      .patch(
+        REACT_APP_API_URL + `/lists/rated/${authState.uid}/${movie.movieID}`,
+        { rating: movie.rating },
+        config(authState.accessToken)
+      )
+      .then((res) => cb(res, null))
+      .catch((err) => cb(null, err));
+
+  // Delete Movie From List
+  const deleteMovieFromList = (authState, movieID, cb) =>
+    axios
+      .delete(
+        REACT_APP_API_URL + `/lists/rated/${authState.uid}/${movieID}`,
+        config(authState.accessToken)
+      )
+      .then((res) => cb(res, null))
+      .catch((err) => cb(null, err));
+
   return (
     <APIContext.Provider
       value={{
         user: { createDBUser, getDBUser, updateProfilePicture, deleteDBUser },
-        movie: { addMovieToList },
+        movie: { addMovieToList, editMovieInList, deleteMovieFromList },
       }}
     >
       {props.children}

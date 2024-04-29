@@ -3,7 +3,8 @@ const UserModel = require("../../mongodb/mongo");
 module.exports = {
   addList: async (req, res) => {
     const { uid } = req.params;
-    const { movieID, rating, genres } = req.body;4
+    const { movieID, rating, genres } = req.body;
+    4;
 
     try {
       // Check if the user exists
@@ -38,8 +39,8 @@ module.exports = {
     }
   },
   editList: async (req, res) => {
-    const { uid } = req.params;
-    const { movieID, rating } = req.body; // movie ID and new rating are sent in the request body
+    const { uid, movieID } = req.params;
+    const { rating } = req.body; // new rating are sent in the request body
 
     try {
       // Check if the user exists
@@ -80,8 +81,7 @@ module.exports = {
     }
   },
   deleteList: async (req, res) => {
-    const { uid } = req.params;
-    const { movieID } = req.body; //Recieve MovieID
+    const { uid, movieID } = req.params;
 
     try {
       // Check if the user exists
