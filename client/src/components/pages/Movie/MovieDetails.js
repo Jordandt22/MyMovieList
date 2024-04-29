@@ -15,12 +15,10 @@ import Globle from "../../svgs/Globle";
 import FilmCamera from "../../svgs/FilmCamera";
 
 function MovieDetails(props) {
-  const { data, setMoviePopup } = props;
+  const { data, setMoviePopup, alreadyRated, userMovieData } = props;
   const { isAuth } = useAuth().authState;
   const { getTMDBImageURL } = useTMDB();
   const { parseDate } = useUtil();
-  const { checkRatedMovies } = useUser();
-  const { alreadyRated, movie: userMovieData } = checkRatedMovies(data.id);
   const navigate = useNavigate();
 
   // Movie Duration & Currency Formatting
@@ -133,7 +131,24 @@ function MovieDetails(props) {
               <Star />
               {userMovieData.rating}/10
             </p>
-            <button type="button" className="movie-stats__edit">
+            <button
+              type="button"
+              className="movie-stats__edit"
+              onClick={() => {
+                if (isAuth) {
+                  setMoviePopup({
+                    show: true,
+                    movie: {
+                      ...data,
+                      genre_ids,
+                      rating: userMovieData.rating,
+                    },
+                  });
+                } else {
+                  navigate("/login");
+                }
+              }}
+            >
               Edit Rating
             </button>
           </div>

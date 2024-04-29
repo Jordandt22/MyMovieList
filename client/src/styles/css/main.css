@@ -229,7 +229,7 @@ html {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.75);
-  z-index: 20000;
+  z-index: 25000;
 }
 
 .loading {

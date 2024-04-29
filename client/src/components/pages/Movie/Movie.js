@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 // Contexts
 import { useTMDB } from "../../../context/data/Tmdb.context";
+import { useUser } from "../../../context/state/User.context";
 
 // Components
 import Loading from "../../layout/standalone/Loading";
@@ -18,6 +19,8 @@ function Movie() {
   const { movieID } = useParams();
   const { getTMDBImageURL } = useTMDB();
   const { getMovieByID } = useTMDB().API;
+  const { checkRatedMovies } = useUser();
+  const { alreadyRated, movie: userMovieData } = checkRatedMovies(movieID);
   const { isPending, isError, data, error } = useQuery({
     queryKey: [`MOVIE?ID:${movieID}`, movieID],
     queryFn: ({ queryKey }) => getMovieByID(queryKey[1]),
@@ -40,7 +43,12 @@ function Movie() {
   return (
     <div className="movie-page">
       <MovieBackground url={getTMDBImageURL(data.backdrop_path)} />
-      <MovieDetails data={data} setMoviePopup={setMoviePopup} />
+      <MovieDetails
+        data={data}
+        setMoviePopup={setMoviePopup}
+        alreadyRated={alreadyRated}
+        userMovieData={userMovieData}
+      />
       <MovieCast data={data} />
       <SimilarMovies data={data} />
 
@@ -49,6 +57,7 @@ function Movie() {
         <MovieRatingPopup
           movie={moviePopup.movie}
           setMoviePopup={setMoviePopup}
+          isEditPopup={alreadyRated}
         />
       )}
     </div>
