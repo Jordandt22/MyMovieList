@@ -131,3 +131,31 @@
     color: white;
   }
 }
+
+.list-page__empty-text {
+  max-width: 70ch;
+  color: $yellow;
+  line-height: $spacer * 1.5;
+  font-size: $sm-fs * 1.25;
+  margin-bottom: $spacer-md;
+
+  span {
+    color: $blue;
+  }
+}
+
+.list-page__empty-link {
+  margin-right: $spacer;
+  color: white;
+  text-decoration: none;
+  border: 2px solid white;
+  border-radius: 25px;
+  font-size: $sm-fs;
+  padding: $spacer-small * 0.5 $spacer-md;
+  transition: all 200ms ease-out;
+
+  &:hover {
+    background: $blue;
+    border-color: $blue;
+  }
+}

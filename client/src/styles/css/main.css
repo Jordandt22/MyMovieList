@@ -1917,6 +1917,85 @@ html {
   color: white;
 }
 
+.list-page__empty-text {
+  max-width: 70ch;
+  color: #ffd000;
+  line-height: 2.25rem;
+  font-size: 1.125rem;
+  margin-bottom: 3rem;
+}
+.list-page__empty-text span {
+  color: #00c6d8;
+}
+
+.list-page__empty-link {
+  margin-right: 1.5rem;
+  color: white;
+  text-decoration: none;
+  border: 2px solid white;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  padding: 0.5rem 3rem;
+  transition: all 200ms ease-out;
+}
+.list-page__empty-link:hover {
+  background: #00c6d8;
+  border-color: #00c6d8;
+}
+
+.rec-page {
+  padding: 10.5rem 7.5%;
+}
+.rec-page main {
+  align-items: flex-start;
+}
+
+.rec-page__title {
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 2.25rem;
+}
+.rec-page__title span {
+  color: #00c6d8;
+}
+
+.rec-page__genre {
+  text-decoration: none;
+  color: #00c6d8;
+  background: transparent;
+  border-radius: 25px;
+  border: 2px solid #00c6d8;
+  padding: 0.35rem 1.5rem;
+  font-size: 0.9rem;
+  margin-right: 0.75rem;
+  transition: all 200ms ease-out;
+}
+.rec-page__genre:hover {
+  cursor: pointer;
+  background: #00c6d8;
+  color: white;
+  transform: scale(0.9);
+}
+
+.rec-movies-list {
+  margin-top: 3.75rem;
+}
+.rec-movies-list .movies-list {
+  width: 100%;
+  margin: none;
+  justify-content: flex-start;
+  gap: 2.25rem 1.5rem;
+}
+
+.rec-movie-card__rating {
+  margin-top: 1.5rem;
+  color: white;
+  font-size: 1.5rem;
+}
+.rec-movie-card__rating svg {
+  margin-right: 0.5rem;
+}
+
 body {
   overflow-x: hidden;
   font-family: "Oswald", sans-serif;

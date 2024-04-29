@@ -22,10 +22,10 @@ module.exports = {
         }
       });
 
-      // Get top 5 most frequent genres
+      // Get top 3 most frequent genres
       const topGenres = Object.keys(genreCounts)
         .sort((a, b) => genreCounts[b] - genreCounts[a])
-        .slice(0, 5);
+        .slice(0, 3);
 
       if (topGenres.length === 0) {
         return res.status(404).json({ message: "No recommended movies found" });
