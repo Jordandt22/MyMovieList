@@ -18,16 +18,18 @@ const {
 listRouter.post("/rated/:uid", authUser, addList);
 
 // DELETE - Delete Rated Movie from User's list
-listRouter.delete("/rated/:uid/:movieID", deleteList);
+listRouter.delete("/rated/:uid/:movieID", authUser, deleteList);
 
 // PATCH - Update a Rated Movie in User's List
-listRouter.patch("/rated/:uid/:movieID", editList);
+listRouter.patch("/rated/:uid/:movieID", authUser, editList);
 
 // GET - Get Top Genres from User's List
-listRouter.get("/recommendations/:uid", getRecommendation);
+listRouter.get("/recommendations/:uid", authUser, getRecommendation);
 
-listRouter.post("/bookmark/:uid", addBookmark);
+// POST - Add a Movie to the User's Bookmarked List
+listRouter.post("/bookmark/:uid", authUser, addBookmark);
 
-listRouter.delete("/bookmark/:uid/:movieID", deleteBookmark);
+// DELETE - Delete a Movie from the User's Bookmarked List
+listRouter.delete("/bookmark/:uid/:movieID", authUser, deleteBookmark);
 
 module.exports = listRouter;

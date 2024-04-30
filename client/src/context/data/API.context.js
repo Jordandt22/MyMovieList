@@ -31,6 +31,7 @@ export const APIContextProvider = (props) => {
       .then((res) => cb(res, null))
       .catch((err) => cb(null, err));
 
+  // Update Profile Picture
   const updateProfilePicture = (uid, accessToken, file, cb) => {
     const formData = new FormData();
     formData.append("image", file);
@@ -43,6 +44,17 @@ export const APIContextProvider = (props) => {
       .then((res) => cb(res, null))
       .catch((err) => cb(null, err));
   };
+
+  // Update Username
+  const updateUsername = (authState, newUsername, cb) =>
+    axios
+      .patch(
+        REACT_APP_API_URL + `/user/${authState.uid}`,
+        { username: newUsername },
+        config(authState.accessToken)
+      )
+      .then((res) => cb(res, null))
+      .catch((err) => cb(null, err));
 
   // Delete User
   const deleteDBUser = (uid, accessToken, cb) =>
@@ -98,7 +110,13 @@ export const APIContextProvider = (props) => {
   return (
     <APIContext.Provider
       value={{
-        user: { createDBUser, getDBUser, updateProfilePicture, deleteDBUser },
+        user: {
+          createDBUser,
+          getDBUser,
+          updateProfilePicture,
+          deleteDBUser,
+          updateUsername,
+        },
         movie: {
           addMovieToList,
           editMovieInList,

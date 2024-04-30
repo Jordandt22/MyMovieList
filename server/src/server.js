@@ -8,7 +8,6 @@ const bodyParser = require("body-parser");
 const rateLimiter = require("express-rate-limit");
 const slowDown = require("express-slow-down");
 const upload = require("./middlewares/upload");
-const UserModel = require("./mongodb/mongo");
 
 // App Initialization
 const app = express();
@@ -43,7 +42,7 @@ const speedLimiter = slowDown({
 app.use(speedLimiter);
 app.use(limiter);
 
-app.use(upload.single('file'));
+app.use(upload.single("file"));
 
 // Landing Page Route
 app.get("/", (req, res) => {
@@ -53,50 +52,6 @@ app.get("/", (req, res) => {
 // API Routes / Endpoints
 app.use("/v1/api/user", require("./routes/user/user.routes"));
 app.use("/v1/api/lists", require("./routes/lists/lists.routes"));
-
-/*
-// Endpoint to submit a movie rating
-router.post('/ratings', (req, res) => {
-  const { userId, movieId, rating } = req.body;
-  // Here you would handle the logic to store the rating in the database
-  // This is just a placeholder
-  console.log(`User ${userId} rated movie ${movieId} with a rating of ${rating}`);
-  // Send a success response
-  res.status(200).json({ message: 'Rating submitted successfully' });
-});
-
-// Endpoint to retrieve movie information
-router.get('/movies/:movieId', (req, res) => {
-  const { movieId } = req.params;
-  // Here you would retrieve movie information from the database based on the movieId
-  // This is just a placeholder
-  const movie = {
-    id: movieId,
-    title: 'Example Movie',
-    description: 'This is an example movie description',
-    genres: ['Action', 'Adventure'],
-    releaseDate: '2022-01-01',
-    averageRating: 4.5
-  };
-  // Send movie information as response
-  res.status(200).json(movie);
-});
-
-// Endpoint to generate movie recommendations
-router.post('/recommendations', (req, res) => {
-  const { userId } = req.body;
-  // Here you would generate movie recommendations based on the user's preferences and ratings
-  // This is just a placeholder
-  const recommendations = [
-    { title: 'Recommended Movie 1', description: 'Description of Recommended Movie 1' },
-    { title: 'Recommended Movie 2', description: 'Description of Recommended Movie 2' }
-  ];
-  // Send recommended movies as response
-  res.status(200).json(recommendations);
-});
-
-module.exports = router;
-*/
 
 // Running the Server
 const port = 3001;

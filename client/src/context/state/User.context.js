@@ -27,6 +27,10 @@ export const UserContextProvider = (props) => {
   const updateProfilePicture = (profilePicture) =>
     setUser((oldUser) => ({ ...oldUser, profilePicture }));
 
+  // Update User's Username
+  const updateUsername = (username) =>
+    setUser((oldUser) => ({ ...oldUser, username }));
+
   // Check if Rated Movies contains a specific Movie
   const checkRatedMovies = (movieID) => {
     if (!isAuth) return { alreadyRated: false, movie: null };
@@ -55,6 +59,7 @@ export const UserContextProvider = (props) => {
         updateRatedMovies,
         updateProfilePicture,
         checkRatedMovies,
+        updateUsername,
       }}
     >
       {props.children}

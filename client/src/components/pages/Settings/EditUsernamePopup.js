@@ -4,11 +4,21 @@ import { Formik } from "formik";
 // Schemas
 import { UsernameSchema } from "../../../schemas/User.schemas";
 
+// Contexts
+import { useGlobal } from "../../../context/state/Global.context";
+import { useAPI } from "../../../context/data/API.context";
+import { useUser } from "../../../context/state/User.context";
+import { useAuth } from "../../../context/auth/Auth.context";
+
 // Components
 import Error from "../../svgs/Error";
 
 function EditUsernamePopup(props) {
   const { setShowEditPopup } = props;
+  const { setLoading } = useGlobal().state;
+  const { updateUsername } = useAPI().user;
+  const { authState } = useAuth();
+  const { updateUsername: updateContextUsername } = useUser();
 
   return (
     <div className="edit-popup center">
@@ -17,7 +27,21 @@ function EditUsernamePopup(props) {
         validationSchema={UsernameSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           const { username } = values;
-          console.log(username);
+
+          setLoading(true);
+          setSubmitting(true);
+
+          updateUsername(authState, username, (res, APIError) => {
+            if (APIError) return console.log(APIError);
+
+            const { username: newUsername } = res.data.user;
+            updateContextUsername(newUsername);
+
+            resetForm();
+            setSubmitting(false);
+            setShowEditPopup(false);
+            setLoading(false);
+          });
         }}
       >
         {(props) => (

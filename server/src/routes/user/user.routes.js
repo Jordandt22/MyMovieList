@@ -9,7 +9,7 @@ const {
   getUserData,
   addProfilePicture,
   deleteUser,
-  editUsername
+  editUsername,
 } = require("../../controllers/user/user.ct");
 
 // POST - Create User
@@ -39,6 +39,6 @@ userRouter.delete("/:uid", authUser, deleteUser);
 // {
 //     "username": "WheresBasketBrawl123"
 // }
-userRouter.put("/users/:uid", editUsername);
+userRouter.patch("/:uid", authUser, editUsername);
 
 module.exports = userRouter;
