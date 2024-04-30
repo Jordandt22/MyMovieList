@@ -110,4 +110,39 @@ module.exports = {
       res.status(500).json({ error: "Internal server error" });
     }
   },
+
+  editUsername: async (req, res) => {
+    try {
+      const { uid } = req.params;
+      const newUsername = req.body.username;
+  
+      // Find the user by userId
+      const user = await UserModel.findOne({ uid });
+  
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      console.log("Original username:", user.username); // Log original username
+  
+      // Update the username
+      user.username = newUsername;
+  
+      console.log("Updated username (in memory):", user.username); // Log updated username
+  
+      // Save the updated user object to the database
+      const updatedUser = await user.save();
+  
+      console.log("Updated username (after save):", updatedUser.username); // Log saved username
+  
+      // Return the updated user object as response
+      res.json({ message: 'Username updated successfully', user: updatedUser });
+    } catch (error) {
+      console.error('Error updating username:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+  
+  
+
 };
