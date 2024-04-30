@@ -67,3 +67,11 @@ export const ProfilePictureSchema = Yup.object().shape({
       (value) => value && value.size <= MAX_FILE_SIZE
     ),
 });
+
+export const UsernameSchema = Yup.object().shape({
+  username: Yup.string()
+    .trim()
+    .min(1, "Please enter a new username.")
+    .max(300, "Your new username exceeds the max characters (300).")
+    .required("Please enter a new username."),
+});

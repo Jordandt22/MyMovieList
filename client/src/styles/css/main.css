@@ -1611,7 +1611,6 @@ html {
   height: 5.5rem;
   background: lightgrey;
   border-radius: 5px;
-  margin-right: 1.5rem;
   color: grey;
 }
 
@@ -1621,8 +1620,9 @@ html {
   color: #00d8b4;
   font-weight: 600;
   border-radius: 25px;
-  padding: 0.5rem 2.25rem;
+  padding: 0.35rem 2.25rem;
   background: transparent;
+  margin-left: 1.5rem;
   transition: all 200ms ease-out;
 }
 .user-info__edit:hover {
@@ -1654,7 +1654,8 @@ html {
 }
 
 .warning-popup,
-.imgFileInput-popup {
+.imgFileInput-popup,
+.edit-popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -1665,7 +1666,8 @@ html {
 }
 
 .warning-popup__box,
-.imgFileInput-popup__box {
+.imgFileInput-popup__box,
+.edit-popup__box {
   width: 30vw;
   background: #343d45;
   border-radius: 5px;
@@ -1673,7 +1675,8 @@ html {
 }
 
 .warning-popup__title,
-.imgFileInput-popup__title {
+.imgFileInput-popup__title,
+.edit-popup__title {
   color: white;
   font-size: 1.5rem;
   text-align: center;
@@ -1768,7 +1771,9 @@ html {
 }
 
 .imgFileInput-popup__save,
-.imgFileInput-popup__cancel {
+.imgFileInput-popup__cancel,
+.edit-popup__save,
+.edit-popup__cancel {
   outline: none;
   border: 2px solid #00c6d8;
   background: transparent;
@@ -1780,21 +1785,52 @@ html {
   transition: all 200ms ease-out;
 }
 .imgFileInput-popup__save:hover,
-.imgFileInput-popup__cancel:hover {
+.imgFileInput-popup__cancel:hover,
+.edit-popup__save:hover,
+.edit-popup__cancel:hover {
   cursor: pointer;
   background: #00c6d8;
   color: white;
 }
 
-.imgFileInput-popup__cancel {
+.imgFileInput-popup__cancel,
+.edit-popup__cancel {
   border-color: #ff2b2b;
   color: #ff2b2b;
   margin-right: 0;
 }
-.imgFileInput-popup__cancel:hover {
+.imgFileInput-popup__cancel:hover,
+.edit-popup__cancel:hover {
   cursor: pointer;
   background: #ff2b2b;
   color: white;
+}
+
+.edit-popup__box input {
+  width: 100%;
+  outline: none;
+  border: 2px solid white;
+  padding: 0.5rem 1.5rem;
+  text-align: center;
+  background: transparent;
+  border-radius: 25px;
+  color: white;
+  margin-top: 0.75rem;
+}
+
+.edit-popup__error {
+  color: red;
+  margin-top: 0.75rem;
+}
+.edit-popup__error svg {
+  margin-right: 0.25rem;
+}
+.edit-popup__error svg path {
+  fill: red;
+}
+
+.edit-popup__btns {
+  margin-top: 1.5rem;
 }
 
 .list-page {

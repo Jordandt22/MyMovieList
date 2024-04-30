@@ -28,8 +28,8 @@ function ImageFileInputPopup(props) {
         onSubmit={(values, { setSubmitting, resetForm }) => {
           const { profilePicture } = values;
           console.log(profilePicture);
-          resetForm();
-          setShowImageFileInput(false);
+          // resetForm();
+          // setShowImageFileInput(false);
           // setLoading(true);
           // setSubmitting(true);
           // updateProfilePicture(

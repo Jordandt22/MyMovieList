@@ -76,7 +76,7 @@ function Signup() {
               name: "username",
               type: "text",
               label: "Username",
-              placeholder: "Ex: MyUsername22",
+              placeholder: "Ex: MyUsername",
             },
             {
               name: "password",

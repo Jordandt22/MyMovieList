@@ -69,7 +69,6 @@
   height: $s;
   background: lightgrey;
   border-radius: 5px;
-  margin-right: $spacer;
   color: grey;
 }
 
@@ -79,8 +78,9 @@
   color: $teal;
   font-weight: 600;
   border-radius: 25px;
-  padding: $spacer-small * 0.5 $spacer * 1.5;
+  padding: $spacer-small * 0.35 $spacer * 1.5;
   background: transparent;
+  margin-left: $spacer;
   transition: all 200ms ease-out;
 
   &:hover {
@@ -116,7 +116,8 @@
 
 // Warning Popup
 .warning-popup,
-.imgFileInput-popup {
+.imgFileInput-popup,
+.edit-popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -127,7 +128,8 @@
 }
 
 .warning-popup__box,
-.imgFileInput-popup__box {
+.imgFileInput-popup__box,
+.edit-popup__box {
   width: 30vw;
   background: $blue-gray;
   border-radius: 5px;
@@ -135,7 +137,8 @@
 }
 
 .warning-popup__title,
-.imgFileInput-popup__title {
+.imgFileInput-popup__title,
+.edit-popup__title {
   color: white;
   font-size: $md-fs;
   text-align: center;
@@ -237,7 +240,9 @@
 }
 
 .imgFileInput-popup__save,
-.imgFileInput-popup__cancel {
+.imgFileInput-popup__cancel,
+.edit-popup__save,
+.edit-popup__cancel {
   outline: none;
   border: 2px solid $blue;
   background: transparent;
@@ -255,7 +260,8 @@
   }
 }
 
-.imgFileInput-popup__cancel {
+.imgFileInput-popup__cancel,
+.edit-popup__cancel {
   border-color: $red;
   color: $red;
   margin-right: 0;
@@ -265,4 +271,36 @@
     background: $red;
     color: white;
   }
+}
+
+// Edit Username Popup
+.edit-popup__box {
+  input {
+    width: 100%;
+    outline: none;
+    border: 2px solid white;
+    padding: $spacer-small * 0.5 $spacer;
+    text-align: center;
+    background: transparent;
+    border-radius: 25px;
+    color: white;
+    margin-top: $spacer-small * 0.75;
+  }
+}
+
+.edit-popup__error {
+  color: red;
+  margin-top: $spacer-small * 0.75;
+
+  svg {
+    margin-right: $spacer-small * 0.25;
+
+    path {
+      fill: red;
+    }
+  }
+}
+
+.edit-popup__btns {
+  margin-top: $spacer;
 }

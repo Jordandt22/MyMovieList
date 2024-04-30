@@ -8,6 +8,7 @@ import Email from "../../svgs/Email";
 import User from "../../svgs/User";
 import WarningPopup from "./WarningPopup";
 import ImageFileInputPopup from "./ImageFileInputPopup";
+import EditUsernamePopup from "./EditUsernamePopup";
 
 function Settings() {
   const {
@@ -20,6 +21,9 @@ function Settings() {
   // Image File Input Popup
   const [showImageFileInput, setShowImageFileInput] = useState(false);
 
+  // Edit Username Popup
+  const [showEditPopup, setShowEditPopup] = useState(false);
+
   return (
     <div className="settings-page">
       <h1 className="settings-page__title">My Settings</h1>
@@ -28,11 +32,21 @@ function Settings() {
         {/* User Info */}
         <div className="user-info">
           <h2 className="user-info__title">User Information</h2>
-          <p className="user-info__text row">
-            <User />
-            <strong>Username: </strong>
-            {username}
-          </p>
+          <div className="row">
+            <p className="user-info__text row">
+              <User />
+              <strong>Username: </strong>
+              {username}
+            </p>
+            <button
+              type="button"
+              className="user-info__edit"
+              onClick={() => setShowEditPopup(true)}
+            >
+              Edit
+            </button>
+          </div>
+
           <div className="user-info__profilePic-box row">
             <div className="user-info__profilePic center">
               {!profilePicture ? "None" : "IMAGE HERE"}
@@ -82,6 +96,11 @@ function Settings() {
       {/* Image File Input Popup */}
       {showImageFileInput && (
         <ImageFileInputPopup setShowImageFileInput={setShowImageFileInput} />
+      )}
+
+      {/* Edit Username Popup */}
+      {showEditPopup && (
+        <EditUsernamePopup setShowEditPopup={setShowEditPopup} />
       )}
     </div>
   );
