@@ -13,7 +13,7 @@ import Star from "../../svgs/Star";
 import BookmarkButton from "../../pages/Home/BookmarkButton";
 
 function MovieCard(props) {
-  const { movie, setMoviePopup } = props;
+  const { movie, setMoviePopup, isBookmark } = props;
   const { id, poster_path, title, release_date } = movie;
   const { parseDate } = useUtil();
   const { isAuth } = useAuth().authState;
@@ -50,10 +50,22 @@ function MovieCard(props) {
                 className="movie-card__add"
                 onClick={() => {
                   if (isAuth) {
-                    setMoviePopup({
-                      show: true,
-                      movie,
-                    });
+                    if (isBookmark) {
+                      const genre_ids = [];
+                      movie.genres.map((genre) => genre_ids.push(genre.id));
+                      setMoviePopup({
+                        show: true,
+                        movie: {
+                          ...movie,
+                          genre_ids,
+                        },
+                      });
+                    } else {
+                      setMoviePopup({
+                        show: true,
+                        movie,
+                      });
+                    }
                   } else {
                     navigate("/login");
                   }

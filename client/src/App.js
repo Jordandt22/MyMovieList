@@ -21,6 +21,7 @@ import MovieList from "./components/pages/MovieList/MovieList";
 import MoviesByGenre from "./components/pages/MoviesByGenre/MoviesByGenre";
 import Genres from "./components/pages/Genres/Genres";
 import Settings from "./components/pages/Settings/Settings";
+import BookmarkedList from "./components/pages/Bookmarked/BookmarkedList";
 
 function App() {
   const { pathname } = useLocation();
@@ -66,6 +67,11 @@ function App() {
           path="/list"
           exact
           element={isAuth ? <MovieList /> : <Login />}
+        />
+        <Route
+          path="/bookmarked"
+          exact
+          element={isAuth ? <BookmarkedList /> : <Login />}
         />
 
         {/* User & Auth */}

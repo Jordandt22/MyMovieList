@@ -2106,6 +2106,50 @@ html {
   margin-right: 0.5rem;
 }
 
+.bookmark-page .movies-container {
+  width: 100%;
+  gap: 3rem 1.725rem;
+}
+.bookmark-page .hero__bookmark:hover svg {
+  transform: scale(0.9);
+}
+.bookmark-page .hero__bookmark:hover svg path {
+  fill: rgba(255, 208, 0, 0.65);
+}
+.bookmark-page .list-page__title {
+  margin-bottom: 0;
+}
+
+.bookmark-page__header {
+  margin-bottom: 4.5rem;
+}
+
+.bookmark-page__btn {
+  outline: none;
+  border: 2px solid #00d8b4;
+  background: transparent;
+  color: #00d8b4;
+  margin-left: 1.5rem;
+  border-radius: 25px;
+  font-weight: bold;
+  padding: 0.35rem 1.5rem;
+  transition: all 200ms ease-out;
+}
+.bookmark-page__btn svg {
+  margin-right: 0.5rem;
+}
+.bookmark-page__btn svg path {
+  fill: #00d8b4;
+}
+.bookmark-page__btn:hover {
+  cursor: pointer;
+  background: #00d8b4;
+  color: white;
+}
+.bookmark-page__btn:hover svg path {
+  fill: white;
+}
+
 body {
   overflow-x: hidden;
   font-family: "Oswald", sans-serif;

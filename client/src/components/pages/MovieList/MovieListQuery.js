@@ -16,7 +16,7 @@ import ErrorPopup from "../../layout/standalone/ErrorPopup";
 
 function MovieListQuery() {
   const {
-    user: { username, ratedMovies },
+    user: { ratedMovies },
   } = useUser();
   const sortedRatedMovies = ratedMovies.sort((a, b) => b.rating - a.rating);
   const { getRecommendations } = useAPI().movie;
@@ -50,7 +50,7 @@ function MovieListQuery() {
   return (
     <div className="list-page">
       <h1 className="list-page__title">
-        <span>{username}</span>'s Movies
+        Your <span>Rated</span> Movies
       </h1>
 
       {/* Main Content */}

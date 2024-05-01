@@ -4,7 +4,6 @@ module.exports = {
   addList: async (req, res) => {
     const { uid } = req.params;
     const { movieID, rating, genres } = req.body;
-    4;
 
     try {
       // Check if the user exists

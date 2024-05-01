@@ -4,27 +4,27 @@ import React from "react";
 import { useUser } from "../../../context/state/User.context";
 
 // Components
-import MovieListQuery from "./MovieListQuery";
 import EmptyListMessage from "../../layout/Movies/EmptyListMessage";
+import BookmarkQuery from "./BookmarkQuery";
 
-function MovieList() {
+function BookmarkedList() {
   const {
-    user: { ratedMovies },
+    user: { bookmarked },
   } = useUser();
 
-  if (ratedMovies.length >= 1) {
-    return <MovieListQuery />;
+  if (bookmarked.length >= 1) {
+    return <BookmarkQuery />;
   } else {
     return (
       <div className="list-page">
         <h1 className="list-page__title">
-          Your <span>Rated</span> Movies
+          Your <span>Bookmarked</span> Movies
         </h1>
 
-        <EmptyListMessage />
+        <EmptyListMessage isBookmark={true} />
       </div>
     );
   }
 }
 
-export default MovieList;
+export default BookmarkedList;

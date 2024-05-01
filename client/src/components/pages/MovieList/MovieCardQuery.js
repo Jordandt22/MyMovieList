@@ -8,9 +8,10 @@ import { useTMDB } from "../../../context/data/Tmdb.context";
 import Loading from "../../layout/standalone/Loading";
 import ErrorPopup from "../../layout/standalone/ErrorPopup";
 import RatedMovieCard from "./RatedMovieCard";
+import MovieCard from "../../layout/Movies/MovieCard";
 
 function MovieCardQuery(props) {
-  const { movieID, rating, setMoviePopup } = props;
+  const { movieID, rating, setMoviePopup, isBookmark } = props;
   const { getMovieByID } = useTMDB().API;
   const { isPending, isError, data, error } = useQuery({
     queryKey: [`MOVIE?ID:${movieID}`, movieID],
@@ -25,13 +26,19 @@ function MovieCardQuery(props) {
     return <ErrorPopup message={error.message} />;
   }
 
-  return (
-    <RatedMovieCard
-      movie={data}
-      rating={rating}
-      setMoviePopup={setMoviePopup}
-    />
-  );
+  if (isBookmark) {
+    return (
+      <MovieCard movie={data} setMoviePopup={setMoviePopup} isBookmark={true} />
+    );
+  } else {
+    return (
+      <RatedMovieCard
+        movie={data}
+        rating={rating}
+        setMoviePopup={setMoviePopup}
+      />
+    );
+  }
 }
 
 export default MovieCardQuery;

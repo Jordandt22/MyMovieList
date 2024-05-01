@@ -97,7 +97,7 @@ function MovieRatingPopup(props) {
                   onBlur={props.handleBlur}
                   value={props.values.rating}
                   name="rating"
-                  placeholder="Ex: 8.2"
+                  placeholder="Ex: 8"
                   autoComplete="off"
                   min="0"
                   max="10"
