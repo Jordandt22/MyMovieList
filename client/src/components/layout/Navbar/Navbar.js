@@ -9,13 +9,13 @@ import { useUser } from "../../../context/state/User.context";
 // Components
 import SearchBar from "./SearchBar";
 import Exit from "../../svgs/Exit";
-import User from "../../svgs/User";
 import Setting from "../../svgs/Setting";
 import RightArrow from "../../svgs/RightArrow";
 import List from "../../svgs/List";
 import Star from "../../svgs/Star";
 import Close from "../../svgs/Close";
 import Bookmark from "../../svgs/Bookmark";
+import ProfilePicture from "../standalone/ProfilePicture";
 
 function Navbar() {
   const { pathname } = useLocation();
@@ -100,12 +100,23 @@ function Navbar() {
       <div className="row">
         <SearchBar />
         {isAuth ? (
-          <button
-            className="navbar__profile center"
-            onClick={() => setOpenDropdown((curState) => !curState)}
-          >
-            {openDropdown ? <Close /> : <User />}
-          </button>
+          <>
+            {openDropdown ? (
+              <button
+                className="navbar__profile center"
+                onClick={() => setOpenDropdown(false)}
+              >
+                <Close />
+              </button>
+            ) : (
+              <div
+                className="navbar__profile-pic"
+                onClick={() => setOpenDropdown(true)}
+              >
+                <ProfilePicture />
+              </div>
+            )}
+          </>
         ) : (
           <NavLink to="/login" className="navbar__login">
             Log In
@@ -118,9 +129,7 @@ function Navbar() {
         <div className="profile-dropdown">
           {/* Profile Image and Info */}
           <div className="profile-dropdown__img-box row">
-            <div className="profile-dropdown__img center">
-              <User />
-            </div>
+            <ProfilePicture className="profile-dropdown__img" />
             <div className="profile-info">
               <h1 className="profile-info__username">{username}</h1>
               <p className="profile-info__email">{email}</p>

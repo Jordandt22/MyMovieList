@@ -154,3 +154,21 @@
     transform: scale(0.975);
   }
 }
+
+// Profile Picture
+.profile-pic__box {
+  $s: 2.75rem;
+  width: $s;
+  height: $s;
+  padding: 0;
+  border: 2px solid $blue;
+  border-radius: 50%;
+  transition: all 200ms ease-out;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

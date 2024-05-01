@@ -106,6 +106,21 @@
   }
 }
 
+.navbar__profile-pic {
+  .profile-pic__box {
+    border-color: $blue-gray;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    .profile-pic__box {
+      transform: scale(0.9);
+      box-shadow: 0 0 10px 5px rgba(white, 0.25);
+    }
+  }
+}
+
 // Search Bar
 .search-bar {
   position: relative;
@@ -181,13 +196,8 @@
 }
 
 .profile-dropdown__img {
-  $s: 2.5rem;
-  width: $s;
-  height: $s;
-  border: none;
   background: $teal;
   border-radius: 50%;
-  padding: $spacer-small * 0.5;
   margin-right: $spacer-small;
 
   svg {

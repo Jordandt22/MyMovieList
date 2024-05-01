@@ -17,7 +17,7 @@ module.exports = {
 
     // New User
     const min = 1;
-    const max = 6;
+    const max = 5;
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
     const randNum = Math.floor(
