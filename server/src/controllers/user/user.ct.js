@@ -1,4 +1,17 @@
 const UserModel = require("../../mongodb/mongo");
+// const { GridFSBucket, ObjectID } = require("mongodb");
+const mongoose = require("mongoose");
+const fs = require('fs');
+const upload = require("../../middlewares/upload");
+const dbConfig = require("../../config/db");
+const MongoClient = require("mongodb").MongoClient;
+const GridFSBucket = require("mongodb").GridFSBucket;
+const url = dbConfig.url;
+const baseUrl = "http://localhost:3001/v1/api/user/files/";
+const mongoClient = new MongoClient(url);
+const path = require("path");
+
+
 
 module.exports = {
   createUser: async (req, res) => {
@@ -53,36 +66,36 @@ module.exports = {
 
   updateProfilePicture: async (req, res) => {
     try {
-      const uid = req.params.uid;
-      const profilePicture = req.body.profilePicture;
+        const uid = req.params.uid;
+        const uploadedFile = req.file;
 
-      // Check if there's a profile picture
-      if (!profilePicture) {
-        return res.status(400).json({ error: "No profile picture chosen." });
-      }
+        // Log the uploaded file object to inspect its properties
+        console.log("Uploaded file:", uploadedFile);
 
-      // Find the user by userId
-      const user = await UserModel.findOne({ uid });
+        // Check if file was uploaded
+        if (!uploadedFile) {
+            return res.status(400).json({ error: "No file uploaded" });
+        }
 
-      if (!user) {
-        return res.status(404).json({ error: "User not found" });
-      }
+        // Check the value of the path property
+        console.log("Uploaded file path:", uploadedFile.path);
 
-      // Update the profilePicture field with the profile picture number
-      user.profilePicture = profilePicture;
+        // Find the user by userId
+        const user = await UserModel.findOne({ uid });
 
-      // Save the updated user object to the database
-      await user.save();
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
 
-      // Send a response indicating successful upload
-      res
-        .status(200)
-        .json({ message: "Profile picture updated successfully", user });
+        // Continue with your code...
     } catch (error) {
-      console.error("Error uploading profile picture:", error);
-      res.status(500).json({ error: "Internal server error" });
+        console.error("Error uploading profile picture:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
-  },
+},
+
+
+
 
   deleteUser: async (req, res) => {
     try {
@@ -133,4 +146,92 @@ module.exports = {
       res.status(500).json({ error: "Internal server error" });
     }
   },
+  
+  uploadFiles: async (req, res) => {
+    try {
+      await upload(req, res);
+      console.log(req.file);
+  
+      if (req.file == undefined) {
+        return res.send({
+          message: "You must select a file.",
+        });
+      }
+  
+      return res.send({
+        message: "File has been uploaded.",
+      });
+    } catch (error) {
+      console.log(error);
+  
+      return res.send({
+        message: "Error when trying upload image: ${error}",
+      });
+    }
+  },
+
+  getListFiles: async (req, res) => {
+    try {
+      await mongoClient.connect();
+  
+      const database = mongoClient.db(dbConfig.database);
+      const images = database.collection(dbConfig.imgBucket + ".files");
+  
+      const cursor = images.find({});
+  
+      if ((await cursor.count()) === 0) {
+        return res.status(500).send({
+          message: "No files found!",
+        });
+      }
+  
+      let fileInfos = [];
+      await cursor.forEach((doc) => {
+        fileInfos.push({
+          name: doc.filename,
+          url: baseUrl + doc.filename,
+        });
+      });
+  
+      return res.status(200).send(fileInfos);
+    } catch (error) {
+      return res.status(500).send({
+        message: error.message,
+      });
+    }
+  },
+
+  download: async (req, res) => {
+    try {
+      await mongoClient.connect();
+  
+      const database = mongoClient.db(dbConfig.database);
+      const bucket = new GridFSBucket(database, {
+        bucketName: dbConfig.imgBucket,
+      });
+  
+      const downloadStream = bucket.openDownloadStreamByName(req.params.name);
+  
+      downloadStream.on("data", function (data) {
+        return res.status(200).write(data);
+      });
+  
+      downloadStream.on("error", function (err) {
+        return res.status(404).send({ message: "Cannot download the Image!" });
+      });
+  
+      downloadStream.on("end", () => {
+        return res.end();
+      });
+    } catch (error) {
+      return res.status(500).send({
+        message: error.message,
+      });
+    }
+  },
+
+  getHome: (req, res) => {
+    return res.sendFile(path.join(`${__dirname}/../../../../../client/src/components/pages/Settings/ImageFileInputPopup.js`));
+  },
+
 };
