@@ -1,13 +1,11 @@
 const userRouter = require("express-promise-router")();
 const { authUser } = require("../../middlewares/auth.mw");
-const upload = require("../../middlewares/upload");
 
 // Controllers
 const {
   createUser,
   getUser,
-  getUserData,
-  addProfilePicture,
+  updateProfilePicture,
   deleteUser,
   editUsername,
 } = require("../../controllers/user/user.ct");
@@ -18,16 +16,14 @@ userRouter.post("/:uid", authUser, createUser);
 // GET - Get User Data
 userRouter.get("/:uid", authUser, getUser);
 
-// Example Postman URL:
-// http://localhost:3001/v1/api/user/users/W76bg1VFYLeh4xN7mNDjxxiR2QG3
-userRouter.get("/users/:uid", getUserData);
+// PATCH - Update the User's Profile Picture
+userRouter.patch("/:uid/profile_picture", authUser, updateProfilePicture);
 
-// Post - Submit a Profile Picture
+// OLD:
 // Example Postman URL:
 // http://localhost:3001/v1/api/user/upload/W76bg1VFYLeh4xN7mNDjxxiR2QG3
 // Body > form-data > key drop down arrow "File" > key: "file"
 // value: any profile picture > Content type: multipart/form-data
-userRouter.post("/upload/:uid", authUser, addProfilePicture);
 
 // Delete - Delete a User
 // Example Postman URL:
@@ -39,6 +35,6 @@ userRouter.delete("/:uid", authUser, deleteUser);
 // {
 //     "username": "WheresBasketBrawl123"
 // }
-userRouter.patch("/:uid", authUser, editUsername);
+userRouter.patch("/:uid/username", authUser, editUsername);
 
 module.exports = userRouter;

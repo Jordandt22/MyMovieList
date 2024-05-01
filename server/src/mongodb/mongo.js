@@ -13,7 +13,6 @@ connect
   });
 
 // Create a Schema
-
 const GenreSchema = new mongoose.Schema({
   genreID: {
     type: Number,
@@ -49,17 +48,11 @@ const UserSchema = new mongoose.Schema({
   ratedMovies: [MovieSchema],
   bookmarked: [bookmark],
   profilePicture: {
-    type: String,
+    type: Number,
+    
   },
 });
 
 // Collection part
-//const LoginModel = new mongoose.model("Users", LoginSchema);
-
 const UserModel = mongoose.model("User", UserSchema);
 module.exports = UserModel;
-
-// const LoginModel = mongoose.model("Logins", LoginSchema)
-// module.exports = LoginModel;
-
-//module.exports = { LoginModel, SignupModel};

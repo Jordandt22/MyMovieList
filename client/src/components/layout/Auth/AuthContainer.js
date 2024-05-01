@@ -22,8 +22,15 @@ function AuthContainer(props) {
   // Auth and Update User
   const authAndUpdateUser = (uid, accessToken, user) => {
     // Update User State
-    const { email, username, ratedMovies, bookmarked } = user;
-    updateUser({ uid, email, username, ratedMovies, bookmarked });
+    const { email, username, ratedMovies, bookmarked, profilePicture } = user;
+    updateUser({
+      uid,
+      email,
+      username,
+      ratedMovies,
+      bookmarked,
+      profilePicture,
+    });
 
     // Finish Auth Process
     authenticateUser(accessToken, uid);

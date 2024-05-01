@@ -14,7 +14,7 @@ import { useAuth } from "../../../context/auth/Auth.context";
 import Error from "../../svgs/Error";
 
 function EditUsernamePopup(props) {
-  const { setShowEditPopup } = props;
+  const { setShowUsernamePopup } = props;
   const { setLoading } = useGlobal().state;
   const { updateUsername } = useAPI().user;
   const { authState } = useAuth();
@@ -39,7 +39,7 @@ function EditUsernamePopup(props) {
 
             resetForm();
             setSubmitting(false);
-            setShowEditPopup(false);
+            setShowUsernamePopup(false);
             setLoading(false);
           });
         }}
@@ -76,7 +76,7 @@ function EditUsernamePopup(props) {
                 <button
                   type="button"
                   className="edit-popup__cancel"
-                  onClick={() => setShowEditPopup(false)}
+                  onClick={() => setShowUsernamePopup(false)}
                 >
                   Cancel
                 </button>

@@ -55,8 +55,8 @@ function Signup() {
                   }
 
                   // Update User State
-                  const { email, username } = res.data.user;
-                  updateUser({ uid, email, username });
+                  const { email, username, profilePicture } = res.data.user;
+                  updateUser({ uid, email, username, profilePicture });
 
                   // Finish Auth Process
                   authenticateUser(accessToken, uid);

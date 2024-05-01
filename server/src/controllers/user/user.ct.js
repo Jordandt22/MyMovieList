@@ -16,32 +16,24 @@ module.exports = {
     const { email, username } = req.body;
 
     // New User
-    const newUser = {
+    const min = 1;
+    const max = 6;
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    const randNum = Math.floor(
+      Math.random() * (maxFloored - minCeiled + 1) + minCeiled
+    );
+    const user = await UserModel.create({
       email,
       username,
       uid,
-    };
-
-    const user = await UserModel.create(newUser);
+      profilePicture: randNum,
+    });
     res.status(200).json({ user, error: null });
   },
   getUser: async (req, res) => {
-    const { uid } = req.params;
-    const user = await UserModel.find({
-      uid,
-    });
-    if (!user[0])
-      return res.status(404).json({
-        user: null,
-        error: { message: "Unable to find user." },
-      });
-
-    res.status(200).json({ user: user[0], error: null });
-  },
-
-  getUserData: async (req, res) => {
     try {
-      const uid = req.params.uid;
+      const { uid } = req.params;
 
       // Find the user document by UID
       const user = await UserModel.findOne({ uid });
@@ -51,8 +43,7 @@ module.exports = {
         return res.status(404).json({ error: "User not found" });
       }
 
-      // User found, send user information in the response
-      res.status(200).json({ user });
+      res.status(200).json({ user, error: null });
     } catch (error) {
       // Error occurred while fetching user information
       console.error("Error fetching user information:", error);
@@ -60,14 +51,14 @@ module.exports = {
     }
   },
 
-  addProfilePicture: async (req, res) => {
+  updateProfilePicture: async (req, res) => {
     try {
       const uid = req.params.uid;
-      const uploadedFile = req.file;
+      const profilePicture = req.body.profilePicture;
 
-      // Check if file was uploaded
-      if (!uploadedFile) {
-        return res.status(400).json({ error: "No file uploaded" });
+      // Check if there's a profile picture
+      if (!profilePicture) {
+        return res.status(400).json({ error: "No profile picture chosen." });
       }
 
       // Find the user by userId
@@ -77,8 +68,8 @@ module.exports = {
         return res.status(404).json({ error: "User not found" });
       }
 
-      // Update the profilePicture field with the file path or URL
-      user.profilePicture = uploadedFile.path; // Assuming multer saves the file locally
+      // Update the profilePicture field with the profile picture number
+      user.profilePicture = profilePicture;
 
       // Save the updated user object to the database
       await user.save();
@@ -86,7 +77,7 @@ module.exports = {
       // Send a response indicating successful upload
       res
         .status(200)
-        .json({ message: "Profile picture uploaded successfully", user });
+        .json({ message: "Profile picture updated successfully", user });
     } catch (error) {
       console.error("Error uploading profile picture:", error);
       res.status(500).json({ error: "Internal server error" });
@@ -115,34 +106,31 @@ module.exports = {
     try {
       const { uid } = req.params;
       const newUsername = req.body.username;
-  
+
       // Find the user by userId
       const user = await UserModel.findOne({ uid });
-  
+
       if (!user) {
-        return res.status(404).json({ error: 'User not found' });
+        return res.status(404).json({ error: "User not found" });
       }
-  
+
       console.log("Original username:", user.username); // Log original username
-  
+
       // Update the username
       user.username = newUsername;
-  
+
       console.log("Updated username (in memory):", user.username); // Log updated username
-  
+
       // Save the updated user object to the database
       const updatedUser = await user.save();
-  
+
       console.log("Updated username (after save):", updatedUser.username); // Log saved username
-  
+
       // Return the updated user object as response
-      res.json({ message: 'Username updated successfully', user: updatedUser });
+      res.json({ message: "Username updated successfully", user: updatedUser });
     } catch (error) {
-      console.error('Error updating username:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      console.error("Error updating username:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   },
-  
-  
-
 };

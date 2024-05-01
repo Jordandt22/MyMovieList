@@ -7,7 +7,7 @@ import { useUser } from "../../../context/state/User.context";
 import Email from "../../svgs/Email";
 import User from "../../svgs/User";
 import WarningPopup from "./WarningPopup";
-import ImageFileInputPopup from "./ImageFileInputPopup";
+import EditProfilePicPopup from "./EditProfilePicPopup";
 import EditUsernamePopup from "./EditUsernamePopup";
 
 function Settings() {
@@ -18,11 +18,11 @@ function Settings() {
   // Warning Popup
   const [showWarning, setShowWarning] = useState(false);
 
-  // Image File Input Popup
-  const [showImageFileInput, setShowImageFileInput] = useState(false);
+  // Edit Profile Picture Popup
+  const [showProfilePicPopup, setShowProfilePicPopup] = useState(false);
 
   // Edit Username Popup
-  const [showEditPopup, setShowEditPopup] = useState(false);
+  const [showUsernamePopup, setShowUsernamePopup] = useState(false);
 
   return (
     <div className="settings-page">
@@ -41,7 +41,7 @@ function Settings() {
             <button
               type="button"
               className="user-info__edit"
-              onClick={() => setShowEditPopup(true)}
+              onClick={() => setShowUsernamePopup(true)}
             >
               Edit
             </button>
@@ -54,7 +54,7 @@ function Settings() {
             <button
               type="button"
               className="user-info__edit"
-              onClick={() => setShowImageFileInput(true)}
+              onClick={() => setShowProfilePicPopup(true)}
             >
               {profilePicture ? "Edit" : "Add"} Photo
             </button>
@@ -94,13 +94,13 @@ function Settings() {
       {showWarning && <WarningPopup setShowWarning={setShowWarning} />}
 
       {/* Image File Input Popup */}
-      {showImageFileInput && (
-        <ImageFileInputPopup setShowImageFileInput={setShowImageFileInput} />
+      {showProfilePicPopup && (
+        <EditProfilePicPopup setShowProfilePicPopup={setShowProfilePicPopup} />
       )}
 
       {/* Edit Username Popup */}
-      {showEditPopup && (
-        <EditUsernamePopup setShowEditPopup={setShowEditPopup} />
+      {showUsernamePopup && (
+        <EditUsernamePopup setShowUsernamePopup={setShowUsernamePopup} />
       )}
     </div>
   );

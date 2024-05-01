@@ -11,7 +11,7 @@ import { useGlobal } from "../../../context/state/Global.context";
 import { useUser } from "../../../context/state/User.context";
 
 function ImageFileInputPopup(props) {
-  const { setShowImageFileInput } = props;
+  const { setShowProfilePicPopup } = props;
   const { setLoading } = useGlobal().state;
   const { uid, acccessToken } = useAuth().authState;
   const { updateProfilePicture } = useAPI().user;
@@ -29,7 +29,6 @@ function ImageFileInputPopup(props) {
           const { profilePicture } = values;
           console.log(profilePicture);
           // resetForm();
-          // setShowImageFileInput(false);
           // setLoading(true);
           // setSubmitting(true);
           // updateProfilePicture(
@@ -44,7 +43,7 @@ function ImageFileInputPopup(props) {
           //     updateContextProfilePic(profilePicture);
           //     resetForm();
           //     setSubmitting(false);
-          //     setShowImageFileInput(false);
+          //     setShowProfilePicPopup(false);
           //     setLoading(false);
           //   }
           // );
@@ -105,7 +104,7 @@ function ImageFileInputPopup(props) {
                 <button
                   type="button"
                   className="imgFileInput-popup__cancel"
-                  onClick={() => setShowImageFileInput(false)}
+                  onClick={() => setShowProfilePicPopup(false)}
                 >
                   Cancel
                 </button>

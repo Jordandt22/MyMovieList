@@ -29,7 +29,7 @@ function App() {
   const { isAuth } = useAuth().authState;
 
   useEffect(() => {
-    if (pathname !== "/login" && pathname !== "/signin")
+    if (pathname !== "/login" && pathname !== "/signup")
       localStorage.setItem("lastStoredPage", pathname);
 
     window.scrollTo({
@@ -80,7 +80,10 @@ function App() {
           exact
           element={
             isAuth ? (
-              <Navigate to={lastStoredPage ? lastStoredPage : "/list"} />
+              <Navigate
+                to={lastStoredPage ? lastStoredPage : "/list"}
+                replace
+              />
             ) : (
               <Login />
             )
@@ -91,7 +94,10 @@ function App() {
           exact
           element={
             isAuth ? (
-              <Navigate to={lastStoredPage ? lastStoredPage : "/list"} />
+              <Navigate
+                to={lastStoredPage ? lastStoredPage : "/list"}
+                replace
+              />
             ) : (
               <Signup />
             )
