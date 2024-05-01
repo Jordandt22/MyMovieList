@@ -46,7 +46,7 @@ userRouter.delete("/:uid", authUser, deleteUser);
 // {
 //     "username": "WheresBasketBrawl123"
 // }
-userRouter.put("/users/:uid", editUsername);
+userRouter.patch("/:uid", editUsername);
 
 
 // userRouter.get("/home", getHome);

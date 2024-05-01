@@ -58,7 +58,7 @@ app.use("/v1/api/user", require("./routes/user/user.routes"));
 app.use("/v1/api/lists", require("./routes/lists/lists.routes"));
 
 const corsOptions = {
-  origin: "http://localhost:3002"
+  origin: "http://localhost:3000"
 };
 
 app.use(cors(corsOptions));
