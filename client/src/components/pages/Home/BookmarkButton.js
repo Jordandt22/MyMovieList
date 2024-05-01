@@ -12,7 +12,7 @@ import Unbookmark from "../../svgs/Unbookmark";
 import Bookmark from "../../svgs/Bookmark";
 
 function BookmarkButton(props) {
-  const { movieID } = props;
+  const { movieID, showText } = props;
   const { authState } = useAuth();
   const { setLoading } = useGlobal().state;
   const { addMovieToBookmarked, deleteMovieFromBookmarked } = useAPI().bookmark;
@@ -50,7 +50,7 @@ function BookmarkButton(props) {
       {checkBookmarked(movieID) ? (
         <button
           type="button"
-          className="hero__bookmark hero__bookmarked row"
+          className="hero__bookmark hero__bookmarked center"
           onClick={async () => {
             if (authState.isAuth) {
               await deleteBookmarkHandler();
@@ -60,12 +60,12 @@ function BookmarkButton(props) {
           }}
         >
           <Bookmark />
-          Unbookmark
+          {showText ? "Unbookmark" : ""}
         </button>
       ) : (
         <button
           type="button"
-          className="hero__bookmark row"
+          className="hero__bookmark center"
           onClick={async () => {
             if (authState.isAuth) {
               await addBookmarkHandler();
@@ -75,7 +75,7 @@ function BookmarkButton(props) {
           }}
         >
           <Unbookmark />
-          Bookmark
+          {showText ? "Boookmark" : ""}
         </button>
       )}
     </>

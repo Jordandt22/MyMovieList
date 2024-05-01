@@ -159,3 +159,13 @@
     border-color: $blue;
   }
 }
+
+.rated-card {
+  .hero__bookmark {
+    svg {
+      $s: 2rem;
+      width: $s;
+      height: $s * 1.5;
+    }
+  }
+}

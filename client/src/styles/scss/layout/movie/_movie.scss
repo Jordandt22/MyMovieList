@@ -132,6 +132,22 @@
   }
 }
 
+.movie-card__info {
+  .hero__bookmark {
+    position: absolute;
+    top: 1vh;
+    right: 0;
+    margin-left: 0;
+
+    svg {
+      $s: 2.5rem;
+      width: $s;
+      height: $s;
+      margin-right: 0;
+    }
+  }
+}
+
 .movie-card__rating {
   background: $teal;
   color: white;

@@ -10,16 +10,17 @@ import { useAuth } from "../../../context/auth/Auth.context";
 // Components
 import CirclePlus from "../../svgs/CirclePlus";
 import Star from "../../svgs/Star";
+import BookmarkButton from "../../pages/Home/BookmarkButton";
 
 function MovieCard(props) {
   const { movie, setMoviePopup } = props;
   const { id, poster_path, title, release_date } = movie;
-  const navigate = useNavigate();
   const { parseDate } = useUtil();
   const { isAuth } = useAuth().authState;
   const { getTMDBImageURL } = useTMDB();
   const { checkRatedMovies } = useUser();
   const { alreadyRated, movie: userMovieData } = checkRatedMovies(id);
+  const navigate = useNavigate();
 
   return (
     <div className="movie-card center-vertical">
@@ -43,23 +44,28 @@ function MovieCard(props) {
               {userMovieData.rating}/10
             </p>
           ) : (
-            <button
-              type="button"
-              className="movie-card__add"
-              onClick={() => {
-                if (isAuth) {
-                  setMoviePopup({
-                    show: true,
-                    movie,
-                  });
-                } else {
-                  navigate("/login");
-                }
-              }}
-            >
-              <CirclePlus />
-            </button>
+            <div className="movie-card__buttons center-vertical">
+              <button
+                type="button"
+                className="movie-card__add"
+                onClick={() => {
+                  if (isAuth) {
+                    setMoviePopup({
+                      show: true,
+                      movie,
+                    });
+                  } else {
+                    navigate("/login");
+                  }
+                }}
+              >
+                <CirclePlus />
+              </button>
+            </div>
           )}
+
+          {/* Bookmark */}
+          <BookmarkButton movieID={id} />
         </div>
       </div>
       <NavLink to={`/movie/${id}`} className="movie-card__sub-title">

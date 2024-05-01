@@ -7,6 +7,7 @@ import { useTMDB } from "../../../context/data/Tmdb.context";
 
 // Components
 import Star from "../../svgs/Star";
+import BookmarkButton from "../../pages/Home/BookmarkButton";
 
 function RecMovieCard(props) {
   const { movie } = props;
@@ -35,6 +36,8 @@ function RecMovieCard(props) {
             <Star />
             {roundedRating}/10
           </p>
+          {/* Bookmark */}
+          <BookmarkButton movieID={id} />
         </div>
       </div>
       <NavLink to={`/movie/${id}`} className="movie-card__sub-title">

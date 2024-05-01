@@ -12,6 +12,7 @@ import Money from "../../svgs/Money";
 import Language from "../../svgs/Language";
 import Globle from "../../svgs/Globle";
 import FilmCamera from "../../svgs/FilmCamera";
+import BookmarkButton from "../Home/BookmarkButton";
 
 function MovieDetails(props) {
   const { data, setMoviePopup, alreadyRated, userMovieData } = props;
@@ -76,7 +77,6 @@ function MovieDetails(props) {
 
         <div className="main-details">
           {/* Movie Header */}
-
           <div className="movie-header">
             <h1 className="movie-header__title">{data.title}</h1>
             <p className="movie-header__subtitle">
@@ -124,15 +124,38 @@ function MovieDetails(props) {
             </div>
           );
         })}
-        {alreadyRated ? (
-          <div className="center-vertical movie-stats__rating-box">
-            <p className="movie-stats__user-rating center">
-              <Star />
-              {userMovieData.rating}/10
-            </p>
+        <div className="center-vertical">
+          {alreadyRated ? (
+            <div className="center-vertical movie-stats__rating-box">
+              <p className="movie-stats__user-rating center">
+                <Star />
+                {userMovieData.rating}/10
+              </p>
+              <button
+                type="button"
+                className="movie-stats__edit"
+                onClick={() => {
+                  if (isAuth) {
+                    setMoviePopup({
+                      show: true,
+                      movie: {
+                        ...data,
+                        genre_ids,
+                        rating: userMovieData.rating,
+                      },
+                    });
+                  } else {
+                    navigate("/login");
+                  }
+                }}
+              >
+                Edit Rating
+              </button>
+            </div>
+          ) : (
             <button
               type="button"
-              className="movie-stats__edit"
+              className="movie-stats__btn"
               onClick={() => {
                 if (isAuth) {
                   setMoviePopup({
@@ -140,7 +163,6 @@ function MovieDetails(props) {
                     movie: {
                       ...data,
                       genre_ids,
-                      rating: userMovieData.rating,
                     },
                   });
                 } else {
@@ -148,30 +170,13 @@ function MovieDetails(props) {
                 }
               }}
             >
-              Edit Rating
+              Add to List
             </button>
-          </div>
-        ) : (
-          <button
-            type="button"
-            className="movie-stats__btn"
-            onClick={() => {
-              if (isAuth) {
-                setMoviePopup({
-                  show: true,
-                  movie: {
-                    ...data,
-                    genre_ids,
-                  },
-                });
-              } else {
-                navigate("/login");
-              }
-            }}
-          >
-            Add to List
-          </button>
-        )}
+          )}
+
+          {/* Bookmark */}
+          <BookmarkButton movieID={data.id} showText={true} />
+        </div>
       </div>
     </div>
   );

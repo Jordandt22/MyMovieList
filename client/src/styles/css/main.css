@@ -729,6 +729,18 @@ html {
   fill: #00c6d8;
 }
 
+.movie-card__info .hero__bookmark {
+  position: absolute;
+  top: 1vh;
+  right: 0;
+  margin-left: 0;
+}
+.movie-card__info .hero__bookmark svg {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-right: 0;
+}
+
 .movie-card__rating {
   background: #00d8b4;
   color: white;
@@ -1388,6 +1400,7 @@ html {
 
 .movie-stats__btn,
 .movie-stats__edit {
+  width: 100%;
   display: block;
   outline: none;
   border: 2px solid white;
@@ -1403,6 +1416,36 @@ html {
   cursor: pointer;
   background: #00c6d8;
   border-color: #00c6d8;
+}
+
+.movie-stats .hero__bookmark {
+  width: 100%;
+  margin-left: 0;
+  margin-top: 1.25rem;
+  border: 2px solid white;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  padding: 0.25rem 3rem;
+}
+.movie-stats .hero__bookmark svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.movie-stats .hero__bookmark:hover {
+  background: rgba(255, 208, 0, 0.75);
+  color: white;
+  border-color: #ffd000;
+}
+.movie-stats .hero__bookmark:hover svg path {
+  fill: white;
+}
+
+.movie-stats .hero__bookmarked {
+  border-color: #ffd000;
+  background: rgba(255, 208, 0, 0.5);
+}
+.movie-stats .hero__bookmarked svg path {
+  fill: white;
 }
 
 .movie-stats__btn {
@@ -2003,6 +2046,11 @@ html {
 .list-page__empty-link:hover {
   background: #00c6d8;
   border-color: #00c6d8;
+}
+
+.rated-card .hero__bookmark svg {
+  width: 2rem;
+  height: 3rem;
 }
 
 .rec-page {

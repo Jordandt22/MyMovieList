@@ -11,6 +11,7 @@ import { useUser } from "../../../context/state/User.context";
 
 // Components
 import Star from "../../svgs/Star";
+import BookmarkButton from "../Home/BookmarkButton";
 
 function RatedMovieCard(props) {
   const { movie, rating, setMoviePopup } = props;
@@ -38,7 +39,7 @@ function RatedMovieCard(props) {
   };
 
   return (
-    <div className="movie-card center-vertical">
+    <div className="rated-card movie-card center-vertical">
       <div className="movie-card__info-box">
         <object
           data={getTMDBImageURL(poster_path)}
@@ -72,6 +73,9 @@ function RatedMovieCard(props) {
           >
             Delete
           </button>
+
+          {/* Bookmark */}
+          <BookmarkButton movieID={id} />
         </div>
       </div>
       <NavLink to={`/movie/${id}`} className="movie-card__sub-title">

@@ -66,7 +66,7 @@ function HeroContent(props) {
             </button>
           )}
           {/* Bookmark */}
-          <BookmarkButton movieID={id} />
+          <BookmarkButton movieID={id} showText={true} />
         </div>
       </div>
     </div>
