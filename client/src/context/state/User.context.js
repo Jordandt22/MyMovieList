@@ -13,6 +13,7 @@ export const UserContextProvider = (props) => {
     username: "",
     email: "",
     ratedMovies: [],
+    bookmarked: [],
     profilePicture: null,
   });
 
@@ -22,6 +23,10 @@ export const UserContextProvider = (props) => {
   // Update Rated Movies List
   const updateRatedMovies = (updatedList) =>
     setUser((oldUser) => ({ ...oldUser, ratedMovies: updatedList }));
+
+  // Update Bookmarked List
+  const updateBookmarkedList = (updatedList) =>
+    setUser((oldUser) => ({ ...oldUser, bookmarked: updatedList }));
 
   // Update User's Profile Picture
   const updateProfilePicture = (profilePicture) =>
@@ -51,6 +56,18 @@ export const UserContextProvider = (props) => {
         };
   };
 
+  // Check if Bookmarked List contains a specific Movie
+  const checkBookmarked = (movieID) => {
+    if (!isAuth) return false;
+
+    // Specific Movie
+    const movie = user.bookmarked.filter(
+      (ratedMovie) => ratedMovie.movieID === movieID.toString()
+    )[0];
+
+    return movie ? true : false;
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -60,6 +77,8 @@ export const UserContextProvider = (props) => {
         updateProfilePicture,
         checkRatedMovies,
         updateUsername,
+        updateBookmarkedList,
+        checkBookmarked,
       }}
     >
       {props.children}

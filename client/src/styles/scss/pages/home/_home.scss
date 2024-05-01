@@ -62,31 +62,60 @@
   }
 }
 
-.hero__add {
+.hero__add,
+.hero__bookmark {
   background: transparent;
   color: white;
   outline: none;
   border: none;
   font-size: $sm-fs * 1.15;
   font-weight: 700;
+  transition: all 200ms ease-out;
 
   svg {
     $s: 1.75rem;
     width: $s;
     height: $s;
     margin-right: $spacer-small * 0.75;
+    transition: all 200ms ease-out;
 
     path {
       fill: white;
+      transition: all 200ms ease-out;
     }
   }
 
   &:hover {
     cursor: pointer;
-    color: $blue;
+    color: $teal;
 
     svg path {
-      fill: $blue;
+      fill: $teal;
+    }
+  }
+}
+
+.hero__bookmark {
+  margin-left: $spacer;
+
+  svg {
+    margin-right: $spacer-small * 0.5;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: $yellow;
+
+    svg path {
+      fill: $yellow;
+    }
+  }
+}
+
+.hero__bookmarked {
+  svg {
+    path {
+      fill: $yellow;
     }
   }
 }

@@ -10,6 +10,7 @@ import { useUser } from "../../../context/state/User.context";
 // Componentss
 import CirclePlus from "../../svgs/CirclePlus";
 import Star from "../../svgs/Star";
+import BookmarkButton from "./BookmarkButton";
 
 function HeroContent(props) {
   const {
@@ -39,6 +40,7 @@ function HeroContent(props) {
           <NavLink className="hero__link" to={`/movie/${id}`}>
             More Info
           </NavLink>
+          {/* Add To List */}
           {alreadyRated ? (
             <p className="hero__rating row">
               <Star />
@@ -63,6 +65,8 @@ function HeroContent(props) {
               Add to List
             </button>
           )}
+          {/* Bookmark */}
+          <BookmarkButton movieID={id} />
         </div>
       </div>
     </div>

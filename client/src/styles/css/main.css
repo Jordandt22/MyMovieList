@@ -501,7 +501,7 @@ html {
 
 .profile-dropdown {
   position: absolute;
-  bottom: -42.5vh;
+  bottom: -50vh;
   right: 7.5%;
   background: #131313;
   width: 20vw;
@@ -886,28 +886,54 @@ html {
   transform: scale(0.95);
 }
 
-.hero__add {
+.hero__add,
+.hero__bookmark {
   background: transparent;
   color: white;
   outline: none;
   border: none;
   font-size: 1.035rem;
   font-weight: 700;
+  transition: all 200ms ease-out;
 }
-.hero__add svg {
+.hero__add svg,
+.hero__bookmark svg {
   width: 1.75rem;
   height: 1.75rem;
   margin-right: 0.75rem;
+  transition: all 200ms ease-out;
 }
-.hero__add svg path {
+.hero__add svg path,
+.hero__bookmark svg path {
   fill: white;
+  transition: all 200ms ease-out;
 }
-.hero__add:hover {
+.hero__add:hover,
+.hero__bookmark:hover {
   cursor: pointer;
-  color: #00c6d8;
+  color: #00d8b4;
 }
-.hero__add:hover svg path {
-  fill: #00c6d8;
+.hero__add:hover svg path,
+.hero__bookmark:hover svg path {
+  fill: #00d8b4;
+}
+
+.hero__bookmark {
+  margin-left: 1.5rem;
+}
+.hero__bookmark svg {
+  margin-right: 0.5rem;
+}
+.hero__bookmark:hover {
+  cursor: pointer;
+  color: #ffd000;
+}
+.hero__bookmark:hover svg path {
+  fill: #ffd000;
+}
+
+.hero__bookmarked svg path {
+  fill: #ffd000;
 }
 
 .hero__rating {

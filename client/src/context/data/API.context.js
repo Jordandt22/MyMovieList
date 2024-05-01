@@ -107,6 +107,29 @@ export const APIContextProvider = (props) => {
       .then((res) => cb(res, null))
       .catch((err) => cb(null, err));
 
+  // ---- Bookmarked List ----
+
+  // Add Movie to Bookmarked
+  const addMovieToBookmarked = (authState, movieID, cb) =>
+    axios
+      .post(
+        REACT_APP_API_URL + `/lists/bookmark/${authState.uid}`,
+        { movieID },
+        config(authState.accessToken)
+      )
+      .then((res) => cb(res, null))
+      .catch((err) => cb(null, err));
+
+  // Delete Movie from Bookmarked
+  const deleteMovieFromBookmarked = (authState, movieID, cb) =>
+    axios
+      .delete(
+        REACT_APP_API_URL + `/lists/bookmark/${authState.uid}/${movieID}`,
+        config(authState.accessToken)
+      )
+      .then((res) => cb(res, null))
+      .catch((err) => cb(null, err));
+
   return (
     <APIContext.Provider
       value={{
@@ -122,6 +145,10 @@ export const APIContextProvider = (props) => {
           editMovieInList,
           deleteMovieFromList,
           getRecommendations,
+        },
+        bookmark: {
+          addMovieToBookmarked,
+          deleteMovieFromBookmarked,
         },
       }}
     >

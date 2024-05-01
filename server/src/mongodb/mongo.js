@@ -16,28 +16,25 @@ connect
 
 const GenreSchema = new mongoose.Schema({
   genreID: {
-    type: Number
-  }
+    type: Number,
+  },
 });
-
 
 const MovieSchema = new mongoose.Schema({
   movieID: {
-    type: String
+    type: String,
   },
   rating: {
     type: Number,
   },
-  genres:[GenreSchema]
+  genres: [GenreSchema],
 });
 
 const bookmark = new mongoose.Schema({
   movieID: {
-    type: String
+    type: String,
   },
 });
-
-
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -50,12 +47,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   ratedMovies: [MovieSchema],
-
   bookmarked: [bookmark],
-
-  profilePicture:{
-    type:String,
-  }
+  profilePicture: {
+    type: String,
+  },
 });
 
 // Collection part

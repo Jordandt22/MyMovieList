@@ -15,6 +15,7 @@ import RightArrow from "../../svgs/RightArrow";
 import List from "../../svgs/List";
 import Star from "../../svgs/Star";
 import Close from "../../svgs/Close";
+import Bookmark from "../../svgs/Bookmark";
 
 function Navbar() {
   const { pathname } = useLocation();
@@ -67,6 +68,11 @@ function Navbar() {
       icon: <Star id="profile-star" className="profile-link__icon" />,
       label: "Recommendations",
       path: "/recommendations",
+    },
+    {
+      icon: <Bookmark className="profile-link__icon" />,
+      label: "Bookmarked",
+      path: "/bookmarked",
     },
   ];
 

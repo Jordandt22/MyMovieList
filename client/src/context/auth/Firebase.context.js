@@ -92,8 +92,8 @@ export const FirebaseContextProvider = (props) => {
           if (APIError) return console.log(APIError);
 
           // Update User State
-          const { email, username, ratedMovies } = res.data.user;
-          updateUser({ uid, email, username, ratedMovies });
+          const { email, username, ratedMovies, bookmarked } = res.data.user;
+          updateUser({ uid, email, username, ratedMovies, bookmarked });
 
           // Finish Auth Process
           authenticateUser(accessToken, uid);
