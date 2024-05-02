@@ -10,6 +10,8 @@ const url = dbConfig.url;
 const baseUrl = "http://localhost:3001/v1/api/user/files/";
 const mongoClient = new MongoClient(url);
 const path = require("path");
+const { ObjectId } = require("mongodb");
+const { ObjectID } = require("mongodb");
 
 
 
@@ -149,26 +151,55 @@ module.exports = {
   
   uploadFiles: async (req, res) => {
     try {
+      
+      const { uid } = req.params;
+      
+      // Execute the file upload middleware
       await upload(req, res);
-      console.log(req.file);
   
+      // Check if file was uploaded
       if (req.file == undefined) {
         return res.send({
           message: "You must select a file.",
         });
       }
   
-      return res.send({
-        message: "File has been uploaded.",
-      });
-    } catch (error) {
-      console.log(error);
+      // Find the user by UID
+      const user = await UserModel.findOne({ uid });
   
-      return res.send({
-        message: "Error when trying upload image: ${error}",
-      });
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+  
+      // Replace or add the uploaded profile picture metadata
+      if (user.profilePicture && user.profilePicture.length > 0) {
+        // If user has an existing profile picture, replace it with the new one
+        user.profilePicture[0] = {
+          fileName: req.file.originalname,
+          fileSize: req.file.size,
+          mimeType: req.file.mimetype,
+          fileID: req.file.id,
+        };
+      } else {
+        // If user has no existing profile picture, create the profilePicture array and add the new one
+        user.profilePicture = [{
+          fileName: req.file.originalname,
+          fileSize: req.file.size,
+          mimeType: req.file.mimetype,
+          fileID: req.file.id,
+        }];
+      }
+  
+      // Save the updated user object to the database
+      await user.save();
+  
+      return res.status(200).json({ message: "Profile picture uploaded successfully", user });
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+      return res.status(500).json({ error: "Internal server error" });
     }
   },
+
 
   getListFiles: async (req, res) => {
     try {

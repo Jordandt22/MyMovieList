@@ -51,7 +51,7 @@ userRouter.patch("/:uid", editUsername);
 
 // userRouter.get("/home", getHome);
   
-userRouter.post("/upload/picture", uploadFiles);
+userRouter.post("/upload/picture/:uid", uploadFiles);
 userRouter.get("/files/list", getListFiles);
 userRouter.get("/files/:name", download);
   

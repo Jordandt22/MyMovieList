@@ -35,6 +35,24 @@ const bookmark = new mongoose.Schema({
   },
 });
 
+const ProfilePictureSchema = new mongoose.Schema({
+  profilePicture: {
+    type: Number,
+  },
+  fileName: {
+    type: String,
+  },
+  fileSize: {
+    type: Number,
+  },
+  mimeType: {
+    type: String,
+  },
+  fileID: {
+    type: String,
+  }
+});
+
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -47,10 +65,7 @@ const UserSchema = new mongoose.Schema({
   },
   ratedMovies: [MovieSchema],
   bookmarked: [bookmark],
-  profilePicture: {
-    type: Number,
-    
-  },
+  profilePicture: [ProfilePictureSchema]
 });
 
 // Collection part
