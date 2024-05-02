@@ -234,32 +234,51 @@ module.exports = {
 
   download: async (req, res) => {
     try {
-      await mongoClient.connect();
-  
-      const database = mongoClient.db(dbConfig.database);
-      const bucket = new GridFSBucket(database, {
-        bucketName: dbConfig.imgBucket,
-      });
-  
-      const downloadStream = bucket.openDownloadStreamByName(req.params.name);
-  
-      downloadStream.on("data", function (data) {
-        return res.status(200).write(data);
-      });
-  
-      downloadStream.on("error", function (err) {
-        return res.status(404).send({ message: "Cannot download the Image!" });
-      });
-  
-      downloadStream.on("end", () => {
-        return res.end();
-      });
+        const { uid } = req.params;
+
+        await mongoClient.connect();
+
+        const database = mongoClient.db(dbConfig.database);
+        const bucket = new GridFSBucket(database, {
+            bucketName: dbConfig.imgBucket,
+        });
+
+        // Fetch the user by UID to ensure the file belongs to the correct user
+        const user = await UserModel.findOne({ uid });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Get the profile picture file associated with the user
+        const profilePicture = user.profilePicture[0]; // Assuming only one profile picture for simplicity
+
+        if (!profilePicture) {
+            return res.status(404).json({ error: "Profile picture not found for the user" });
+        }
+
+        // Open a download stream for the profile picture file
+        const downloadStream = bucket.openDownloadStreamByName(profilePicture.fileName);
+
+        // Stream the file data to the response
+        downloadStream.on("data", function (data) {
+            res.write(data);
+        });
+
+        // Handle errors
+        downloadStream.on("error", function (err) {
+            res.status(404).send({ message: "Cannot download the image!" });
+        });
+
+        // Close the response stream when the download is complete
+        downloadStream.on("end", () => {
+            res.end();
+        });
     } catch (error) {
-      return res.status(500).send({
-        message: error.message,
-      });
+        res.status(500).send({ message: error.message });
     }
-  },
+},
+
+
 
   getHome: (req, res) => {
     return res.sendFile(path.join(`${__dirname}/../../../../../client/src/components/pages/Settings/ImageFileInputPopup.js`));

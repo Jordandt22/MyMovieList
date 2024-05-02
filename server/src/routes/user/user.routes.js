@@ -50,10 +50,17 @@ userRouter.patch("/:uid", editUsername);
 
 
 // userRouter.get("/home", getHome);
-  
+
+// Upload a picture to the uid
+// http://localhost:3001/v1/api/user/upload/picture/9kj03Vt1uWWqXYwwF3wwuQUCp6n2/
 userRouter.post("/upload/picture/:uid", uploadFiles);
+
+// List of all pictures uploaded 
 userRouter.get("/files/list", getListFiles);
-userRouter.get("/files/:name", download);
+
+// Get the picture associated with the user id
+// http://localhost:3001/v1/api/user/files/9kj03Vt1uWWqXYwwF3wwuQUCp6n2/
+userRouter.get("/files/:uid/", download);
   
 
   
