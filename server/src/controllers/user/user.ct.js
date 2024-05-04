@@ -1,7 +1,7 @@
 const UserModel = require("../../mongodb/mongo");
 // const { GridFSBucket, ObjectID } = require("mongodb");
 const mongoose = require("mongoose");
-const fs = require('fs');
+const fs = require("fs");
 const upload = require("../../middlewares/upload");
 const dbConfig = require("../../config/db");
 const MongoClient = require("mongodb").MongoClient;
@@ -12,8 +12,6 @@ const mongoClient = new MongoClient(url);
 const path = require("path");
 const { ObjectId } = require("mongodb");
 const { ObjectID } = require("mongodb");
-
-
 
 module.exports = {
   createUser: async (req, res) => {
@@ -30,19 +28,10 @@ module.exports = {
 
     const { email, username } = req.body;
 
-    // New User
-    const min = 1;
-    const max = 5;
-    const minCeiled = Math.ceil(min);
-    const maxFloored = Math.floor(max);
-    const randNum = Math.floor(
-      Math.random() * (maxFloored - minCeiled + 1) + minCeiled
-    );
     const user = await UserModel.create({
       email,
       username,
       uid,
-      profilePicture: randNum,
     });
     res.status(200).json({ user, error: null });
   },
@@ -68,36 +57,33 @@ module.exports = {
 
   updateProfilePicture: async (req, res) => {
     try {
-        const uid = req.params.uid;
-        const uploadedFile = req.file;
+      const uid = req.params.uid;
+      const uploadedFile = req.file;
 
-        // Log the uploaded file object to inspect its properties
-        console.log("Uploaded file:", uploadedFile);
+      // Log the uploaded file object to inspect its properties
+      console.log("Uploaded file:", uploadedFile);
 
-        // Check if file was uploaded
-        if (!uploadedFile) {
-            return res.status(400).json({ error: "No file uploaded" });
-        }
+      // Check if file was uploaded
+      if (!uploadedFile) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
 
-        // Check the value of the path property
-        console.log("Uploaded file path:", uploadedFile.path);
+      // Check the value of the path property
+      console.log("Uploaded file path:", uploadedFile.path);
 
-        // Find the user by userId
-        const user = await UserModel.findOne({ uid });
+      // Find the user by userId
+      const user = await UserModel.findOne({ uid });
 
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
 
-        // Continue with your code...
+      // Continue with your code...
     } catch (error) {
-        console.error("Error uploading profile picture:", error);
-        res.status(500).json({ error: "Internal server error" });
+      console.error("Error uploading profile picture:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
-},
-
-
-
+  },
 
   deleteUser: async (req, res) => {
     try {
@@ -148,29 +134,28 @@ module.exports = {
       res.status(500).json({ error: "Internal server error" });
     }
   },
-  
+
   uploadFiles: async (req, res) => {
     try {
-      
       const { uid } = req.params;
-      
+
       // Execute the file upload middleware
       await upload(req, res);
-  
+
       // Check if file was uploaded
       if (req.file == undefined) {
         return res.send({
           message: "You must select a file.",
         });
       }
-  
+
       // Find the user by UID
       const user = await UserModel.findOne({ uid });
-  
+
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
-  
+
       // Replace or add the uploaded profile picture metadata
       if (user.profilePicture && user.profilePicture.length > 0) {
         // If user has an existing profile picture, replace it with the new one
@@ -182,40 +167,43 @@ module.exports = {
         };
       } else {
         // If user has no existing profile picture, create the profilePicture array and add the new one
-        user.profilePicture = [{
-          fileName: req.file.originalname,
-          fileSize: req.file.size,
-          mimeType: req.file.mimetype,
-          fileID: req.file.id,
-        }];
+        user.profilePicture = [
+          {
+            fileName: req.file.originalname,
+            fileSize: req.file.size,
+            mimeType: req.file.mimetype,
+            fileID: req.file.id,
+          },
+        ];
       }
-  
+
       // Save the updated user object to the database
       await user.save();
-  
-      return res.status(200).json({ message: "Profile picture uploaded successfully", user });
+
+      return res
+        .status(200)
+        .json({ message: "Profile picture uploaded successfully", user });
     } catch (error) {
       console.error("Error uploading profile picture:", error);
       return res.status(500).json({ error: "Internal server error" });
     }
   },
 
-
   getListFiles: async (req, res) => {
     try {
       await mongoClient.connect();
-  
+
       const database = mongoClient.db(dbConfig.database);
       const images = database.collection(dbConfig.imgBucket + ".files");
-  
+
       const cursor = images.find({});
-  
+
       if ((await cursor.count()) === 0) {
         return res.status(500).send({
           message: "No files found!",
         });
       }
-  
+
       let fileInfos = [];
       await cursor.forEach((doc) => {
         fileInfos.push({
@@ -223,7 +211,7 @@ module.exports = {
           url: baseUrl + doc.filename,
         });
       });
-  
+
       return res.status(200).send(fileInfos);
     } catch (error) {
       return res.status(500).send({
@@ -234,54 +222,59 @@ module.exports = {
 
   download: async (req, res) => {
     try {
-        const { uid } = req.params;
+      const { uid } = req.params;
 
-        await mongoClient.connect();
+      await mongoClient.connect();
 
-        const database = mongoClient.db(dbConfig.database);
-        const bucket = new GridFSBucket(database, {
-            bucketName: dbConfig.imgBucket,
-        });
+      const database = mongoClient.db(dbConfig.database);
+      const bucket = new GridFSBucket(database, {
+        bucketName: dbConfig.imgBucket,
+      });
 
-        // Fetch the user by UID to ensure the file belongs to the correct user
-        const user = await UserModel.findOne({ uid });
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
+      // Fetch the user by UID to ensure the file belongs to the correct user
+      const user = await UserModel.findOne({ uid });
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
 
-        // Get the profile picture file associated with the user
-        const profilePicture = user.profilePicture[0]; // Assuming only one profile picture for simplicity
+      // Get the profile picture file associated with the user
+      const profilePicture = user.profilePicture[0]; // Assuming only one profile picture for simplicity
 
-        if (!profilePicture) {
-            return res.status(404).json({ error: "Profile picture not found for the user" });
-        }
+      if (!profilePicture) {
+        return res
+          .status(404)
+          .json({ error: "Profile picture not found for the user" });
+      }
 
-        // Open a download stream for the profile picture file
-        const downloadStream = bucket.openDownloadStreamByName(profilePicture.fileName);
+      // Open a download stream for the profile picture file
+      const downloadStream = bucket.openDownloadStreamByName(
+        profilePicture.fileName
+      );
 
-        // Stream the file data to the response
-        downloadStream.on("data", function (data) {
-            res.write(data);
-        });
+      // Stream the file data to the response
+      downloadStream.on("data", function (data) {
+        res.write(data);
+      });
 
-        // Handle errors
-        downloadStream.on("error", function (err) {
-            res.status(404).send({ message: "Cannot download the image!" });
-        });
+      // Handle errors
+      downloadStream.on("error", function (err) {
+        res.status(404).send({ message: "Cannot download the image!" });
+      });
 
-        // Close the response stream when the download is complete
-        downloadStream.on("end", () => {
-            res.end();
-        });
+      // Close the response stream when the download is complete
+      downloadStream.on("end", () => {
+        res.end();
+      });
     } catch (error) {
-        res.status(500).send({ message: error.message });
+      res.status(500).send({ message: error.message });
     }
-},
-
-
-
-  getHome: (req, res) => {
-    return res.sendFile(path.join(`${__dirname}/../../../../../client/src/components/pages/Settings/ImageFileInputPopup.js`));
   },
 
+  getHome: (req, res) => {
+    return res.sendFile(
+      path.join(
+        `${__dirname}/../../../../../client/src/components/pages/Settings/ImageFileInputPopup.js`
+      )
+    );
+  },
 };

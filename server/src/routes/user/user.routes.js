@@ -3,8 +3,8 @@ const { authUser } = require("../../middlewares/auth.mw");
 const upload = require("../../middlewares/upload");
 const express = require("express");
 const router = express.Router();
-const homeController = require('../../controllers/home');
-const uploadController = require('../../controllers/upload');
+const homeController = require("../../controllers/home");
+const uploadController = require("../../controllers/upload");
 const dbConfig = require("../../config/db");
 
 // Controllers
@@ -17,7 +17,7 @@ const {
   uploadFiles,
   getListFiles,
   download,
-  getHome
+  getHome,
 } = require("../../controllers/user/user.ct");
 
 // POST - Create User
@@ -48,21 +48,17 @@ userRouter.delete("/:uid", authUser, deleteUser);
 // }
 userRouter.patch("/:uid", editUsername);
 
-
 // userRouter.get("/home", getHome);
 
 // Upload a picture to the uid
 // http://localhost:3001/v1/api/user/upload/picture/9kj03Vt1uWWqXYwwF3wwuQUCp6n2/
 userRouter.post("/upload/picture/:uid", uploadFiles);
 
-// List of all pictures uploaded 
+// List of all pictures uploaded
 userRouter.get("/files/list", getListFiles);
 
 // Get the picture associated with the user id
 // http://localhost:3001/v1/api/user/files/9kj03Vt1uWWqXYwwF3wwuQUCp6n2/
-userRouter.get("/files/:uid/", download);
-  
-
-  
+userRouter.get("/files/:uid", download);
 
 module.exports = userRouter;
