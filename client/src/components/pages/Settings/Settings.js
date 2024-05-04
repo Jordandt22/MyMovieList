@@ -9,6 +9,7 @@ import User from "../../svgs/User";
 import WarningPopup from "./WarningPopup";
 import EditProfilePicPopup from "./EditProfilePicPopup";
 import EditUsernamePopup from "./EditUsernamePopup";
+import ProfilePicture from "../../layout/standalone/ProfilePicture";
 
 function Settings() {
   const {
@@ -48,15 +49,13 @@ function Settings() {
           </div>
 
           <div className="user-info__profilePic-box row">
-            <div className="user-info__profilePic center">
-              {!profilePicture ? "None" : "IMAGE HERE"}
-            </div>
+            <ProfilePicture className="user-info__profilePic" />
             <button
               type="button"
               className="user-info__edit"
               onClick={() => setShowProfilePicPopup(true)}
             >
-              {profilePicture ? "Edit" : "Add"} Photo
+              Change Photo
             </button>
           </div>
         </div>

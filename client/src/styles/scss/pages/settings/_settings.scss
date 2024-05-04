@@ -67,9 +67,8 @@
   $s: 5.5rem;
   width: $s;
   height: $s;
-  background: lightgrey;
-  border-radius: 5px;
-  color: grey;
+  border: none;
+  box-shadow: 0 0 10px 5px rgba(black, 0.25);
 }
 
 .user-info__edit {
@@ -116,7 +115,7 @@
 
 // Warning Popup
 .warning-popup,
-.imgFileInput-popup,
+.profile-pic-popup,
 .edit-popup {
   position: fixed;
   top: 0;
@@ -128,7 +127,7 @@
 }
 
 .warning-popup__box,
-.imgFileInput-popup__box,
+.profile-pic-popup__box,
 .edit-popup__box {
   width: 30vw;
   background: $blue-gray;
@@ -137,7 +136,7 @@
 }
 
 .warning-popup__title,
-.imgFileInput-popup__title,
+.profile-pic-popup__title,
 .edit-popup__title {
   color: white;
   font-size: $md-fs;
@@ -188,12 +187,12 @@
 }
 
 // Image File Input Popup
-.imgFileInput-popup__input-box {
+.profile-pic-popup__input-box {
   margin-top: $spacer;
   margin-bottom: $spacer-md;
 }
 
-.imgFileInput-popup__empty {
+.profile-pic-popup__empty {
   $s: 6.5rem;
   width: $s;
   height: $s;
@@ -203,7 +202,7 @@
   margin-bottom: $spacer-small * 1.5;
 }
 
-.imgFileInput-popup__preview {
+.profile-pic-popup__preview {
   $s: 6.5rem;
   width: $s;
   height: $s;
@@ -212,13 +211,13 @@
   margin-bottom: $spacer-small * 0.5;
 }
 
-.imgFileInput-popup__preview-name {
+.profile-pic-popup__preview-name {
   color: lightgrey;
   font-weight: 400;
   margin-bottom: $spacer-small * 1.25;
 }
 
-.imgFileInput-popup__input {
+.profile-pic-popup__input {
   display: inline-block;
   border: 2px solid $teal;
   padding: $spacer-small * 0.5 $spacer-md;
@@ -239,8 +238,8 @@
   }
 }
 
-.imgFileInput-popup__save,
-.imgFileInput-popup__cancel,
+.profile-pic-popup__save,
+.profile-pic-popup__cancel,
 .edit-popup__save,
 .edit-popup__cancel {
   outline: none;
@@ -260,7 +259,7 @@
   }
 }
 
-.imgFileInput-popup__cancel,
+.profile-pic-popup__cancel,
 .edit-popup__cancel {
   border-color: $red;
   color: $red;

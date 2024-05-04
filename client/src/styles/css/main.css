@@ -1701,9 +1701,8 @@ html {
 .user-info__profilePic {
   width: 5.5rem;
   height: 5.5rem;
-  background: lightgrey;
-  border-radius: 5px;
-  color: grey;
+  border: none;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.25);
 }
 
 .user-info__edit {
@@ -1746,7 +1745,7 @@ html {
 }
 
 .warning-popup,
-.imgFileInput-popup,
+.profile-pic-popup,
 .edit-popup {
   position: fixed;
   top: 0;
@@ -1758,7 +1757,7 @@ html {
 }
 
 .warning-popup__box,
-.imgFileInput-popup__box,
+.profile-pic-popup__box,
 .edit-popup__box {
   width: 30vw;
   background: #343d45;
@@ -1767,7 +1766,7 @@ html {
 }
 
 .warning-popup__title,
-.imgFileInput-popup__title,
+.profile-pic-popup__title,
 .edit-popup__title {
   color: white;
   font-size: 1.5rem;
@@ -1815,12 +1814,12 @@ html {
   border-color: #00909d;
 }
 
-.imgFileInput-popup__input-box {
+.profile-pic-popup__input-box {
   margin-top: 1.5rem;
   margin-bottom: 3rem;
 }
 
-.imgFileInput-popup__empty {
+.profile-pic-popup__empty {
   width: 6.5rem;
   height: 6.5rem;
   border-radius: 5px;
@@ -1829,7 +1828,7 @@ html {
   margin-bottom: 1.5rem;
 }
 
-.imgFileInput-popup__preview {
+.profile-pic-popup__preview {
   width: 6.5rem;
   height: 6.5rem;
   border-radius: 5px;
@@ -1837,13 +1836,13 @@ html {
   margin-bottom: 0.5rem;
 }
 
-.imgFileInput-popup__preview-name {
+.profile-pic-popup__preview-name {
   color: lightgrey;
   font-weight: 400;
   margin-bottom: 1.25rem;
 }
 
-.imgFileInput-popup__input {
+.profile-pic-popup__input {
   display: inline-block;
   border: 2px solid #00d8b4;
   padding: 0.5rem 3rem;
@@ -1853,17 +1852,17 @@ html {
   cursor: pointer;
   transition: all 200ms ease-out;
 }
-.imgFileInput-popup__input input[type=file] {
+.profile-pic-popup__input input[type=file] {
   display: none;
 }
-.imgFileInput-popup__input:hover {
+.profile-pic-popup__input:hover {
   cursor: pointer;
   background: #00d8b4;
   color: white;
 }
 
-.imgFileInput-popup__save,
-.imgFileInput-popup__cancel,
+.profile-pic-popup__save,
+.profile-pic-popup__cancel,
 .edit-popup__save,
 .edit-popup__cancel {
   outline: none;
@@ -1876,8 +1875,8 @@ html {
   margin-right: 1rem;
   transition: all 200ms ease-out;
 }
-.imgFileInput-popup__save:hover,
-.imgFileInput-popup__cancel:hover,
+.profile-pic-popup__save:hover,
+.profile-pic-popup__cancel:hover,
 .edit-popup__save:hover,
 .edit-popup__cancel:hover {
   cursor: pointer;
@@ -1885,13 +1884,13 @@ html {
   color: white;
 }
 
-.imgFileInput-popup__cancel,
+.profile-pic-popup__cancel,
 .edit-popup__cancel {
   border-color: #ff2b2b;
   color: #ff2b2b;
   margin-right: 0;
 }
-.imgFileInput-popup__cancel:hover,
+.profile-pic-popup__cancel:hover,
 .edit-popup__cancel:hover {
   cursor: pointer;
   background: #ff2b2b;

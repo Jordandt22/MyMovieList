@@ -34,16 +34,24 @@ export const APIContextProvider = (props) => {
   // Update Profile Picture
   const updateProfilePicture = (uid, accessToken, file, cb) => {
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("file", file);
     return axios
       .post(
-        REACT_APP_API_URL + `/user/upload/${uid}`,
+        REACT_APP_API_URL + `/user/${uid}/upload/picture`,
         formData,
         config(accessToken, { "Content-Type": "multipart/form-data" })
       )
       .then((res) => cb(res, null))
       .catch((err) => cb(null, err));
   };
+
+  const getProfilePictureURL = (name) =>
+    axios
+      .get(REACT_APP_API_URL + `/user/files/${name}`)
+      .then((res) => {
+        return res.data.data.data;
+      })
+      .catch((err) => console.log(err));
 
   // Update Username
   const updateUsername = (authState, newUsername, cb) =>
@@ -139,6 +147,7 @@ export const APIContextProvider = (props) => {
           updateProfilePicture,
           deleteDBUser,
           updateUsername,
+          getProfilePictureURL,
         },
         movie: {
           addMovieToList,

@@ -13,7 +13,7 @@ import { useUser } from "../../../context/state/User.context";
 function ImageFileInputPopup(props) {
   const { setShowProfilePicPopup } = props;
   const { setLoading } = useGlobal().state;
-  const { uid, acccessToken } = useAuth().authState;
+  const { uid, accessToken } = useAuth().authState;
   const { updateProfilePicture } = useAPI().user;
   const { updateProfilePicture: updateContextProfilePic } = useUser();
 
@@ -21,58 +21,56 @@ function ImageFileInputPopup(props) {
   const [preview, setPreview] = useState(null);
 
   return (
-    <div className="imgFileInput-popup center">
+    <div className="profile-pic-popup center">
       <Formik
         initialValues={{ profilePicture: "" }}
         validationSchema={ProfilePictureSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          const { profilePicture } = values;
-          console.log(profilePicture);
-          // resetForm();
-          // setLoading(true);
-          // setSubmitting(true);
-          // updateProfilePicture(
-          //   uid,
-          //   acccessToken,
-          //   profilePicture,
-          //   (res, APIError) => {
-          //     if (APIError) return console.log(APIError);
+          const { profilePicture: profilePicFile } = values;
+          setLoading(true);
+          setSubmitting(true);
+          updateProfilePicture(
+            uid,
+            accessToken,
+            profilePicFile,
+            (res, APIError) => {
+              if (APIError) return console.log(APIError);
 
-          //     // Update Context
-          //     console.log(res);
-          //     updateContextProfilePic(profilePicture);
-          //     resetForm();
-          //     setSubmitting(false);
-          //     setShowProfilePicPopup(false);
-          //     setLoading(false);
-          //   }
-          // );
+              // Update Context
+              const { profilePicture } = res.data.user;
+              updateContextProfilePic(profilePicture);
+              resetForm();
+              setSubmitting(false);
+              setShowProfilePicPopup(false);
+              setLoading(false);
+            }
+          );
         }}
       >
         {(props) => (
           <form onSubmit={props.handleSubmit}>
-            <div className="imgFileInput-popup__box center-vertical">
-              <h1 className="imgFileInput-popup__title">
+            <div className="profile-pic-popup__box center-vertical">
+              <h1 className="profile-pic-popup__title">
                 Choose a new Profile Picture!
               </h1>
 
               {/* Input */}
-              <div className="imgFileInput-popup__input-box center-vertical">
+              <div className="profile-pic-popup__input-box center-vertical">
                 {props.values.profilePicture ? (
                   <div className="center-vertical">
                     <img
                       src={preview}
-                      className="imgFileInput-popup__preview"
+                      className="profile-pic-popup__preview"
                       alt="Input Preview"
                     />
-                    <p className="imgFileInput-popup__preview-name">
+                    <p className="profile-pic-popup__preview-name">
                       {props.values.profilePicture.name}
                     </p>
                   </div>
                 ) : (
-                  <div className="imgFileInput-popup__empty center">None</div>
+                  <div className="profile-pic-popup__empty center">None</div>
                 )}
-                <label className="imgFileInput-popup__input">
+                <label className="profile-pic-popup__input">
                   <input
                     onChange={(event) => {
                       const file = event.currentTarget.files[0];
@@ -98,12 +96,12 @@ function ImageFileInputPopup(props) {
 
               {/* Buttons */}
               <div className="between-row">
-                <button type="submit" className="imgFileInput-popup__save">
+                <button type="submit" className="profile-pic-popup__save">
                   Save
                 </button>
                 <button
                   type="button"
-                  className="imgFileInput-popup__cancel"
+                  className="profile-pic-popup__cancel"
                   onClick={() => setShowProfilePicPopup(false)}
                 >
                   Cancel
