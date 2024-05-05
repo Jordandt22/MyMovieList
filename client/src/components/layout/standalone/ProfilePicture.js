@@ -6,30 +6,30 @@ import { useUser } from "../../../context/state/User.context";
 
 // Components
 import User from "../../svgs/User";
-import { useAPI } from "../../../context/data/API.context";
+import ProfilePictureQuery from "./ProfilePictureQuery";
 
 function ProfilePicture(props) {
+  const { isSetting } = props;
   const { isAuth } = useAuth().authState;
   const {
-    user: { profilePicture, username },
+    user: { profilePicture },
   } = useUser();
-  const { getProfilePictureURL } = useAPI().user;
 
-  if (isAuth && profilePicture) {
-    return (
-      <div className={`profile-pic__box ${props.className} center`}>
-        <img
-          src={getProfilePictureURL(profilePicture.name)}
-          alt={username}
-          className="profile-pic"
-        />
-      </div>
-    );
+  if (isAuth && profilePicture.length >= 1) {
+    return <ProfilePictureQuery {...props} />;
   } else {
     return (
-      <div className={`profile-pic__box ${props.className} center`}>
-        <User />
-      </div>
+      <>
+        {isSetting ? (
+          <div className="profile-pic__box user-info__none center">None</div>
+        ) : (
+          <div
+            className={`profile-pic__box profile-pic__user ${props.className} center`}
+          >
+            <User />
+          </div>
+        )}
+      </>
     );
   }
 }

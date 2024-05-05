@@ -3,7 +3,7 @@
 // Loading
 .loading,
 .error-popup {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -161,9 +161,26 @@
   width: $s;
   height: $s;
   padding: 0;
-  border: 2px solid $blue;
+  border: 2px solid $blue-gray;
   border-radius: 50%;
   transition: all 200ms ease-out;
+
+  svg {
+    $s: 1.5rem;
+    width: $s;
+    height: $s;
+
+    path,
+    circle {
+      fill: white;
+      stroke: white;
+    }
+  }
+}
+
+.profile-pic__user {
+  background: $teal;
+  border-color: $teal;
 }
 
 .profile-pic {

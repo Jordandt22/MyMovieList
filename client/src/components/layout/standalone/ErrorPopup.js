@@ -1,8 +1,8 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 // Components
 import Error from "../../svgs/Error";
-import { NavLink } from "react-router-dom";
 
 function ErrorPopup(props) {
   const { message } = props;

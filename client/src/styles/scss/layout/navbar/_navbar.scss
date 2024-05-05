@@ -199,18 +199,6 @@
   background: $teal;
   border-radius: 50%;
   margin-right: $spacer-small;
-
-  svg {
-    $s: 1.5rem;
-    width: $s;
-    height: $s;
-
-    path,
-    circle {
-      fill: white;
-      stroke: white;
-    }
-  }
 }
 
 .profile-info__username {

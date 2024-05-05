@@ -52,13 +52,13 @@ userRouter.patch("/:uid", editUsername);
 
 // Upload a picture to the uid
 // http://localhost:3001/v1/api/user/upload/picture/9kj03Vt1uWWqXYwwF3wwuQUCp6n2/
-userRouter.post("/upload/picture/:uid", uploadFiles);
+userRouter.post("/upload/picture/:uid", authUser, uploadFiles);
 
 // List of all pictures uploaded
 userRouter.get("/files/list", getListFiles);
 
 // Get the picture associated with the user id
 // http://localhost:3001/v1/api/user/files/9kj03Vt1uWWqXYwwF3wwuQUCp6n2/
-userRouter.get("/files/:uid", download);
+userRouter.get("/files/:uid", authUser, download);
 
 module.exports = userRouter;

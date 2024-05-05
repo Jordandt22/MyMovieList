@@ -253,7 +253,7 @@ module.exports = {
 
       // Stream the file data to the response
       downloadStream.on("data", function (data) {
-        res.write(data);
+        res.status(200).send({ data });
       });
 
       // Handle errors

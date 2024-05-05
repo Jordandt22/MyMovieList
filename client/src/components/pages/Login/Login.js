@@ -22,8 +22,8 @@ function Login() {
         <AuthForm
           isLogin={true}
           initialValues={{
-            email: "Test22@gmail.com",
-            password: "Password1234$",
+            email: "",
+            password: "",
           }}
           onSubmit={(values, formCallback) => {
             const { email, password } = values;

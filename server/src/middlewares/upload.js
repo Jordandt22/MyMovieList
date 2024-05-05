@@ -1,10 +1,8 @@
-
-
 // const multer = require("multer");
 // const { GridFsStorage } = require("multer-gridfs-storage");
 
 // const storage = new GridFsStorage({
-//   url: "mongodb+srv://VG123:Abcd123$@customers.c411cqs.mongodb.net/myMovieList?retryWrites=true&w=majority&appName=Customers", 
+//   url: "mongodb+srv://VG123:Abcd123$@customers.c411cqs.mongodb.net/myMovieList?retryWrites=true&w=majority&appName=Customers",
 //   options: { useNewUrlParser: true, useUnifiedTopology: true },
 //   file: (req, file) => {
 //     return {
@@ -17,13 +15,10 @@
 // const upload = multer({ storage });
 // module.exports = upload;
 
-
 const util = require("util");
 const multer = require("multer");
 const { GridFsStorage } = require("multer-gridfs-storage");
 const dbConfig = require("../config/db");
-
-
 
 var storage = new GridFsStorage({
   url: dbConfig.url + dbConfig.database,
@@ -39,9 +34,9 @@ var storage = new GridFsStorage({
 
     return {
       bucketName: dbConfig.imgBucket,
-      filename: `${Date.now()}--${file.originalname}`
+      filename: `${file.originalname}`,
     };
-  }
+  },
 });
 
 var uploadFiles = multer({ storage: storage }).single("file");
@@ -52,4 +47,3 @@ module.exports = uploadFilesMiddleware;
 // var uploadFiles = multer({ storage: storage }).array("file", 10);
 // var uploadFilesMiddleware = util.promisify(uploadFiles);
 // module.exports = uploadFilesMiddleware;
-

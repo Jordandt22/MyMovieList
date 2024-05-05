@@ -37,7 +37,7 @@ export const APIContextProvider = (props) => {
     formData.append("file", file);
     return axios
       .post(
-        REACT_APP_API_URL + `/user/${uid}/upload/picture`,
+        REACT_APP_API_URL + `/user/upload/picture/${uid}`,
         formData,
         config(accessToken, { "Content-Type": "multipart/form-data" })
       )
@@ -45,12 +45,10 @@ export const APIContextProvider = (props) => {
       .catch((err) => cb(null, err));
   };
 
-  const getProfilePictureURL = (name) =>
+  const getProfilePictureURL = (uid, accessToken) =>
     axios
-      .get(REACT_APP_API_URL + `/user/files/${name}`)
-      .then((res) => {
-        return res.data.data.data;
-      })
+      .get(REACT_APP_API_URL + `/user/files/${uid}`, config(accessToken))
+      .then((res) => res.data)
       .catch((err) => console.log(err));
 
   // Update Username

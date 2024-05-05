@@ -14,7 +14,7 @@ export const UserContextProvider = (props) => {
     email: "",
     ratedMovies: [],
     bookmarked: [],
-    profilePicture: null,
+    profilePicture: [],
   });
 
   // Update User

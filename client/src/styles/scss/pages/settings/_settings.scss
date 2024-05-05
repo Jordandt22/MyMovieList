@@ -64,11 +64,20 @@
 }
 
 .user-info__profilePic {
-  $s: 5.5rem;
+  $s: 6.5rem;
   width: $s;
   height: $s;
-  border: none;
-  box-shadow: 0 0 10px 5px rgba(black, 0.25);
+  border-radius: 50%;
+  box-shadow: 0 0 5px 2.5px rgba(black, 0.15);
+}
+
+.user-info__none {
+  $s: 6.5rem;
+  width: $s;
+  height: $s;
+  border-radius: 5px;
+  background: lightgrey;
+  color: grey;
 }
 
 .user-info__edit {

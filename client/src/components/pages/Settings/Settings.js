@@ -13,7 +13,7 @@ import ProfilePicture from "../../layout/standalone/ProfilePicture";
 
 function Settings() {
   const {
-    user: { email, username, profilePicture },
+    user: { email, username },
   } = useUser();
 
   // Warning Popup
@@ -49,7 +49,7 @@ function Settings() {
           </div>
 
           <div className="user-info__profilePic-box row">
-            <ProfilePicture className="user-info__profilePic" />
+            <ProfilePicture className="user-info__profilePic" isSetting={true} />
             <button
               type="button"
               className="user-info__edit"

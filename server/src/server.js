@@ -7,11 +7,9 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const rateLimiter = require("express-rate-limit");
 const slowDown = require("express-slow-down");
-const homeController = require('./controllers/home');
+const homeController = require("./controllers/home");
 const upload = require("./middlewares/upload");
 const dbConfig = require("./config/db");
-
-
 
 // App Initialization
 const app = express();
@@ -58,7 +56,7 @@ app.use("/v1/api/user", require("./routes/user/user.routes"));
 app.use("/v1/api/lists", require("./routes/lists/lists.routes"));
 
 const corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "http://localhost:3000",
 };
 
 app.use(cors(corsOptions));
