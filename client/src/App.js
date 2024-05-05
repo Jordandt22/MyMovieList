@@ -22,6 +22,7 @@ import MoviesByGenre from "./components/pages/MoviesByGenre/MoviesByGenre";
 import Genres from "./components/pages/Genres/Genres";
 import Settings from "./components/pages/Settings/Settings";
 import BookmarkedList from "./components/pages/Bookmarked/BookmarkedList";
+import NotFound from "./components/pages/NotFound/NotFound";
 
 function App() {
   const { pathname } = useLocation();
@@ -110,7 +111,7 @@ function App() {
         />
 
         {/* Not Found */}
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

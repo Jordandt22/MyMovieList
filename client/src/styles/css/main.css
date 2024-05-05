@@ -2225,4 +2225,34 @@ body {
 .App {
   font-family: "Oswald", sans-serif;
   padding-bottom: 6rem;
+}
+
+.not-found-page__title {
+  color: white;
+  margin-top: 10.5rem;
+  font-size: 7rem;
+}
+.not-found-page__title span {
+  color: #00c6d8;
+}
+
+.not-found-page__text {
+  color: #4d5b67;
+  margin-top: 2.25rem;
+  font-size: 2rem;
+}
+
+.not-found-page__link {
+  margin-top: 3rem;
+  text-decoration: none;
+  color: white;
+  background: rgba(0, 216, 180, 0.5);
+  border: 2px solid #00d8b4;
+  padding: 0.5rem 4.5rem;
+  border-radius: 25px;
+  transition: all 200ms ease-out;
+}
+.not-found-page__link:hover {
+  background: rgba(0, 216, 180, 0.75);
+  transform: scale(0.95);
 }/*# sourceMappingURL=main.css.map */
