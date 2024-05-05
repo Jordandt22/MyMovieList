@@ -22,10 +22,10 @@ function Signup() {
         <AuthForm
           isLogin={false}
           initialValues={{
-            email: "",
-            username: "",
-            password: "",
-            confirmPassword: "",
+            email: "email@gmail.com",
+            username: "Username22",
+            password: "Password123411$",
+            confirmPassword: "Password123411$",
           }}
           onSubmit={(values, formCallback) => {
             const { username, email, password } = values;

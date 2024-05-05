@@ -75,3 +75,11 @@ export const UsernameSchema = Yup.object().shape({
     .max(300, "Your new username exceeds the max characters (300).")
     .required("Please enter a new username."),
 });
+
+export const PasswordSchema = Yup.object().shape({
+  password: Yup.string()
+    .trim()
+    .min(1, "Must enter a password.")
+    .max(300, "Your password exceeds the max characters (300).")
+    .required("Must enter a password."),
+});

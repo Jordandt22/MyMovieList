@@ -13,15 +13,12 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
-  sendPasswordResetEmail,
   deleteUser,
   onAuthStateChanged,
   signOut,
-  updateEmail,
-  updatePassword,
   reauthenticateWithCredential,
-  EmailAuthProvider,
   getAuth,
+  EmailAuthProvider,
 } from "firebase/auth";
 import { useUser } from "../state/User.context";
 
@@ -64,14 +61,17 @@ export const FirebaseContextProvider = (props) => {
   const { authenticateUser, logoutUser } = useAuth();
   const navigate = useNavigate();
 
+  // Check Provider
+  const getProvider = () => Auth.currentUser.providerData[0].providerId;
+
   // Google Auth
   const googleProvider = new GoogleAuthProvider();
 
   const signInWithGoogle = (cb) =>
     signInWithPopup(Auth, googleProvider)
       .then((res) => {
-        // const googleCred = GoogleAuthProvider.credentialFromResult(res);
-        cb(res.user, null);
+        const googleCred = GoogleAuthProvider.credentialFromResult(res);
+        cb({ ...res.user, googleCred }, null);
       })
       .catch((error) => console.log(error.code, error.message));
 
@@ -146,25 +146,38 @@ export const FirebaseContextProvider = (props) => {
       })
       .catch((error) => console.log(error.code, error.message));
 
-  // Delete Firebase User
-  const deleteFirebaseUser = () =>
-    deleteUser(Auth.currentUser)
-      .then(() => {
-        logoutUser();
-      })
+  // Delete Email & Password Firebase User
+  const deletePasswordFirebaseUser = (password) => {
+    const user = Auth.currentUser;
+    const cred = EmailAuthProvider.credential(user.email, password);
+    return reauthenticateWithCredential(user, cred)
+      .then(() => deleteUser(user))
+      .then(() => logoutUser())
       .catch((error) => console.log(error.code, error.message));
+  };
+
+  // Delete Google Firebase User
+  const deleteGoogleFirebaseUser = (googleCred) => {
+    const user = Auth.currentUser;
+    return reauthenticateWithCredential(user, googleCred)
+      .then(() => deleteUser(user))
+      .then(() => logoutUser())
+      .catch((error) => console.log(error.code, error.message));
+  };
 
   return (
     <FirebaseContext.Provider
       value={{
         firebaseApp,
         Auth,
+        util: { getProvider },
         functions: {
           getCurrentUser,
           createEmailUser,
           logoutFirebaseUser,
           signInEmailUser,
-          deleteFirebaseUser,
+          deletePasswordFirebaseUser,
+          deleteGoogleFirebaseUser,
           signInWithGoogle,
         },
       }}

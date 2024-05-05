@@ -1791,7 +1791,34 @@ html {
   color: #ffd000;
   text-align: center;
   line-height: 1.5rem;
-  margin-bottom: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+.warning-popup__input {
+  outline: none;
+  border: 2px solid white;
+  border-radius: 25px;
+  color: white;
+  background: transparent;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem 1.5rem;
+}
+
+.warning-popup__error {
+  width: 100%;
+  color: #ff2b2b;
+  margin-top: 1rem;
+}
+.warning-popup__error svg {
+  margin-right: 0.5rem;
+}
+.warning-popup__error svg path {
+  fill: #ff2b2b;
+}
+
+.warning-popup__row {
+  margin-top: 2.25rem;
 }
 
 .warning-popup__delete {
@@ -1825,6 +1852,10 @@ html {
   cursor: pointer;
   background: #00909d;
   border-color: #00909d;
+}
+
+.warning-popup__google {
+  margin-top: 1.25rem;
 }
 
 .profile-pic-popup__input-box {
