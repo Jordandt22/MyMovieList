@@ -75,7 +75,7 @@ function BookmarkButton(props) {
           }}
         >
           <Unbookmark />
-          {showText ? "Boookmark" : ""}
+          {showText ? "Bookmark" : ""}
         </button>
       )}
     </>

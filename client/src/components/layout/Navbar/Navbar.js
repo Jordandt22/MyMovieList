@@ -61,7 +61,7 @@ function Navbar() {
     },
     {
       icon: <List className="profile-link__icon" />,
-      label: "Movive List",
+      label: "Movie List",
       path: "/list",
     },
     {
