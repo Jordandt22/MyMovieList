@@ -11,7 +11,6 @@ const dbConfig = require("../../config/db");
 const {
   createUser,
   getUser,
-  updateProfilePicture,
   deleteUser,
   editUsername,
   uploadFiles,
@@ -25,9 +24,6 @@ userRouter.post("/:uid", authUser, createUser);
 
 // GET - Get User Data
 userRouter.get("/:uid", authUser, getUser);
-
-// PATCH - Update the User's Profile Picture
-userRouter.patch("/:uid/profile_picture", authUser, updateProfilePicture);
 
 // OLD:
 // Example Postman URL:
@@ -46,7 +42,7 @@ userRouter.delete("/:uid", authUser, deleteUser);
 // {
 //     "username": "WheresBasketBrawl123"
 // }
-userRouter.patch("/:uid", editUsername);
+userRouter.patch("/:uid", authUser, editUsername);
 
 // userRouter.get("/home", getHome);
 
@@ -55,7 +51,7 @@ userRouter.patch("/:uid", editUsername);
 userRouter.post("/upload/picture/:uid", authUser, uploadFiles);
 
 // List of all pictures uploaded
-userRouter.get("/files/list", getListFiles);
+// userRouter.get("/files/list", getListFiles);
 
 // Get the picture associated with the user id
 // http://localhost:3001/v1/api/user/files/9kj03Vt1uWWqXYwwF3wwuQUCp6n2/

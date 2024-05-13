@@ -12,13 +12,14 @@ connect
     console.log("Database cannot be connected.", error);
   });
 
-// Create a Schema
+// Genre Schema
 const GenreSchema = new mongoose.Schema({
   genreID: {
     type: Number,
   },
 });
 
+// Movie Schema
 const MovieSchema = new mongoose.Schema({
   movieID: {
     type: String,
@@ -29,12 +30,14 @@ const MovieSchema = new mongoose.Schema({
   genres: [GenreSchema],
 });
 
-const bookmark = new mongoose.Schema({
+// Bookmark
+const BookmarkSchema = new mongoose.Schema({
   movieID: {
     type: String,
   },
 });
 
+// Profile Picture Schema
 const ProfilePictureSchema = new mongoose.Schema({
   profilePicture: {
     type: Number,
@@ -53,6 +56,7 @@ const ProfilePictureSchema = new mongoose.Schema({
   }
 });
 
+// Main User Schema
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -64,7 +68,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   ratedMovies: [MovieSchema],
-  bookmarked: [bookmark],
+  bookmarked: [BookmarkSchema],
   profilePicture: [ProfilePictureSchema]
 });
 

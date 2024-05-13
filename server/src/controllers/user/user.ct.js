@@ -54,37 +54,6 @@ module.exports = {
       res.status(500).json({ error: "Internal server error" });
     }
   },
-
-  updateProfilePicture: async (req, res) => {
-    try {
-      const uid = req.params.uid;
-      const uploadedFile = req.file;
-
-      // Log the uploaded file object to inspect its properties
-      console.log("Uploaded file:", uploadedFile);
-
-      // Check if file was uploaded
-      if (!uploadedFile) {
-        return res.status(400).json({ error: "No file uploaded" });
-      }
-
-      // Check the value of the path property
-      console.log("Uploaded file path:", uploadedFile.path);
-
-      // Find the user by userId
-      const user = await UserModel.findOne({ uid });
-
-      if (!user) {
-        return res.status(404).json({ error: "User not found" });
-      }
-
-      // Continue with your code...
-    } catch (error) {
-      console.error("Error uploading profile picture:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  },
-
   deleteUser: async (req, res) => {
     try {
       const { uid } = req.params;
